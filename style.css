@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*::before, *::after {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    align-items: flex-start;
+    justify-content: left;
+    min-height: 100vh;
+    margin: 2rem 2rem 0rem 2rem;
+    background: var(--background-color);
+    color: var(--color-text);
+} 
+
+/* Dark Mode toggle */
+
+html {
+    /* height: 100vh; */
+    font-family: 'Montserrat';
+
+    /* display: grid;
+    align-items: center;
+    justify-items: center; */
+
+    --background-color: #FCFCFC;
+    --bg-light-grey: #EBEBEB;
+    --color-blue: #0077FF;
+    --color-text: #333333;
+}
+
+html[data-theme='dark'] {
+    --background-color: #333333;
+    --bg-light-grey: #434343;
+    --color-blue: #3694FF;
+    --color-text: #B5B5B5;
+}
+
+.darkToggle h1{ 
+    color: var(--color-blue);
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.darkToggle {
+    background: var(--bg-light-grey);
+    display: flex;
+    padding: 0.5rem;
+    border-radius: 15px;
+    margin-left: auto;
+    flex-direction: row;
+}
+
+.darkMode-label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 52px;
+    height: 27px;
+    background: grey;
+    float: right;
+    border-radius: 100px;
+    position: relative;
+}
+
+.darkMode-label::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+input:checked + .darkMode-label {
+    background: #3694FF;
+}
+
+input:checked + .darkMode-label::after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+.darkMode-label:active::after {
+    width: 45px;
+}
+
+input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+
+/* End of Dark Mode toggle */
