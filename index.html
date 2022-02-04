@@ -9,9 +9,27 @@
     <title>Music Player</title>
 </head>
 <body>
-    <div class="darkToggle">
-        <h1>Light / Dark Mode</h1>
-        <input type="checkbox" id="switch" name="theme" /><label class="darkMode-label" for="switch">Light / Dark Mode</label>
-    </div>
+    <form class="userProfile">
+        <div class="darkToggle">
+            <h1>Light / Dark Mode</h1>
+            <input type="checkbox" id="switch" name="theme" /><label class="darkMode-label" for="switch">Light / Dark Mode</label>
+        </div>
+
+        <label for="nameProfile">Name</label>
+        <input type="text" id="nameProfile" name="nameProfile"><br>
+        <label for="surnameProfile">Surname</label>
+        <input type="text" id="surnameProfile" name="surnameProfile"><br>     
+        <label for="nicknameProfile">Nickname</label>
+        <input type="text" id="nicknameProfile" name="nicknameProfile"><br>
+
+        <div class="submitArea">
+            <label for="nicknameCheck">Use Nickname as username</label>
+            <input type="checkbox" id="nicknameCheck" name="nicknameCheck" value="niceTrue">
+            <input id="sumbitProfile" type="submit" value="Submit">
+        </div>
+    </form>
+
+    <form class="playlistArea"></form>
+    <form class="songPlayArea"></form>
 </body>
 </html>
