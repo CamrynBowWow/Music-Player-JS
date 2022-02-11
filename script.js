@@ -1,22 +1,32 @@
+
+
 // Dark Mode toggle
+let darkMode = localStorage.getItem('darkmode'); 
 
-const checkbox = document.querySelector('input[name=theme]');
+const enabledDarkMode = () => {
+    document.body.classList.add('darkmode');
 
-checkbox.addEventListener('change', function() {
-    if(this.checked) {
-        trans();
-        document.documentElement.setAttribute('data-theme', 'dark');
+    localStorage.setItem('darkmode', 'enabled');
+}
+
+const disableDarkMode = () => {
+    document.body.classList.remove('darkmode');
+
+    localStorage.setItem('darkmode', null);
+}
+
+if(darkMode === 'enabled'){
+    enabledDarkMode();
+}
+
+function toggleChange(){
+    darkMode = localStorage.getItem('darkmode'); 
+    
+    if (darkMode !== 'enabled') {
+        enabledDarkMode();
     } else {
-        trans();
-        document.documentElement.setAttribute('data-theme', 'light');
+        disableDarkMode();
     }
-})
-
-let trans = () => {
-    document.documentElement.classList.add('transition');
-    window.setTimeout(() => {
-        document.documentElement.classList.remove('transition');
-    }, 1000)
 }
 
 // End of Dark Mode toggle

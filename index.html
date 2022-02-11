@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,25 +9,15 @@
     <title>Music Player</title>
 </head>
 <body>
-    <form class="userProfile">
-        <div class="darkToggle">
-            <h1>Light / Dark Mode</h1>
-            <input type="checkbox" id="switch" name="theme" /><label class="darkMode-label" for="switch">Light / Dark Mode</label>
-        </div>
+    <header>
+        <img src="./images/settings_black_24dp.svg">
 
-        <label for="nameProfile">Name</label>
-        <input type="text" id="nameProfile" name="nameProfile"><br>
-        <label for="surnameProfile">Surname</label>
-        <input type="text" id="surnameProfile" name="surnameProfile"><br>     
-        <label for="nicknameProfile">Nickname</label>
-        <input type="text" id="nicknameProfile" name="nicknameProfile"><br>
+        <img onclick="toggleChange()" src="./images/nightlight_black_24dp.svg">
 
-        <div class="submitArea">
-            <label for="nicknameCheck">Use Nickname as username</label>
-            <input type="checkbox" id="nicknameCheck" name="nicknameCheck" value="niceTrue">
-            <input id="sumbitProfile" type="submit" value="Submit">
-        </div>
-    </form>
+    </header>
+    <main>
+        
+    </main>
 
     <form class="playlistArea"></form>
     <form class="songPlayArea"></form>
