@@ -2,6 +2,9 @@
 
 // Dark Mode toggle
 let darkMode = localStorage.getItem('darkmode'); 
+const toggleMode = document.querySelector('.toggle-change')
+
+toggleMode.addEventListener('click', toggleChange);
 
 const enabledDarkMode = () => {
     document.body.classList.add('darkmode');
@@ -30,3 +33,10 @@ function toggleChange(){
 }
 
 // End of Dark Mode toggle
+
+
+// Sidebar function
+
+
+
+// Sidebar function end

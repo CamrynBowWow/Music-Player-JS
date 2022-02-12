@@ -5,23 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <script defer src="script.js"></script>
     <title>Music Player</title>
 </head>
 <body>
     <header>
-        <img src="./images/menu_black_24dp.svg">
+        <i onclick="sidebar()" class="fas fa-bars fa-2x"></i>
 
         <div class="menu-items">  
 
-        <p><img src="./images/create_new_folder_black_24dp.svg" >Create New Playlist</p>
-        
-        <p><img src="./images/folder_delete_black_24dp.svg" >Delete Playlist</p>
-        
-        <p><img src="./images/music.svg" >Add Song</p>
-
-        <p><img onclick="toggleChange()" src="./images/nightlight_black_24dp.svg">Dark/Light Mode</p>
-                
+            
+            <button class="playlist-create"><i class="fas fa-folder-plus fa-2x"></i> Create New Playlist</button>
+            <button ><i class="fas fa-folder-minus fa-2x"></i> Delete Playlist</button>
+            <button ><i class="fas fa-music fa-2x"></i> Add Song</button>
+            <button class="toggle-change"><i class="fas fa-moon fa-2x"></i> Dark/Light Mode</button>
+               
         </div>
 
 
