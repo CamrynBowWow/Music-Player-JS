@@ -10,13 +10,27 @@
 </head>
 <body>
     <header>
-        <img src="./images/settings_black_24dp.svg">
+        <img src="./images/menu_black_24dp.svg">
 
-        <img onclick="toggleChange()" src="./images/nightlight_black_24dp.svg">
+        <div class="menu-items">  
+
+        <p><img src="./images/create_new_folder_black_24dp.svg" >Create New Playlist</p>
+        
+        <p><img src="./images/folder_delete_black_24dp.svg" >Delete Playlist</p>
+        
+        <p><img src="./images/music.svg" >Add Song</p>
+
+        <p><img onclick="toggleChange()" src="./images/nightlight_black_24dp.svg">Dark/Light Mode</p>
+                
+        </div>
+
 
     </header>
-    <main>
+    <main class="playlist-area">
         
+    </main>
+    <main class="play-muisc-area">
+
     </main>
 
     <form class="playlistArea"></form>
