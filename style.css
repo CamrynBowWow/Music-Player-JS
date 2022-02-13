@@ -13,20 +13,22 @@
 
   --background-body: #ffffff;
   --icon-color: #ffffff;
-  --header-color: #018786;
+  --aside-color: #018786;
   --text-color: #121212;
   --background-lighter: #ffffff;
   --button-hover-sidebar: #00ffd5;
   --button-hover-text-shadow: #121212;
+  --hamburger-menu-color: #121212;
 }
 
 .darkmode {
   --background-body: #292929;
   --icon-color: #b4b4b4;
-  --header-color: #1f1f1f;
+  --aside-color: #1f1f1f;
   --text-color: #b4b4b4;
   --button-hover-sidebar: #bb86fc;
   --button-hover-text-shadow: #000000;
+  --hamburger-menu-color: #eeeeee5e;
 }
 
 /* End of Dark Mode toggle */
@@ -49,8 +51,8 @@ i {
   vertical-align: middle;
 }
 
-header {
-  background: var(--header-color);
+aside {
+  background: var(--aside-color);
   color: var(--icon-color);
   width: 4rem;
   height: 4rem;
@@ -62,8 +64,13 @@ header {
   padding: 0.5rem 0px 0px;
 }
 
-header a {
+aside a {
   margin-left: 0.5rem;
+}
+
+aside a:hover {
+  color: var(--button-hover-sidebar);
+  text-shadow: 0 0 5px var(--hamburger-menu-color);
 }
 
 .menu-items {
@@ -72,11 +79,12 @@ header a {
   position: fixed;
   padding: 0.3rem 0 0 0;
   width: 12rem;
+  border-top: 1px solid var(--icon-color);
 }
 
 .menu-items button {
   cursor: pointer;
-  text-align: left;
+  display: flex;
   color: var(--icon-color);
   background: transparent;
   border: none;
@@ -85,6 +93,8 @@ header a {
   padding: 0 0 0 12px;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  align-items: center;
+  gap: 1em;
 }
 
 .menu-items button::before {
@@ -103,13 +113,15 @@ header a {
 
 .menu-items button:hover::before {
   transform: scale(1);
-  box-shadow: 0 0 15px var(--button-hover-sidebar);
+  box-shadow: 5px 0 15px var(--button-hover-sidebar);
 }
 
 .menu-items button:hover {
   color: var(--button-hover-sidebar);
-  box-shadow: 3px 0 5px var(--button-hover-sidebar);
+  box-shadow: 0px 0 5px var(--button-hover-sidebar);
   text-shadow: 0 0 5px var(--button-hover-text-shadow);
+  border: 2px solid var(--button-hover-sidebar);
+  border-left: none;
 }
 
 /* makes buttons glow */
