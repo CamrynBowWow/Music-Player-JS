@@ -51,16 +51,21 @@ function sidebar() {
     console.log(menuDisplay)
     if(menuDisplay.style.display === 'none'){
         menuDisplay.style.display = 'grid';
-        headerSize.style.width = '10rem';
+        headerSize.style.width = '12rem';
         headerSize.style.height = '100vh';
         headerSize.style.borderBottomRightRadius = '0px';
         headerSize.style.boxShadow = 'rgb(0 0 0 / 1) 1.95px 1.95px 2.6px';
-        document.querySelector('body').style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+
+        if(document.body.classList.contains('darkmode')) {
+            document.querySelector('body').style.backgroundColor = '';
+        } else {
+            document.querySelector('body').style.backgroundColor = 'rgba(0, 0, 0, 0.4)';
+        }
 
     } else {
         menuDisplay.style.display = 'none';
-        headerSize.style.width = '3rem';
-        headerSize.style.height = '3rem';
+        headerSize.style.width = '4rem';
+        headerSize.style.height = '4rem';
         headerSize.style.borderBottomRightRadius = '15px';
         headerSize.style.boxShadow = 'rgb(0 0 0 / 51%) 1.95px 1.95px 2.6px';
         document.querySelector('body').style.backgroundColor = '';
