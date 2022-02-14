@@ -14,8 +14,8 @@
   --background-body: #ffffff;
   --icon-color: #ffffff;
   --aside-color: #018786;
-  --text-color: #121212;
-  --background-lighter: #ffffff;
+  --text-color: #ffffff;
+  /* --text-color: #121212; */
   --button-hover-sidebar: #00ffd5;
   --button-hover-text-shadow: #121212;
   --hamburger-menu-color: #121212;
@@ -39,7 +39,7 @@ body {
   justify-content: center; */
   min-height: 100vh;
   background: var(--background-body);
-  color: var(--color-text);
+  color: var(--text-color);
   transition: 0.2s ease-out;
 }
 
@@ -59,7 +59,7 @@ aside {
   font-size: 1.2rem;
   box-shadow: rgb(0 0 0 / 51%) 1.95px 1.95px 2.6px;
   border-bottom-right-radius: 15px;
-  transition: 0.3s all;
+  transition: 0.8s all;
   z-index: 5;
   padding: 0.5rem 0px 0px;
 }
@@ -68,21 +68,27 @@ aside a {
   margin-left: 0.5rem;
 }
 
+aside hr {
+  border: 1px solid var(--text-color);
+}
+
 aside a:hover {
   color: var(--button-hover-sidebar);
   text-shadow: 0 0 5px var(--hamburger-menu-color);
 }
 
-.menu-items {
+#menu-items {
   row-gap: 2rem;
   margin: 1rem 0 0 0;
   position: fixed;
   padding: 0.3rem 0 0 0;
   width: 12rem;
-  border-top: 1px solid var(--icon-color);
+  transform: translateX(-12rem);
+  transition: 0.8s ease-in-out;
+  display: grid;
 }
 
-.menu-items button {
+#menu-items button {
   cursor: pointer;
   display: flex;
   color: var(--icon-color);
@@ -97,7 +103,7 @@ aside a:hover {
   gap: 1em;
 }
 
-.menu-items button::before {
+#menu-items button::before {
   content: "";
   position: absolute;
   top: 0;
@@ -111,12 +117,12 @@ aside a:hover {
   border-bottom-right-radius: 10px;
 }
 
-.menu-items button:hover::before {
+#menu-items button:hover::before {
   transform: scale(1);
   box-shadow: 5px 0 15px var(--button-hover-sidebar);
 }
 
-.menu-items button:hover {
+#menu-items button:hover {
   color: var(--button-hover-sidebar);
   box-shadow: 0px 0 5px var(--button-hover-sidebar);
   text-shadow: 0 0 5px var(--button-hover-text-shadow);
