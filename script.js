@@ -24,7 +24,12 @@ const disableDarkMode = () => {
     localStorage.setItem('darkmode', null);
 }
 
+// Javascript way of checking for dark mode
+let matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
 if(darkMode === 'enabled'){
+    enabledDarkMode();
+} else if(matched){
     enabledDarkMode();
 }
 
@@ -51,7 +56,7 @@ function sidebar() {
 
     if(menuDisplay.className === 'hidden' ){
         headerSize.style.width = '12rem';
-        headerSize.style.height = '100vh';
+        headerSize.style.height = '100%';
         headerSize.style.borderBottomRightRadius = '0px';      
         headerSize.style.boxShadow = 'rgb(0 0 0 / 1) 1.95px 1.95px 2.6px';
         // headerSize.querySelector('i.fas').classList.remove('fa-bars');

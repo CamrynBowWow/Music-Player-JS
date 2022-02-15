@@ -38,8 +38,11 @@ body {
   /* display: flex;
   align-items: flex-start;
   justify-content: center; */
-  min-height: 100vh;
-  max-width: 100vw;
+  display: flex;
+  /* min-height: 100vh;
+  max-width: 100vw; */
+  height: 100vh;
+  justify-content: space-between;
   background: var(--background-body);
   color: var(--text-color);
   transition: var(--default-transition-duration);
@@ -86,7 +89,6 @@ aside a:hover {
 #menu-items {
   row-gap: 2rem;
   margin: 1rem 0 0 0;
-  position: fixed;
   padding: 0.3rem 0 0 0;
   width: 12rem;
   transform: translateX(-12rem);
@@ -140,18 +142,18 @@ aside a:hover {
 
 /* Menu area, Play area and Buttons for left and right switch */
 
-#left-arrow {
-}
-
-#right-arrow {
-}
-
 .playlist-area {
-  height: 80%;
+  height: 90%;
+  width: 35rem;
+  background: red;
+  align-self: center;
 }
 
 .play-muisc-area {
-  height: 80%;
+  height: 90%;
+  width: 35rem;
+  background: rgb(255, 0, 255);
+  align-self: center;
 }
 
 /* Menu area, Play area and Buttons for left and right switch Ends */
