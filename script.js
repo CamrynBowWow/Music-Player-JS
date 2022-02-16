@@ -58,7 +58,7 @@ function sidebar() {
         headerSize.style.width = '12rem';
         headerSize.style.height = '100%';
         headerSize.style.borderBottomRightRadius = '0px';      
-        headerSize.style.boxShadow = 'rgb(0 0 0 / 1) 1.95px 1.95px 2.6px';
+        headerSize.style.boxShadow = 'var(--box-shadow-color)';
         // headerSize.querySelector('i.fas').classList.remove('fa-bars');
         // headerSize.querySelector('i.fas').classList.add('fa-times');
         menuDisplay.classList.remove('hidden');
@@ -76,7 +76,7 @@ function sidebar() {
             headerSize.style.width = '4rem';
             headerSize.style.height = '4rem';
             headerSize.style.borderBottomRightRadius = '15px';
-            headerSize.style.boxShadow = 'rgb(0 0 0 / 51%) 1.95px 1.95px 2.6px';
+            headerSize.style.boxShadow = 'var(--box-shadow-color)';
             // headerSize.querySelector('i.fas').classList.remove('fa-times');
             // headerSize.querySelector('i.fas').classList.add('fa-bars');
         }, 500);
