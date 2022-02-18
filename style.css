@@ -9,7 +9,7 @@
 /* Dark Mode toggle */
 
 :root {
-  font-family: "Montserrat";
+  font-family: Sans-serif;
 
   --background-body: #ffffff;
   --icon-color: #ffffff;
@@ -24,7 +24,16 @@
   --button-hover: #00ffd5;
   --button-hover-text-shadow: #121212;
   --hamburger-menu-color: #121212;
-  --default-transition-duration: 0.8s ease-in-out;
+
+  /* main div hover effects */
+  --main-div-hover-color: #000000;
+  --main-div-hover-box-shadow: #018786;
+  --main-div-hover-text-shadow: transparent;
+  --main-div-hover-border: #0187865c;
+  /* main div hover effects end */
+
+  --default-transition-duration: 0.5s ease-in-out; /* going with this for now */
+  /* --default-transition-duration: 0.8s ease-in-out; */ /* which one would be bette? */
   --box-shadow-color: rgb(0 0 0 / 51%) 1.95px 1.95px 2.6px;
   --box-shadow-main-tags: rgb(0 0 0 / 25%) 4px 4px 6px,
     rgb(0 0 0 / 25%) -3px -2px 6px;
@@ -45,6 +54,14 @@
   --main-tags-headers-color: #1f1f1f;
   --text-color-main-tag-tabs-class: #b4b4b4;
   --text-color-headers-main-tags: #b4b4b4;
+
+  /* main div hover effects */
+  --main-div-hover-color: #bb86fc;
+  --main-div-hover-box-shadow: #bb86fc;
+  --main-div-hover-text-shadow: #000000;
+  --main-div-hover-border: #bb86fc;
+  /* main div hover effects end */
+
   --box-shadow-color: rgb(0 0 0 / 1) 1.95px 1.95px 2.6px;
   --box-shadow-main-tags: rgb(0 0 0 / 62%) 2px 2px 2px,
     rgb(0 0 0 / 62%) -1.5px -1.5px 2px;
@@ -191,7 +208,6 @@ aside a:hover {
   position: relative;
   align-self: center;
   margin: 0 1.5rem 0 6rem;
-  z-index: -1;
   /* top: 50%;
   left: 50%;
   transform: translate(-100%, -50%); */
@@ -208,7 +224,6 @@ aside a:hover {
   /* max-width: 50rem; */
   position: relative;
   align-self: center;
-  z-index: -1;
   margin: 0 5rem 0 2rem;
   /* top: 50%;
   left: 33%;
@@ -232,6 +247,7 @@ aside a:hover {
 }
 
 .main-tag-tabs {
+  cursor: pointer;
   padding: 0.5rem;
   margin: 1rem 0.5rem 1rem 0.5rem;
   font-size: 1.5rem;
@@ -245,6 +261,53 @@ aside a:hover {
   font-weight: 700;
   border-radius: 5px;
   box-shadow: rgb(5 5 5 / 40%) 1px 1px 5px, rgb(5 5 5 / 40%) 0px 0px 5px;
+}
+
+.main-tag-tabs::before {
+  content: "";
+  position: absolute;
+  transition: 0.5s;
+  transform: scale(0.5);
+  z-index: 1;
+}
+
+.main-tag-tabs:hover::before {
+  transform: scale(1);
+  box-shadow: 5px 0 15px var(--button-hover);
+}
+
+.main-tag-tabs:hover {
+  color: var(--main-div-hover-color);
+  box-shadow: 0px 0 5px var(--main-div-hover-box-shadow);
+  text-shadow: 0 0 5px var(--main-div-hover-text-shadow);
+  border: 1px solid var(--main-div-hover-border);
+  transition: none;
+}
+
+#right-arrow {
+  width: 4rem;
+  color: var(--text-color-headers-main-tags);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: var(--default-transition-duration);
+}
+
+#right-arrow::before {
+  content: "";
+  position: absolute;
+  transition: 0.5s;
+  /* transform: scale(0.7); */
+  z-index: 1;
+}
+
+#right-arrow:hover {
+  color: var(--button-hover);
+  box-shadow: 0px 0 5px var(--button-hover);
+  text-shadow: 0 0 5px var(--button-hover-text-shadow);
+  border: 1px solid var(--button-hover);
+  transition: none;
 }
 
 /* Menu area, Play area and Buttons for left and right switch Ends */
