@@ -16,6 +16,11 @@
   --aside-color: #018786;
   --text-color: #ffffff;
   /* --text-color: #121212; */
+  --background-secondary-color: #ffffff; /* for main tags background */
+  --text-color-headers-main-tags: #ffffff;
+  --text-color-main-tag-tabs-class: #000000;
+  --main-tabs-background-color: #ffffff; /* for inside the main tags box color */
+  --main-tags-headers-color: #018786;
   --button-hover: #00ffd5;
   --button-hover-text-shadow: #121212;
   --hamburger-menu-color: #121212;
@@ -33,9 +38,17 @@
   --button-hover: #bb86fc;
   --button-hover-text-shadow: #000000;
   --hamburger-menu-color: #eeeeee5e;
+  /* --background-secondary-color: #bb86fc; */
+  /* --background-secondary-color: #bb86fc6b; */
+  --background-secondary-color: #121010; /* for main tags background */
+  --main-tabs-background-color: #1f1f1f; /* for inside the main tags box color */
+  --main-tags-headers-color: #1f1f1f;
+  --text-color-main-tag-tabs-class: #b4b4b4;
+  --text-color-headers-main-tags: #b4b4b4;
   --box-shadow-color: rgb(0 0 0 / 1) 1.95px 1.95px 2.6px;
   --box-shadow-main-tags: rgb(0 0 0 / 62%) 2px 2px 2px,
     rgb(0 0 0 / 62%) -1.5px -1.5px 2px;
+  /* --box-shadow-main-tags: rgba(0, 0, 0, 0); */
 }
 
 /* End of Dark Mode toggle */
@@ -62,6 +75,20 @@ body {
 body button {
   cursor: pointer;
 }
+
+/* Media query for when screen is 1000px and less */
+
+@media only screen and (max-width: 1099px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .play-muisc-area {
+    display: none;
+  }
+}
+
+/* End of Media query */
 
 /* Sidebar */
 
@@ -149,6 +176,7 @@ aside a:hover {
   text-shadow: 0 0 5px var(--button-hover-text-shadow);
   border: 2px solid var(--button-hover);
   border-left: none;
+  transition: none;
 }
 
 /* Sidebar Ends */
@@ -162,14 +190,14 @@ aside a:hover {
   /* max-width: 50rem; */
   position: relative;
   align-self: center;
-  margin-left: 7rem;
+  margin: 0 1.5rem 0 6rem;
   z-index: -1;
   /* top: 50%;
   left: 50%;
   transform: translate(-100%, -50%); */
   border-radius: 20px;
   box-shadow: var(--box-shadow-main-tags);
-  background: var(--background-body);
+  background: var(--background-secondary-color);
   transition: var(--default-transition-duration);
 }
 
@@ -181,14 +209,42 @@ aside a:hover {
   position: relative;
   align-self: center;
   z-index: -1;
-  margin: 0 5rem;
+  margin: 0 5rem 0 2rem;
   /* top: 50%;
   left: 33%;
   transform: translate(50%, -50%); */
   border-radius: 20px;
   box-shadow: var(--box-shadow-main-tags);
-  background: var(--background-body);
+  background: var(--background-secondary-color);
   transition: var(--default-transition-duration);
+}
+
+.header-playlist-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--main-tags-headers-color);
+  color: var(--text-color-headers-main-tags);
+  padding: 1rem;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  transition: var(--default-transition-duration);
+}
+
+.main-tag-tabs {
+  padding: 0.5rem;
+  margin: 1rem 0.5rem 1rem 0.5rem;
+  font-size: 1.5rem;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+  height: 4rem;
+  background: var(--main-tabs-background-color);
+  color: var(--text-color-main-tag-tabs-class);
+  transition: var(--default-transition-duration);
+  font-weight: 700;
+  border-radius: 5px;
+  box-shadow: rgb(5 5 5 / 40%) 1px 1px 5px, rgb(5 5 5 / 40%) 0px 0px 5px;
 }
 
 /* Menu area, Play area and Buttons for left and right switch Ends */
