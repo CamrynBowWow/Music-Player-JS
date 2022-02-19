@@ -86,7 +86,7 @@ body {
   height: 100vh;
   background: var(--background-body);
   color: var(--text-color);
-  transition: var(--default-transition-duration);
+  transition: background-color var(--default-transition-duration);
 }
 
 body button {
@@ -100,8 +100,18 @@ body button {
     overflow-x: hidden;
   }
 
+  .peen {
+    flex-direction: column;
+    margin: 5rem 0 0 0;
+    /* margin: 0 auto; */
+  }
+
+  .playlist-area {
+    min-height: 50rem;
+  }
+
   .play-muisc-area {
-    display: none;
+    min-height: 50rem;
   }
 }
 
@@ -117,23 +127,32 @@ i {
 aside {
   background: var(--aside-color);
   color: var(--icon-color);
-  width: 4rem;
-  height: 4rem;
+  display: flex;
+  flex-direction: column;
+  width: 12rem;
+  height: 100vh;
   font-size: 1.2rem;
   box-shadow: var(--box-shadow-color);
-  border-bottom-right-radius: 15px;
+  /* border-bottom-right-radius: 15px; */
   transition: var(--default-transition-duration);
   position: absolute;
   z-index: 5;
-  padding: 0.5rem 0px 0px;
+  transform: translateX(-12rem);
+  /* padding: 0.5rem 0px 0px; */
 }
 
 aside a {
-  margin-left: 0.5rem;
-}
-
-aside hr {
-  border: 1px solid var(--text-color);
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  width: 3.5rem;
+  height: 3rem;
+  left: 12rem;
+  color: var(--icon-color);
+  background: var(--aside-color);
+  box-shadow: var(--box-shadow-color);
+  position: relative;
+  padding: 0 0.5rem;
   transition: var(--default-transition-duration);
 }
 
@@ -143,13 +162,14 @@ aside a:hover {
 }
 
 #menu-items {
-  row-gap: 2rem;
+  row-gap: 0.5rem;
   margin: 1rem 0 0 0;
   padding: 0.3rem 0 0 0;
   width: 12rem;
-  transform: translateX(-12rem);
+  /* transform: translateX(-12rem); */
   transition: var(--default-transition-duration);
   display: grid;
+  border-top: 2px solid var(--text-color);
 }
 
 #menu-items button {
@@ -158,6 +178,7 @@ aside a:hover {
   color: var(--icon-color);
   background: transparent;
   border: none;
+  background: #28064c;
   position: relative;
   height: 3em;
   padding: 0 0 0 12px;
@@ -176,16 +197,16 @@ aside a:hover {
   width: 100%;
   height: 100%;
   transition: 0.5s;
-  transform: scale(0.7);
+  /* transform: scale(0.7); */
   z-index: 1;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
 
-#menu-items button:hover::before {
+/* #menu-items button:hover::before {
   transform: scale(1);
   box-shadow: 5px 0 15px var(--button-hover);
-}
+} */
 
 #menu-items button:hover {
   color: var(--button-hover);
@@ -200,6 +221,14 @@ aside a:hover {
 
 /* Menu area, Play area and Buttons for left and right switch */
 
+.peen {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 5rem;
+}
+
 .playlist-area {
   height: 90%;
   width: 50rem;
@@ -207,7 +236,9 @@ aside a:hover {
   /* max-width: 50rem; */
   position: relative;
   align-self: center;
-  margin: 0 1.5rem 0 6rem;
+  /* margin: 0 1.5rem 0 6rem; */
+  justify-content: center;
+  align-items: center;
   /* top: 50%;
   left: 50%;
   transform: translate(-100%, -50%); */
@@ -218,13 +249,14 @@ aside a:hover {
 }
 
 .play-muisc-area {
+  display: none;
   height: 90%;
   width: 50rem;
   min-width: 25rem;
   /* max-width: 50rem; */
   position: relative;
   align-self: center;
-  margin: 0 5rem 0 2rem;
+  /* margin: 0 5rem 0 2rem; */
   /* top: 50%;
   left: 33%;
   transform: translate(50%, -50%); */
@@ -284,13 +316,13 @@ aside a:hover {
   transition: none;
 }
 
-#right-arrow {
+/* #right-arrow {
   width: 4rem;
   color: var(--text-color-headers-main-tags);
   background: transparent;
   border: none;
   cursor: pointer;
-  border-radius: 30px;
+  border-radius: 15px;
   transition: var(--default-transition-duration);
 }
 
@@ -299,16 +331,16 @@ aside a:hover {
   position: absolute;
   transition: 0.5s;
   /* transform: scale(0.7); */
-  z-index: 1;
-}
+/* z-index: 1;
+} */
 
-#right-arrow:hover {
+/* #right-arrow:hover {
   color: var(--button-hover);
   box-shadow: 0px 0 5px var(--button-hover);
   text-shadow: 0 0 5px var(--button-hover-text-shadow);
   border: 1px solid var(--button-hover);
   transition: none;
-}
+} */
 
 /* Menu area, Play area and Buttons for left and right switch Ends */
 
@@ -378,3 +410,92 @@ aside a:hover {
   }
 }*/
 /* makes buttons glow */
+
+/* .ma,
+.ma::after {
+  width: 300px;
+  height: 86px;
+  font-size: 40px;
+  background: linear-gradient(45deg, transparent 5%, #ff013c 5%);
+  border: 0;
+  color: #fff;
+  letter-spacing: 3px;
+  line-height: 88px;
+  box-shadow: 6px 0px 0px #00e6f6;
+  outline: transparent;
+  position: relative;
+}
+.ma::after {
+  --slice-0: inset(50% 50% 50% 50%);
+  --slice-1: inset(80% -6px 0 0);
+  --slice-2: inset(50% -6px 30% 0);
+  --slice-3: inset(10% -6px 85% 0);
+  --slice-4: inset(40% -6px 43% 0);
+  --slice-5: inset(80% -6px 5% 0);
+  content: "join now";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent 3%,
+    #00e6f6 3%,
+    #00e6f6 5%,
+    #ff013c 5%
+  );
+  text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
+  clip-path: var(--slice-0);
+}
+.ma:hover::after {
+  animation: 1s glitch;
+  animation-timing-function: steps(2, end);
+}
+@keyframes glitch {
+  0% {
+    clip-path: var(--slice-1);
+    transform: translate(-20px, -10px);
+  }
+  10% {
+    clip-path: var(--slice-3);
+    transform: translate(10px, 10px);
+  }
+  20% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 10px);
+  }
+  30% {
+    clip-path: var(--slice-3);
+    transform: translate(0px, 5px);
+  }
+  40% {
+    clip-path: var(--slice-2);
+    transform: translate(-5px, 0px);
+  }
+  50% {
+    clip-path: var(--slice-3);
+    transform: translate(5px, 0px);
+  }
+  60% {
+    clip-path: var(--slice-4);
+    transform: translate(5px, 10px);
+  }
+  70% {
+    clip-path: var(--slice-2);
+    transform: translate(-10px, 10px);
+  }
+  80% {
+    clip-path: var(--slice-5);
+    transform: translate(20px, -10px);
+  }
+  90% {
+    clip-path: var(--slice-1);
+    transform: translate(-10px, 0px);
+  }
+  100% {
+    clip-path: var(--slice-1);
+    transform: translate(0);
+  }
+} */

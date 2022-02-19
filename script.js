@@ -30,11 +30,11 @@ let matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
 if(darkMode === 'enabled'){
     enabledDarkMode();
 } else if(matched){
-    enabledDarkMode();
+    disableDarkMode();
 }
 
 function toggleChange(){
-   
+    
     darkMode = localStorage.getItem('darkmode'); 
     
     if (darkMode !== 'enabled') {
@@ -51,35 +51,44 @@ function toggleChange(){
 
 const menuDisplay = document.querySelector('#menu-items');
 const headerSize = document.querySelector('aside');
+const sideBarA = document.querySelector('aside a');
 
 function sidebar() {
 
     if(menuDisplay.className === 'hidden' ){
-        headerSize.style.width = '12rem';
-        headerSize.style.height = '100%';
-        headerSize.style.borderBottomRightRadius = '0px';      
-        headerSize.style.boxShadow = 'var(--box-shadow-color)';
+        // headerSize.style.width = '12rem';
+        // headerSize.style.height = '100%';
+        // headerSize.style.borderBottomRightRadius = '0px';      
+        
+        headerSize.style.transform = 'translateX(0rem)';
         // headerSize.querySelector('i.fas').classList.remove('fa-bars');
         // headerSize.querySelector('i.fas').classList.add('fa-times');
+        sideBarA.style.boxShadow = 'var(--box-shadow-color)';
+        sideBarA.style.width = "3rem";
+        // sideBarA.style.height = "";
+        // sideBarA.style.left = "";
         menuDisplay.classList.remove('hidden');
         menuDisplay.classList.add('show');
 
-        let myTime = setTimeout(() => {
-            menuDisplay.style.transform = 'translateX(0rem)';
-        }, 100);      
+        // menuDisplay.style.transform = 'translateX(0rem)';
+        // let myTime = setTimeout(() => {
+        // }, 100);      
     } else {
-        menuDisplay.style.transform = 'translateX(-12rem)';
+        headerSize.style.transform = 'translateX(-12rem)';
         menuDisplay.classList.remove('show');
         menuDisplay.classList.add('hidden');
+        sideBarA.style.width = "3.5rem";
+        // sideBarA.style.height = "3rem";
+        // sideBarA.style.left = "12rem";
+        sideBarA.style.boxShadow = 'var(--box-shadow-color)';
         
-        let myTimeRemove = setTimeout(() => {
-            headerSize.style.width = '4rem';
-            headerSize.style.height = '4rem';
-            headerSize.style.borderBottomRightRadius = '15px';
-            headerSize.style.boxShadow = 'var(--box-shadow-color)';
-            // headerSize.querySelector('i.fas').classList.remove('fa-times');
-            // headerSize.querySelector('i.fas').classList.add('fa-bars');
-        }, 500);
+        // headerSize.querySelector('i.fas').classList.remove('fa-times');
+        // headerSize.querySelector('i.fas').classList.add('fa-bars');
+        // headerSize.style.width = '4rem';
+        // headerSize.style.height = '4rem';
+        // headerSize.style.borderBottomRightRadius = '15px';
+        // let myTimeRemove = setTimeout(() => {
+        // }, 500);
         
     }
 }
