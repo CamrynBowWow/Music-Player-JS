@@ -27,10 +27,10 @@ const disableDarkMode = () => {
 // Javascript way of checking for dark mode
 let matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-if(darkMode === 'enabled'){
-    enabledDarkMode();
-} else if(matched){
+if(darkMode !== 'enabled'){
     disableDarkMode();
+} else if(matched){
+    enabledDarkMode();
 }
 
 function toggleChange(){

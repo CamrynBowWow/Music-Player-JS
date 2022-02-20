@@ -11,14 +11,14 @@
 :root {
   font-family: Sans-serif;
 
-  --background-body: linear-gradient(
+  /* --background-body: linear-gradient(
     89.89deg,
     #62abe0 0.11%,
     rgba(169, 67, 227, 0.85888) 99.92%
-  );
-  /* --background-body: #ffffff; */
+  ); */
+  --background-body: #f8f0fc;
   --icon-color: #ffffff;
-  --aside-color: #5c65ed;
+  --aside-color: #9c36b5;
   --text-color: #ffffff;
   /* --text-color: #121212; */
   --background-secondary-color: #ffffff; /* for main tags background */
@@ -26,8 +26,24 @@
   --text-color-main-tag-tabs-class: #000000;
   --main-tabs-background-color: #ffffff; /* for inside the main tags box color */
   --main-tags-headers-color: #5c65ed;
+
+  --grape-0: #f8f0fc;
+  --grape-1: #f3d9fa;
+  --grape-2: #eebefa;
+  --grape-3: #e599f7;
+  --grape-4: #da77f2;
+  --grape-5: #cc5de8;
+  --grape-6: #be4bdb;
+  --grape-7: #ae3ec9;
+  --grape-8: #9c36b5;
+  --grape-9: #862e9c;
+
+  --button-hover-background-color: #be4bdb;
+  --button-hover-border-color: none;
+  --button-hover-color: #ffffff;
   --button-hover: 3px 4px 5px -1px #000000;
   --button-hover-text-shadow: #121212;
+
   --hamburger-menu-color: #121212;
 
   /* main div hover effects */
@@ -49,8 +65,13 @@
   --icon-color: #b4b4b4;
   --aside-color: #1f1f1f;
   --text-color: #b4b4b4;
+
+  --button-hover-background-color: #292929;
+  --button-hover-border-color: #b4b4b4;
+  --button-hover-color: #bb86fc;
   --button-hover: 3px 4px 5px -1px #000000;
   --button-hover-text-shadow: #000000;
+
   --hamburger-menu-color: #f9f9f98c;
   /* --background-secondary-color: #bb86fc; */
   /* --background-secondary-color: #bb86fc6b; */
@@ -161,13 +182,13 @@ aside a {
   transition: width var(--default-transition-duration);
 }
 
-aside a:hover {
+/* aside a:hover {
   color: var(--button-hover);
   text-shadow: 0 0 5px var(--hamburger-menu-color);
-}
+} */
 
 #menu-items {
-  row-gap: 0.5rem;
+  /* row-gap: 0.5rem; */
   margin: 1rem 0 0 0;
   padding: 0.3rem 0 0 0;
   width: 12rem;
@@ -185,13 +206,17 @@ aside a:hover {
   border: none;
   /* background: #28064c; */
   position: relative;
-  height: 3em;
-  padding: 0 0 0 12px;
+  height: 4em;
+  padding: 1px 1px 1px 12px;
   /* border-top-right-radius: 10px;
   border-bottom-right-radius: 10px; */
   align-items: center;
   gap: 1em;
   /* transition: var(--default-transition-duration); */
+}
+
+#menu-items hr {
+  border: 1px solid var(--text-color);
 }
 
 /* #menu-items button::before {
@@ -216,13 +241,16 @@ aside a:hover {
 #menu-items button:hover {
   /* color: var(--button-hover); */
   /* box-shadow: 3px 4px 5px -1px var(--main-div-hover-color); */
-  box-shadow: var(--button-hover);
+  /* box-shadow: var(--button-hover); */
   /* text-shadow: 0 0 5px var(--button-hover-text-shadow); */
   /* border: 2px solid var(--button-hover); */
-  background: var(--background-body);
-  border-left: none;
+  background: var(--button-hover-background-color);
+  /* border-left: none; */
   transition: none;
   padding: 0.5rem;
+  color: var(--button-hover-color);
+  /* border: 1px solid var(--button-hover-border-color); */
+  border-left: none;
 }
 
 /* Sidebar Ends */
