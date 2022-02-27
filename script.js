@@ -1,7 +1,7 @@
 
 
 // Dark Mode toggle
-let darkMode = localStorage.getItem('darkmode'); 
+let darkMode = localStorage.getItem('darkMode'); 
 const toggleMode = document.querySelector('.toggle-change')
 
 toggleMode.addEventListener('click', toggleChange);
@@ -12,7 +12,7 @@ const enabledDarkMode = (e) => {
     toggleMode.querySelector('i.fas').classList.remove('fa-moon');
     toggleMode.querySelector('i.fas').classList.add('fa-sun');
 
-    localStorage.setItem('darkmode', 'enabled');
+    localStorage.setItem('darkMode', 'enabled');
 }
 
 const disableDarkMode = () => {
@@ -21,13 +21,15 @@ const disableDarkMode = () => {
     toggleMode.querySelector('i.fas').classList.remove('fa-sun');
     toggleMode.querySelector('i.fas').classList.add('fa-moon');
 
-    localStorage.setItem('darkmode', null);
+    localStorage.setItem('darkMode', 'disabled');
 }
 
 // Javascript way of checking for dark mode
 let matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-if(darkMode !== 'enabled'){
+if(darkMode === 'enabled'){
+    enabledDarkMode();
+} else if(darkMode === 'disabled'){
     disableDarkMode();
 } else if(matched){
     enabledDarkMode();
@@ -35,7 +37,7 @@ if(darkMode !== 'enabled'){
 
 function toggleChange(){
     
-    darkMode = localStorage.getItem('darkmode'); 
+    darkMode = localStorage.getItem('darkMode'); 
     
     if (darkMode !== 'enabled') {
         enabledDarkMode();
@@ -94,3 +96,8 @@ function sidebar() {
 }
 
 // Sidebar function end
+
+// Fetching music and populating the playlist-area section class
+
+
+// Fetching music and populating the playlist-area section class

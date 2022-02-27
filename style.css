@@ -38,6 +38,8 @@
   --grape-8: #9c36b5;
   --grape-9: #862e9c;
 
+  --icon-hover-songs: #ae3ec9; /* Changes color for the icons that will display with the music  */
+
   --button-hover-background-color: #be4bdb;
   --button-hover-border-color: none;
   --button-hover-color: #ffffff;
@@ -81,6 +83,8 @@
   --main-tags-headers-color: #6649d6;
   --text-color-main-tag-tabs-class: #b4b4b4;
   --text-color-headers-main-tags: #b4b4b4;
+
+  --icon-hover-songs: #6649d6; /* Changes color for the icons that will display with the music  */
 
   /* main div hover effects */
   --main-div-hover-background: #292929;
@@ -318,20 +322,46 @@ aside a {
 }
 
 .main-tag-tabs {
-  cursor: pointer;
-  padding: 0.5rem;
+  padding: 0.5em 0.5em 0.5em 0;
   margin: 1rem 0.5rem 1rem 0.5rem;
-  /* font-size: 1.5rem; */
-  justify-content: space-between;
+  font-size: 32px;
+  justify-content: flex-start;
   align-items: center;
   display: flex;
   height: 4rem;
+  gap: 2em;
   background: var(--main-tabs-background-color);
-  color: var(--text-color-main-tag-tabs-class);
+  /* color: var(--text-color-main-tag-tabs-class); */
   /* transition: var(--default-transition-duration); */
   font-weight: 700;
   /* border-radius: 5px; */
   /* box-shadow: rgb(5 5 5 / 40%) 1px 1px 5px, rgb(5 5 5 / 40%) 0px 0px 5px; */
+}
+
+.main-tag-tabs button + i {
+  margin-left: auto;
+}
+
+.main-tag-tabs button {
+  font-size: 20px;
+  padding: 0.5em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  height: inherit;
+  background: inherit;
+  border: none;
+  color: var(--text-color-main-tag-tabs-class);
+}
+
+.main-tag-tabs button i {
+  font-size: 30px;
+}
+
+.main-tag-tabs i:hover {
+  color: var(--icon-hover-songs);
+  font-size: 36px;
 }
 
 /* .main-tag-tabs::before {
@@ -347,7 +377,7 @@ aside a {
   box-shadow: 5px 0 15px var(--button-hover);
 } */
 
-.main-tag-tabs:hover {
+.main-tag-tabs button:hover {
   color: var(--main-div-hover-color);
   /* box-shadow: 0px 0 5px var(--main-div-hover-box-shadow); */
   /* text-shadow: 0 0 5px var(--main-div-hover-text-shadow); */
@@ -355,24 +385,6 @@ aside a {
   /* transition: none; */
   background: var(--main-div-hover-background);
   /* padding: 1rem; */
-}
-
-.playlist-area--music-buttons {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  height: 100%;
-  font-size: 1.5rem;
-}
-
-.playlist-area--music-buttons button {
-  width: 3rem;
-  height: 100%;
-  font-size: 1.4rem;
-}
-
-.playlist-area--music-buttons button:hover,
-.playlist-area--music-buttons i:hover {
 }
 
 /* #right-arrow {
