@@ -329,7 +329,7 @@ aside a {
   align-items: center;
   display: flex;
   height: 4rem;
-  gap: 2em;
+  /* gap: 2em; */
   background: var(--main-tabs-background-color);
   /* color: var(--text-color-main-tag-tabs-class); */
   /* transition: var(--default-transition-duration); */
@@ -338,9 +338,9 @@ aside a {
   /* box-shadow: rgb(5 5 5 / 40%) 1px 1px 5px, rgb(5 5 5 / 40%) 0px 0px 5px; */
 }
 
-.main-tag-tabs button + i {
+/* .main-tag-tabs button + i {
   margin-left: auto;
-}
+} */
 
 .main-tag-tabs button {
   font-size: 20px;
@@ -348,15 +348,25 @@ aside a {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 1em;
+  /* gap: 1em; */
   height: inherit;
   background: inherit;
   border: none;
   color: var(--text-color-main-tag-tabs-class);
 }
 
-.main-tag-tabs button i {
+.main-tag-tabs button i:hover {
   font-size: 30px;
+  color: var(--main-div-hover-color);
+}
+
+.main-tag-tabs i {
+  font-size: 30px;
+  height: 3rem;
+  width: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .main-tag-tabs i:hover {

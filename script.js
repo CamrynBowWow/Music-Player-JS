@@ -6,7 +6,7 @@ const toggleMode = document.querySelector('.toggle-change')
 
 toggleMode.addEventListener('click', toggleChange);
 
-const enabledDarkMode = (e) => {
+const enabledDarkMode = () => {
     document.body.classList.add('darkmode');
     
     toggleMode.querySelector('i.fas').classList.remove('fa-moon');
@@ -21,17 +21,21 @@ const disableDarkMode = () => {
     toggleMode.querySelector('i.fas').classList.remove('fa-sun');
     toggleMode.querySelector('i.fas').classList.add('fa-moon');
 
-    localStorage.setItem('darkMode', 'disabled');
+    localStorage.setItem('darkMode', null);
 }
 
 // Javascript way of checking for dark mode
 let matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-if(darkMode === 'enabled'){
-    enabledDarkMode();
-} else if(darkMode === 'disabled'){
-    disableDarkMode();
-} else if(matched){
+// if(darkMode === 'enabled'){
+//     enabledDarkMode();
+// } else if(darkMode === 'disabled'){
+//     disableDarkMode();
+// } else if(matched){
+//     enabledDarkMode();
+// }
+
+if(matched){
     enabledDarkMode();
 }
 
@@ -98,6 +102,21 @@ function sidebar() {
 // Sidebar function end
 
 // Fetching music and populating the playlist-area section class
+
+const addMusic = document.querySelector('.fetchMusic')
+
+let fileHandle;
+
+addMusic.addEventListener('click', async () => {   
+
+    [fileHandle] = await window.showOpenFilePicker({ multiple: true });
+    // [fileHandle] = await window.showOpenFilePicker({ multiple: true, startIn: 'music' });
+    const file = await fileHandle.getFile();
+    //const contents = await file.text();
+
+    console.log(file);
+})
+
 
 
 // Fetching music and populating the playlist-area section class
