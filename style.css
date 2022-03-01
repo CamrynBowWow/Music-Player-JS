@@ -135,16 +135,18 @@ body button {
 
   .peen {
     flex-direction: column;
-    margin: 5rem 0 3rem 0;
+    margin: 5rem 0rem 3rem 0rem;
     /* margin: 0 auto; */
   }
 
   .playlist-area {
     min-height: 50rem;
+    max-width: 90%;
   }
 
   .play-muisc-area {
     min-height: 50rem;
+    max-width: 90%;
   }
 }
 
@@ -168,7 +170,7 @@ aside {
   box-shadow: var(--box-shadow-color);
   /* border-bottom-right-radius: 15px; */
   transition: transform var(--default-transition-duration);
-  position: absolute;
+  position: fixed;
   z-index: 5;
   transform: translateX(-12rem);
   /* padding: 0.5rem 0px 0px; */
@@ -274,12 +276,12 @@ aside a {
 
 .playlist-area {
   height: 90%;
+  margin: 0 1rem;
   width: 50rem;
   min-width: 25rem;
   /* max-width: 50rem; */
   position: relative;
   align-self: center;
-  /* margin: 0 1.5rem 0 6rem; */
   justify-content: center;
   align-items: center;
   /* top: 50%;
@@ -294,6 +296,7 @@ aside a {
 .play-muisc-area {
   /* display: none; */
   height: 90%;
+  margin: 0 1rem;
   width: 50rem;
   min-width: 25rem;
   /* max-width: 50rem; */
@@ -374,56 +377,51 @@ aside a {
   font-size: 36px;
 }
 
-/* .main-tag-tabs::before {
-  content: "";
-  position: absolute;
-  transition: 0.5s;
-  transform: scale(0.5);
-  z-index: 1;
-} */
-
-/* .main-tag-tabs:hover::before {
-  transform: scale(1);
-  box-shadow: 5px 0 15px var(--button-hover);
-} */
-
 .main-tag-tabs button:hover {
   color: var(--main-div-hover-color);
-  /* box-shadow: 0px 0 5px var(--main-div-hover-box-shadow); */
-  /* text-shadow: 0 0 5px var(--main-div-hover-text-shadow); */
-  /* border: 1px solid var(--main-div-hover-border); */
-  /* transition: none; */
   background: var(--main-div-hover-background);
-  /* padding: 1rem; */
 }
-
-/* #right-arrow {
-  width: 4rem;
-  color: var(--text-color-headers-main-tags);
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  border-radius: 15px;
-  transition: var(--default-transition-duration);
-}
-
-#right-arrow::before {
-  content: "";
-  position: absolute;
-  transition: 0.5s;
-  /* transform: scale(0.7); */
-/* z-index: 1;
-} */
-
-/* #right-arrow:hover {
-  color: var(--button-hover);
-  box-shadow: 0px 0 5px var(--button-hover);
-  text-shadow: 0 0 5px var(--button-hover-text-shadow);
-  border: 1px solid var(--button-hover);
-  transition: none;
-} */
 
 /* Menu area, Play area and Buttons for left and right switch Ends */
+
+/* Play music are styling */
+
+.header-play-music-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--main-tags-headers-color);
+  color: var(--text-color-headers-main-tags);
+  padding: 1rem;
+}
+
+.container-play-music-area {
+  height: inherit;
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+#range-duration {
+}
+
+.container-play-music-area h1 {
+}
+
+.container-play-music-area h3 {
+}
+
+.color-change {
+  background: rgb(66, 64, 64);
+  height: 13rem;
+  width: 13rem;
+  border-radius: 7rem;
+}
+
+/* End of Play music are styling */
 
 /* makes buttons glow */
 /*

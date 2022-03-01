@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script defer src="script.js"></script>
     
     <title>Music Player</title>
@@ -53,9 +54,35 @@
         
         <section class="play-muisc-area">
             <div class="header-play-music-area">
-                <h2>Play Music</h2>
-                <!-- <button id="left-arrow"><i class="fas fa-arrow-left fa-2x"></i></button> -->
+                <h2>Play Music</h2>               
             </div>
+
+            <div class="container-play-music-area">
+                <h1>Song name</h1>
+                <h3>Artist Name</h3>
+
+                <div class="color-change"></div>
+
+                <input id="range-duration" type="range" min="0" value="0">  
+
+                <div class="music-icons">
+
+                    <button><i class="fas fa-random fa-2x"></i></button>
+
+                    <button><i class="fas fa-chevron-left fa-2x"></i></button>
+
+                    <button><i class="fas fa-play fa-2x"></i></button>
+
+                    <button><i class="fas fa-chevron-right fa-2x"></i></button>
+
+                    <button><i class="fa-solid fa-repeat fa-2x"></i></button>
+
+                    <div class="volume-area"><i class="fa-solid fa-volume-high fa-2x"></i><input id="volume-control" type="range" min="0" max="100" value="0"></div>
+
+                </div>
+
+            </div>
+
         </section>
     </main>
 
