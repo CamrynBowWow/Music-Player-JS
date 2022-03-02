@@ -56,6 +56,8 @@
   --main-div-hover-border: #0187865c;
   /* main div hover effects end */
 
+  --play-music-area-music-icon-button: black;
+
   --default-transition-duration: 0.5s ease-in-out; /* going with this for now */
   /* --default-transition-duration: 0.8s ease-in-out; */ /* which one would be bette? */
   --box-shadow-color: rgb(0 0 0 / 51%) 1.95px 1.95px 2.6px;
@@ -93,6 +95,8 @@
   --main-div-hover-text-shadow: #000000;
   --main-div-hover-border: #bb86fc;
   /* main div hover effects end */
+
+  --play-music-area-music-icon-button: #b4b4b4;
 
   --box-shadow-color: rgb(0 0 0 / 1) 1.95px 1.95px 2.6px;
   /* --box-shadow-main-tags: rgb(0 0 0 / 62%) 2px 2px 2px,
@@ -294,7 +298,8 @@ aside a {
 }
 
 .play-muisc-area {
-  /* display: none; */
+  /* display: flex; 
+  flex-direction: column*/
   height: 90%;
   margin: 0 1rem;
   width: 50rem;
@@ -396,16 +401,20 @@ aside a {
 }
 
 .container-play-music-area {
-  height: inherit;
-  width: inherit;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
+  gap: 3rem;
+  margin-top: 4rem;
   padding: 1rem;
+  color: var(--play-music-area-music-icon-button);
+}
+.container-play-music-area button {
+  color: var(--play-music-area-music-icon-button);
 }
 
 #range-duration {
+  width: 35%;
 }
 
 .container-play-music-area h1 {
@@ -414,11 +423,62 @@ aside a {
 .container-play-music-area h3 {
 }
 
+/* #forward-song i {
+  border-right: 3px solid var(--play-music-area-music-icon-button);
+  border-bottom-right-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+#backward-song i {
+  border-left: 3px solid var(--play-music-area-music-icon-button);
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+} */
+
+.music-icons {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.container-music-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.volume-area {
+  display: flex;
+  /* margin-left: 1.5rem; */
+  font-size: 1rem;
+}
+
+/* #shuffle {
+  margin-right: 2.5rem;
+}
+
+#loop-song {
+  margin-left: 2.5rem;
+} */
+
 .color-change {
   background: rgb(66, 64, 64);
   height: 13rem;
   width: 13rem;
   border-radius: 7rem;
+}
+
+.music-icons button {
+  border: none;
+  background: none;
+  width: 3rem;
 }
 
 /* End of Play music are styling */

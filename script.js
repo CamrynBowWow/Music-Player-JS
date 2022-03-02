@@ -119,4 +119,37 @@ addMusic.addEventListener('click', async () => {
 
 
 
-// Fetching music and populating the playlist-area section class
+// Fetching music and populating the playlist-area section class end
+
+// Music area icon functions
+
+const playButton = document.querySelector('#play-button');
+
+function pauseSong() {
+    playButton.classList.remove('play');
+    playButton.querySelector('i.fas').classList.add('fa-play');
+    playButton.querySelector('i.fas').classList.remove('fa-pause');
+
+}
+
+function playSong() {
+    playButton.classList.add('play');
+    playButton.querySelector('i.fas').classList.remove('fa-play');
+    playButton.querySelector('i.fas').classList.add('fa-pause');
+    
+}
+
+playButton.addEventListener('click', () => {
+
+    const isPlaying = playButton.classList.contains('play');
+
+    if(isPlaying) {
+        pauseSong();
+    } else {
+        playSong();
+    }
+
+})
+
+
+// Music area icon functions end
