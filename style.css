@@ -145,12 +145,14 @@ body button {
 
   .playlist-area {
     min-height: 50rem;
-    max-width: 90%;
+    width: 90%;
+    margin: 0 auto;
   }
 
   .play-muisc-area {
     min-height: 50rem;
-    max-width: 90%;
+    width: 90%;
+    margin: 0 auto;
   }
 }
 
