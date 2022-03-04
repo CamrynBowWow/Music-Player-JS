@@ -105,16 +105,25 @@ function sidebar() {
 
 const addMusic = document.querySelector('.fetchMusic')
 
-let fileHandle;
+let currentDirHandle;
+
+const pickerOpts = {
+    types: [{
+        description: 'Music',
+        accept: {
+            'music/*': ['.mp3']
+        }
+    },],
+    multiple: true
+};
 
 addMusic.addEventListener('click', async () => {   
 
-    [fileHandle] = await window.showOpenFilePicker({ multiple: true });
-    // [fileHandle] = await window.showOpenFilePicker({ multiple: true, startIn: 'music' });
-    const file = await fileHandle.getFile();
-    //const contents = await file.text();
+    [fileHandle] = await window.showOpenFilePicker(pickerOpts);
 
-    console.log(file);
+    const fileDate = await fileHandle.getFile();
+
+    console.log(fileDate);
 })
 
 
@@ -147,6 +156,32 @@ playButton.addEventListener('click', () => {
         pauseSong();
     } else {
         playSong();
+    }
+
+})
+
+const repeatButton = document.querySelector('#repeat-song');
+
+function repeatOff(){
+    repeatButton.classList.remove('repeat');
+    repeatButton.querySelector('i.fa-solid').classList.add('fa-repeat');
+    repeatButton.querySelector('i.fa-solid').classList.remove('fa-repeat-1');
+}
+
+function repeatSong(){
+    repeatButton.classList.add('repeat');
+    repeatButton.querySelector('i.fa-solid').classList.remove('fa-repeat');
+    repeatButton.querySelector('i.fa-solid').classList.add('fa-repeat-1');
+}
+
+repeatButton.addEventListener('click', () => {
+
+    const isRepeating = repeatButton.classList.contains('repeat')
+
+    if(isRepeating){
+        repeatOff();
+    } else {
+        repeatSong();
     }
 
 })
