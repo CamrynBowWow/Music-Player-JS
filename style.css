@@ -270,7 +270,7 @@ aside a {
 
 /* Sidebar Ends */
 
-/* Menu area, Play area and Buttons for left and right switch */
+/* Menu area, Play area  */
 
 .peen {
   display: flex;
@@ -389,7 +389,11 @@ aside a {
   background: var(--main-div-hover-background);
 }
 
-/* Menu area, Play area and Buttons for left and right switch Ends */
+.main-tag-tabs .fa-heart {
+  color: #e21a1a91;
+}
+
+/* Menu area, Play area Ends */
 
 /* Play music are styling */
 

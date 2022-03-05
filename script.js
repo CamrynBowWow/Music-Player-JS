@@ -179,14 +179,16 @@ const repeatButton = document.querySelector('#repeat-song');
 
 function repeatOff(){
     repeatButton.classList.remove('repeat');
-    repeatButton.querySelector('i.fa-solid').classList.add('fa-repeat');
-    repeatButton.querySelector('i.fa-solid').classList.remove('fa-repeat-1');
+    // repeatButton.querySelector('i.fa-solid').classList.add('fa-repeat');
+    // repeatButton.querySelector('i.fa-solid').classList.remove('fa-repeat-1');
+    repeatButton.querySelector('span.material-icons').innerText = 'repeat';
 }
 
 function repeatSong(){
     repeatButton.classList.add('repeat');
-    repeatButton.querySelector('i.fa-solid').classList.remove('fa-repeat');
-    repeatButton.querySelector('i.fa-solid').classList.add('fa-repeat-1');
+    // repeatButton.querySelector('i.fa-solid').classList.remove('fa-repeat');
+    // repeatButton.querySelector('i.fa-solid').classList.add('fa-repeat-1');
+    repeatButton.querySelector('span.material-icons').innerText = 'repeat_one';
 }
 
 repeatButton.addEventListener('click', () => {
