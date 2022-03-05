@@ -105,27 +105,42 @@ function sidebar() {
 
 const addMusic = document.querySelector('.fetchMusic')
 
-let currentDirHandle;
+// const pickerOpts = {
+//     types: [{
+//         description: 'Music',
+//         accept: {
+//             'music/*': ['.mp3']
+//         }
+//     },],
+//     //multiple: true
+// };
 
-const pickerOpts = {
-    types: [{
-        description: 'Music',
-        accept: {
-            'music/*': ['.mp3']
+
+addMusic.addEventListener('click', async (directoryHandle) => {   
+
+    const [peen] = await self.showOpenFilePicker();
+
+    if(!peen){
+        return;
+    }
+
+    //console.log(peen.entries());
+    
+    const relativePaths = await directoryHandle.resolve(peen);
+    
+    console.log(peen);
+
+    if(relativePaths === null){
+        console.log('not here');
+        console.log(relativePaths);
+    } else {
+        for(const name of relativePaths){
+            console.log(name);
         }
-    },],
-    multiple: true
-};
+    }
 
-addMusic.addEventListener('click', async () => {   
-
-    [fileHandle] = await window.showOpenFilePicker(pickerOpts);
-
-    const fileDate = await fileHandle.getFile();
-
-    console.log(fileDate);
+    console.log(peen);
 })
-
 
 
 // Fetching music and populating the playlist-area section class end
