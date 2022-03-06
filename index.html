@@ -14,18 +14,19 @@
 </head>
 <body>
     <aside>
-        <a onclick="sidebar()"><i class="fas fa-bars fa-2x"></i></a>
+        <a onclick="sidebar()"><span class="material-icons md-48">menu</span></a>
         <div id="menu-items" class="hidden">            
 
-            <button class="all-songs-playlist"><i class="fas fa-bong fa-2x"></i>All Songs</button>
-  
+            <button class="all-songs-playlist"><span class="material-icons md-36">music_note</span></i>All Songs</button>
+            
+            <button class="fetchDirectory"><span class="material-icons md-36">playlist_add</span></i>Add Folder Path</button>
             <!-- <button ><i class="fas fa-folder-minus fa-2x"></i> Delete Playlist</button> -->
             
-            <button class="fetchMusic"><i class="fas fa-music fa-2x"></i> Add Song</button>
+            <button class="fetchMusic"><span class="material-icons md-36">audio_file</span>Add Song</button>
             
-            <button class="favourite-playlist"><i class="fas fa-heart fa-2x"></i>Favourites</button>
+            <button class="favourite-playlist"><span class="material-icons md-36">favorite</span>Favourites</button>
             
-            <button class="toggle-change"><i class="fas fa-moon fa-2x"></i> Dark/Light Mode</button>
+            <button class="toggle-change"><span class="material-icons md-36">nightlight</span>Dark/Light Mode</button>
             
             <hr>
 
@@ -47,7 +48,7 @@
             </div>
             <div id="all-songs-playlist" class="main-tag-tabs">
                   
-                <button><i class="fas fa-play"></i>Song name here</button><i class="fas fa-plus"></i><i class="fas fa-heart"></i>
+                <button><i class="fas fa-play"></i>Song name here</button><i class="fas fa-plus"></i><span class="material-icons md-36">favorite</span>
                 
             </div>
 
@@ -71,14 +72,14 @@
     
                         <button id="shuffle"><i class="fas fa-random fa-2x"></i></button>
     
-                        <button id="backward-song"><i class="fa-solid fa-backward-step fa-2x"></i></button>
+                        <button id="backward-song"><span class="material-icons md-36">skip_previous</span></button>
     
-                        <button id="play-button"><i class="fas fa-play fa-3x"></i></button>
+                        <button id="play-button"><span class="material-icons md-48">play_arrow</span></button>
     
-                        <button id="forward-song"><i class="fa-solid fa-forward-step fa-2x"></i></button>
+                        <button id="forward-song"><span class="material-icons md-36">skip_next</span></button>
     
                         <!-- <button id="repeat-song"><i class="fa-solid fa-repeat fa-2x"></i></button> -->
-                        <button id="repeat-song"><span class="material-icons md-48">repeat</span></button>
+                        <button id="repeat-song"><span class="material-icons md-36">repeat</span></button>
         
                         <div class="volume-area"><i class="fa-solid fa-volume-high"></i><input id="volume-control" type="range" min="0" max="100" value="0"></div>
                         

@@ -9,8 +9,9 @@ toggleMode.addEventListener('click', toggleChange);
 const enabledDarkMode = () => {
     document.body.classList.add('darkmode');
     
-    toggleMode.querySelector('i.fas').classList.remove('fa-moon');
-    toggleMode.querySelector('i.fas').classList.add('fa-sun');
+    // toggleMode.querySelector('i.fas').classList.remove('fa-moon');
+    // toggleMode.querySelector('i.fas').classList.add('fa-sun');
+    toggleMode.querySelector('span.material-icons').innerText = 'brightness_7';
 
     localStorage.setItem('darkMode', 'enabled');
 }
@@ -18,8 +19,9 @@ const enabledDarkMode = () => {
 const disableDarkMode = () => {
     document.body.classList.remove('darkmode');
 
-    toggleMode.querySelector('i.fas').classList.remove('fa-sun');
-    toggleMode.querySelector('i.fas').classList.add('fa-moon');
+    // toggleMode.querySelector('i.fas').classList.remove('fa-sun');
+    // toggleMode.querySelector('i.fas').classList.add('fa-moon');
+    toggleMode.querySelector('span.material-icons').innerText = 'nightlight';
 
     localStorage.setItem('darkMode', null);
 }
@@ -61,40 +63,20 @@ const sideBarA = document.querySelector('aside a');
 
 function sidebar() {
 
-    if(menuDisplay.className === 'hidden' ){
-        // headerSize.style.width = '12rem';
-        // headerSize.style.height = '100%';
-        // headerSize.style.borderBottomRightRadius = '0px';      
+    if(menuDisplay.className === 'hidden' ){    
         
         headerSize.style.transform = 'translateX(0rem)';
-        // headerSize.querySelector('i.fas').classList.remove('fa-bars');
-        // headerSize.querySelector('i.fas').classList.add('fa-times');
         sideBarA.style.boxShadow = 'var(--box-shadow-color)';
         sideBarA.style.width = "3rem";
-        // sideBarA.style.height = "";
-        // sideBarA.style.left = "";
         menuDisplay.classList.remove('hidden');
         menuDisplay.classList.add('show');
-
-        // menuDisplay.style.transform = 'translateX(0rem)';
-        // let myTime = setTimeout(() => {
-        // }, 100);      
+    
     } else {
         headerSize.style.transform = 'translateX(-12rem)';
         menuDisplay.classList.remove('show');
         menuDisplay.classList.add('hidden');
         sideBarA.style.width = "3.5rem";
-        // sideBarA.style.height = "3rem";
-        // sideBarA.style.left = "12rem";
         sideBarA.style.boxShadow = 'var(--box-shadow-color)';
-        
-        // headerSize.querySelector('i.fas').classList.remove('fa-times');
-        // headerSize.querySelector('i.fas').classList.add('fa-bars');
-        // headerSize.style.width = '4rem';
-        // headerSize.style.height = '4rem';
-        // headerSize.style.borderBottomRightRadius = '15px';
-        // let myTimeRemove = setTimeout(() => {
-        // }, 500);
         
     }
 }
@@ -103,7 +85,7 @@ function sidebar() {
 
 // Fetching music and populating the playlist-area section class
 
-const addMusic = document.querySelector('.fetchMusic')
+const addMusic = document.querySelector('.fetchDirectory')
 
 
 addMusic.addEventListener('click', async () => {   
@@ -160,15 +142,11 @@ const repeatButton = document.querySelector('#repeat-song');
 
 function repeatOff(){
     repeatButton.classList.remove('repeat');
-    // repeatButton.querySelector('i.fa-solid').classList.add('fa-repeat');
-    // repeatButton.querySelector('i.fa-solid').classList.remove('fa-repeat-1');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
 }
 
 function repeatSong(){
     repeatButton.classList.add('repeat');
-    // repeatButton.querySelector('i.fa-solid').classList.remove('fa-repeat');
-    // repeatButton.querySelector('i.fa-solid').classList.add('fa-repeat-1');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat_one';
 }
 
