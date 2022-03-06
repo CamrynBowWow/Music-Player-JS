@@ -56,6 +56,9 @@
   --main-div-hover-border: #0187865c;
   /* main div hover effects end */
 
+  --heart-icon-color: #cb3333;
+  --heart-icon-hover-color: #e21a1ae8;
+
   --play-music-area-music-icon-button: black;
 
   --default-transition-duration: 0.5s ease-in-out; /* going with this for now */
@@ -95,6 +98,9 @@
   --main-div-hover-text-shadow: #000000;
   --main-div-hover-border: #bb86fc;
   /* main div hover effects end */
+
+  --heart-icon-color: #bb86fc; /* For the heart icon  */
+  --heart-icon-hover-color: #6649d6;
 
   --play-music-area-music-icon-button: #b4b4b4;
 
@@ -390,7 +396,12 @@ aside a {
 }
 
 .main-tag-tabs .fa-heart {
-  color: #e21a1a91;
+  color: var(--heart-icon-color);
+}
+
+.main-tag-tabs .fa-heart:hover {
+  color: var(--heart-icon-hover-color);
+  font-size: 36px;
 }
 
 /* Menu area, Play area Ends */

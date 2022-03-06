@@ -105,41 +105,22 @@ function sidebar() {
 
 const addMusic = document.querySelector('.fetchMusic')
 
-// const pickerOpts = {
-//     types: [{
-//         description: 'Music',
-//         accept: {
-//             'music/*': ['.mp3']
-//         }
-//     },],
-//     //multiple: true
-// };
 
+addMusic.addEventListener('click', async () => {   
 
-addMusic.addEventListener('click', async (directoryHandle) => {   
-
-    const [peen] = await self.showOpenFilePicker();
-
-    if(!peen){
-        return;
-    }
-
-    //console.log(peen.entries());
+    const peen = await window.showDirectoryPicker();
     
-    const relativePaths = await directoryHandle.resolve(peen);
+    const matchFileSpecs = ".(mp3)$";
     
-    console.log(peen);
+   for await (const entry of peen.values()) {
+       console.log(entry);
 
-    if(relativePaths === null){
-        console.log('not here');
-        console.log(relativePaths);
-    } else {
-        for(const name of relativePaths){
-            console.log(name);
-        }
-    }
-
-    console.log(peen);
+       if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
+           const fileData = await entry.getFile();
+           console.log(fileData);
+       }
+   }
+    
 })
 
 
