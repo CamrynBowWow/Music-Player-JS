@@ -113,7 +113,11 @@
 /* End of Dark Mode toggle */
 
 .material-icons.md-36 {
-  font-size: 2rem;
+  font-size: 2.15rem;
+}
+
+.material-icons.md-40 {
+  font-size: 2.5rem;
 }
 
 .material-icons.md-48 {
@@ -164,9 +168,9 @@ body button {
 
 /* Sidebar */
 
-i {
+span {
   cursor: pointer;
-  margin: 0.3rem 0.2rem 0.2rem 0.3rem;
+  /* margin: 0.3rem 0.2rem 0.2rem 0.3rem; */
 }
 
 aside {
@@ -352,7 +356,7 @@ aside a {
   /* box-shadow: rgb(5 5 5 / 40%) 1px 1px 5px, rgb(5 5 5 / 40%) 0px 0px 5px; */
 }
 
-/* .main-tag-tabs button + i {
+/* .main-tag-tabs button + span {
   margin-left: auto;
 } */
 
@@ -369,12 +373,12 @@ aside a {
   color: var(--text-color-main-tag-tabs-class);
 }
 
-.main-tag-tabs button i:hover {
-  font-size: 30px;
+.main-tag-tabs button span:hover {
+  font-size: 2.5rem;
   color: var(--main-div-hover-color);
 }
 
-.main-tag-tabs i {
+.main-tag-tabs span {
   font-size: 30px;
   height: 3rem;
   width: 4rem;
@@ -383,9 +387,9 @@ aside a {
   justify-content: center;
 }
 
-.main-tag-tabs i:hover {
+.main-tag-tabs span:hover {
   color: var(--icon-hover-songs);
-  font-size: 36px;
+  font-size: 3.25rem;
 }
 
 .main-tag-tabs button:hover {
@@ -393,13 +397,14 @@ aside a {
   background: var(--main-div-hover-background);
 }
 
-.main-tag-tabs .fa-heart {
+.main-tag-tabs .material-icons.heart {
   color: var(--heart-icon-color);
+  font-size: 2.25rem;
 }
 
-.main-tag-tabs .fa-heart:hover {
+.main-tag-tabs .material-icons.heart:hover {
   color: var(--heart-icon-hover-color);
-  font-size: 36px;
+  font-size: 2.75rem;
 }
 
 /* Menu area, Play area Ends */
@@ -438,13 +443,13 @@ aside a {
 .container-play-music-area h3 {
 }
 
-/* #forward-song i {
+/* #forward-song span {
   border-right: 3px solid var(--play-music-area-music-icon-button);
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
 }
 
-#backward-song i {
+#backward-song span {
   border-left: 3px solid var(--play-music-area-music-icon-button);
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
