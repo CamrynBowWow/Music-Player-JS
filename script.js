@@ -1,4 +1,10 @@
 
+/* The IndexedDb */
+
+
+
+/* The IndexedDb */
+
 
 // Dark Mode toggle
 let darkMode = localStorage.getItem('darkMode'); 
@@ -9,8 +15,6 @@ toggleMode.addEventListener('click', toggleChange);
 const enabledDarkMode = () => {
     document.body.classList.add('darkmode');
     
-    // toggleMode.querySelector('i.fas').classList.remove('fa-moon');
-    // toggleMode.querySelector('i.fas').classList.add('fa-sun');
     toggleMode.querySelector('span.material-icons').innerText = 'brightness_7';
 
     localStorage.setItem('darkMode', 'enabled');
@@ -19,8 +23,6 @@ const enabledDarkMode = () => {
 const disableDarkMode = () => {
     document.body.classList.remove('darkmode');
 
-    // toggleMode.querySelector('i.fas').classList.remove('fa-sun');
-    // toggleMode.querySelector('i.fas').classList.add('fa-moon');
     toggleMode.querySelector('span.material-icons').innerText = 'nightlight';
 
     localStorage.setItem('darkMode', null);
@@ -110,19 +112,20 @@ addMusic.addEventListener('click', async () => {
 
 // Music area icon functions
 
+// For play and pause music
 const playButton = document.querySelector('#play-button');
 
 function pauseSong() {
     playButton.classList.remove('play');
-    playButton.querySelector('i.fas').classList.add('fa-play');
-    playButton.querySelector('i.fas').classList.remove('fa-pause');
+
+    playButton.querySelector('span.material-icons').innerText = 'play_arrow';
 
 }
 
 function playSong() {
     playButton.classList.add('play');
-    playButton.querySelector('i.fas').classList.remove('fa-play');
-    playButton.querySelector('i.fas').classList.add('fa-pause');
+ 
+    playButton.querySelector('span.material-icons').innerText = 'pause';
     
 }
 
@@ -138,26 +141,76 @@ playButton.addEventListener('click', () => {
 
 })
 
+// For repeat music
 const repeatButton = document.querySelector('#repeat-song');
 
 function repeatOff(){
-    repeatButton.classList.remove('repeat');
+    repeatButton.classList.remove('repeat_one');
+    // repeatButton.classList.remove('repeat_off');
+    // repeatButton.classList.remove('repeat_playlist');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
+    // repeatButton.style.opacity = "0.5";
 }
 
 function repeatSong(){
-    repeatButton.classList.add('repeat');
+    repeatButton.classList.add('repeat_one');
+    // repeatButton.classList.remove('repeat_off');
+    // repeatButton.classList.add('repeat_playlist');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat_one';
+    repeatButton.style.opacity = "";
 }
+
+// function repeatPlaylist(){
+//     repeatButton.classList.remove('repeat_one');
+//     repeatButton.classList.remove('repeat_playlist');
+//     repeatButton.classList.add('repeat_off');
+//     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
+//     repeatButton.style.opacity = "1";
+// }
 
 repeatButton.addEventListener('click', () => {
 
-    const isRepeating = repeatButton.classList.contains('repeat')
+    const isRepeating = repeatButton.classList.contains('repeat_one');
+
+    // if(isRepeating === repeatButton.classList.contains('repeat_playlist')){
+    //     repeatPlaylist();
+    // } else if(isRepeating === repeatButton.classList.contains('repeat_one')){
+    //     repeatSong();
+    // } else {
+    //     repeatOff();
+    // }
 
     if(isRepeating){
         repeatOff();
     } else {
         repeatSong();
+    }
+
+})
+
+// For shuffle music 
+const shuffleButton = document.querySelector('#shuffle');
+
+function shuffleSong(){
+    shuffleButton.classList.remove('shuffle_off');
+
+    shuffleButton.querySelector('span.material-icons').innerText = 'shuffle';
+}
+
+function shuffleOff(){
+    shuffleButton.classList.add('shuffle_off'); 
+
+    shuffleButton.querySelector('span.material-icons').innerText = 'sync_alt';
+}
+
+shuffleButton.addEventListener('click', () => {
+
+    const isShuffle = shuffleButton.classList.contains('shuffle_off');
+
+    if(isShuffle){
+        shuffleSong();
+    } else {
+        shuffleOff();
     }
 
 })
