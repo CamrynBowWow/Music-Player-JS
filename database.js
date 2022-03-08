@@ -1,7 +1,7 @@
 import { openDB, deleteDB, wrap, unwrap } from 'https://cdn.jsdelivr.net/npm/idb@7/+esm';
       
 export async function doDatabaseStuff() {
-    const db = await openDB('musicStorage', 2, {
+    const db = await openDB('musicStorage', 3, {
         upgrade(db) {
             const musicDb = db.createObjectStore('musicList', {keyPath: "id", autoIncrement: true,});
 
@@ -11,3 +11,6 @@ export async function doDatabaseStuff() {
     });
 }
 
+export async function set(key, value){
+    db.put({name: key, size: value});
+}

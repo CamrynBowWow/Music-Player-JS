@@ -66,8 +66,9 @@ function toggleChange(){
 const menuDisplay = document.querySelector('#menu-items');
 const headerSize = document.querySelector('aside');
 const sideBarA = document.querySelector('aside a');
+const sidebarMenu = document.querySelector('aside a span');
 
-function sidebar() {
+sidebarMenu.addEventListener('click', async () => {
 
     if(menuDisplay.className === 'hidden' ){    
         
@@ -85,7 +86,7 @@ function sidebar() {
         sideBarA.style.boxShadow = 'var(--box-shadow-color)';
         
     }
-}
+})
 
 // Sidebar function end
 
@@ -104,6 +105,7 @@ addMusic.addEventListener('click', async () => {
 
        if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
            const fileData = await entry.getFile();
+           //set(fileData.name, fileData.size)
            console.log(fileData);
        }
    }
