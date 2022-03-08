@@ -1,7 +1,11 @@
 
 /* The IndexedDb */
 
+import {doDatabaseStuff} from './database.js'
 
+window.onload = function() {
+    doDatabaseStuff();
+}
 
 /* The IndexedDb */
 
@@ -97,7 +101,6 @@ addMusic.addEventListener('click', async () => {
     const matchFileSpecs = ".(mp3)$";
     
    for await (const entry of peen.values()) {
-       console.log(entry);
 
        if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
            const fileData = await entry.getFile();
