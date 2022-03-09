@@ -1,10 +1,15 @@
 
 /* The IndexedDb */
 
-import {doDatabaseStuff} from './database.js'
+import {doDatabaseStuff, set, retrieve} from './database.js'
 
 window.onload = function() {
     doDatabaseStuff();
+    musicDisplay();
+}
+
+async function musicDisplay(){
+    retrieve();
 }
 
 /* The IndexedDb */
@@ -105,7 +110,7 @@ addMusic.addEventListener('click', async () => {
 
        if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
            const fileData = await entry.getFile();
-           //set(fileData.name, fileData.size)
+           await set(fileData.name, fileData.size, fileData.type)
            console.log(fileData);
        }
    }
