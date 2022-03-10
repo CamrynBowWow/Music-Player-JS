@@ -8,20 +8,61 @@ window.onload = function() {
     musicDisplay();
 }
 
+const musicDivDisplays = document.querySelector('.music__container')
+
 async function musicDisplay(){
     let allMusic = await retrieve();
 
     for (let musicValues of allMusic) {
 
+        let nameOfMusic = musicValues['name'].replace(/.(mp3)$/, '');
+
+        let mainTagTabs = document.createElement('div');
+
+        mainTagTabs.setAttribute('class', 'main-tag-tabs');      
         
-    //     <div id="all-songs-playlist" class="main-tag-tabs">
-                  
-    //     <button><span class="material-icons md-40">play_arrow</span>Song name here</button><span class="material-icons md-36">add_box</span><span class="material-icons md-36">delete</span><span class="material-icons heart">favorite</span>
+        let buttonPlay = document.createElement('button');
+        buttonPlay.setAttribute('id', musicValues['id']);
+        buttonPlay.innerHTML = '<span class="material-icons md-40">play_arrow</span>' + nameOfMusic;
+        // buttonPlay.textContent = musicValues['name'];
         
-    // </div>
+        // let spanPlayArrow = document.createElement('span');
+        // spanPlayArrow.setAttribute('class', 'material-icons md-40');
+        // spanPlayArrow.innerText = 'play_arrow';
+        
+        // mainTagTabs.appendChild(spanPlayArrow);
+
+        mainTagTabs.appendChild(buttonPlay);
+
+        // let musicPlayName = document.createElement('div');
+        // musicPlayName.setAttribute('class', 'music-play-div')
+
+        // musicPlayName.appendChild(spanPlayArrow);
+        // musicPlayName.appendChild(buttonPlay);
+        // mainTagTabs.appendChild(musicPlayName);
+
+        let spanAddBox = document.createElement('span');
+        spanAddBox.setAttribute('class', 'material-icons md-36');
+        spanAddBox.innerText = 'add_box';
+
+        mainTagTabs.appendChild(spanAddBox);
+
+        let spanDelete = document.createElement('span');
+        spanDelete.setAttribute('class', 'material-icons md-36');
+        spanDelete.innerText = 'delete';
+
+        mainTagTabs.appendChild(spanDelete);
+
+        let spanFavorite = document.createElement('span');
+        spanFavorite.setAttribute('class', 'material-icons heart');
+        spanFavorite.innerText = 'favorite';
+
+        mainTagTabs.appendChild(spanFavorite);
+        
+        musicDivDisplays.appendChild(mainTagTabs);
+
     }
 
-    console.log(allMusic);
 }
 
 /* The IndexedDb */
@@ -117,14 +158,14 @@ addMusic.addEventListener('click', async () => {
     const peen = await window.showDirectoryPicker();
     
     const matchFileSpecs = ".(mp3)$";
-    
-   for await (const entry of peen.values()) {
 
-       if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
+    for await (const entry of peen.values()) {
+
+        if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
            const fileData = await entry.getFile();
            await set(fileData.name, fileData.size, fileData.type)
-       }
-   }
+        }
+    }
     
 })
 

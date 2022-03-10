@@ -243,6 +243,7 @@ aside a {
   justify-content: center;
   align-items: center;
   gap: 5rem;
+  overflow: hidden;
 }
 
 .playlist-area {
@@ -305,6 +306,7 @@ aside a {
 .main-tag-tabs button span:hover {
   font-size: 2.5rem;
   color: var(--main-div-hover-color);
+  background: var(--main-div-hover-background);
 }
 
 .main-tag-tabs span {
