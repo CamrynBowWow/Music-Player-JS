@@ -1,4 +1,4 @@
-import { openDB, deleteDB, wrap, unwrap } from 'https://cdn.jsdelivr.net/npm/idb@7/+esm';
+import { openDB } from './node_modules/idb/with-async-ittr.js';
 
 let db;
 
@@ -9,9 +9,11 @@ export async function doDatabaseStuff() {
 
             const musicDb = db.createObjectStore('musicList', {keyPath: "id", autoIncrement: true,});
 
+            const musicIndex = musicDb.createIndex('music_name', 'name', {unique: true});
         }
     });
 }
+
 
 // Gets the music from the add filepath or add song to store in the table 'musicList'
 export async function set(name, value, type){
@@ -20,11 +22,19 @@ export async function set(name, value, type){
 
 }
 
+// Gets the info from database but must open it first to use the features
 export async function retrieve(){
 
-    const store = db.transaction('musicList').objectStore('musicList');
-    const value = await store.get('id');
+    const dbGet = await openDB('musicStorage', undefined, {});
+    
+    const fetchMusic = dbGet.transaction('musicList');
 
-    console.log(value);
+    let allMusic = [];
+
+    for await (const cursor of fetchMusic.store){
+        allMusic.push(cursor.value); 
+    }
+
+    return allMusic;
 
 }

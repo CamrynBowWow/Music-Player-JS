@@ -9,7 +9,19 @@ window.onload = function() {
 }
 
 async function musicDisplay(){
-    retrieve();
+    let allMusic = await retrieve();
+
+    for (let musicValues of allMusic) {
+
+        
+    //     <div id="all-songs-playlist" class="main-tag-tabs">
+                  
+    //     <button><span class="material-icons md-40">play_arrow</span>Song name here</button><span class="material-icons md-36">add_box</span><span class="material-icons md-36">delete</span><span class="material-icons heart">favorite</span>
+        
+    // </div>
+    }
+
+    console.log(allMusic);
 }
 
 /* The IndexedDb */
@@ -111,7 +123,6 @@ addMusic.addEventListener('click', async () => {
        if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
            const fileData = await entry.getFile();
            await set(fileData.name, fileData.size, fileData.type)
-           console.log(fileData);
        }
    }
     
