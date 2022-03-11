@@ -38,3 +38,9 @@ export async function retrieve(){
     return allMusic;
 
 }
+
+// Will get one song from the database using the ID of the song selected
+export async function getMusicToPlay(value){
+
+
+}

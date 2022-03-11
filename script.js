@@ -1,7 +1,7 @@
 
 /* The IndexedDb */
 
-import {doDatabaseStuff, set, retrieve} from './database.js'
+import {doDatabaseStuff, set, retrieve, getMusicToPlay} from './database.js'
 
 window.onload = function() {
     doDatabaseStuff();
@@ -23,6 +23,7 @@ async function musicDisplay(){
         
         let buttonPlay = document.createElement('button');
         buttonPlay.setAttribute('id', musicValues['id']);
+        buttonPlay.addEventListener('click', playSong);
         buttonPlay.innerHTML = '<span class="material-icons md-40">play_arrow</span>' + nameOfMusic;
         // buttonPlay.textContent = musicValues['name'];
         
@@ -87,23 +88,21 @@ const disableDarkMode = () => {
 
     toggleMode.querySelector('span.material-icons').innerText = 'nightlight';
 
-    localStorage.setItem('darkMode', null);
+    localStorage.setItem('darkMode', 'disabled');
 }
 
 // Javascript way of checking for dark mode
 let matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-// if(darkMode === 'enabled'){
-//     enabledDarkMode();
-// } else if(darkMode === 'disabled'){
-//     disableDarkMode();
-// } else if(matched){
-//     enabledDarkMode();
-// }
-
-if(matched){
+if(darkMode === 'disabled'){
+    disableDarkMode();
+} else if(matched){
     enabledDarkMode();
 }
+
+// if(matched){
+//     enabledDarkMode();
+// }
 
 function toggleChange(){
     
@@ -176,29 +175,37 @@ addMusic.addEventListener('click', async () => {
 
 // For play and pause music
 const playButton = document.querySelector('#play-button');
+const sourceTag = document.querySelector("#audioToPlay");
 
 function pauseSong() {
-    playButton.classList.remove('play');
+    playButton.classList.remove('playing');
 
     playButton.querySelector('span.material-icons').innerText = 'play_arrow';
 
 }
 
 function playSong() {
-    playButton.classList.add('play');
- 
+
+    if(sourceTag.src === ''){
+        alert('No music has been selected to play.')
+        return;
+    }
+
+    musicFetched();
+
+    playButton.classList.add('playing');
     playButton.querySelector('span.material-icons').innerText = 'pause';
     
 }
 
 playButton.addEventListener('click', () => {
 
-    const isPlaying = playButton.classList.contains('play');
+    const isPlaying = playButton.classList.contains('playing');
 
-    if(isPlaying) {
-        pauseSong();
-    } else {
+    if(!isPlaying) {
         playSong();
+    } else {
+        pauseSong();
     }
 
 })
@@ -279,3 +286,13 @@ shuffleButton.addEventListener('click', () => {
 
 
 // Music area icon functions end
+
+
+// Music selected to play
+
+async function musicFetched(){
+
+}
+
+
+// Music selected to play end
