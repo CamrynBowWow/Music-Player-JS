@@ -23,7 +23,7 @@ async function musicDisplay(){
         
         let buttonPlay = document.createElement('button');
         buttonPlay.setAttribute('id', musicValues['id']);
-        buttonPlay.addEventListener('click', playSong);
+        buttonPlay.addEventListener('click', musicFetched);
         buttonPlay.innerHTML = '<span class="material-icons md-40">play_arrow</span>' + nameOfMusic;
         // buttonPlay.textContent = musicValues['name'];
         
@@ -185,13 +185,11 @@ function pauseSong() {
 }
 
 function playSong() {
-
+    
     if(sourceTag.src === ''){
         alert('No music has been selected to play.')
         return;
     }
-
-    musicFetched();
 
     playButton.classList.add('playing');
     playButton.querySelector('span.material-icons').innerText = 'pause';
@@ -214,45 +212,33 @@ playButton.addEventListener('click', () => {
 const repeatButton = document.querySelector('#repeat-song');
 
 function repeatOff(){
-    repeatButton.classList.remove('repeat_one');
-    // repeatButton.classList.remove('repeat_off');
-    // repeatButton.classList.remove('repeat_playlist');
+    repeatButton.classList.add('repeat_off');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
-    // repeatButton.style.opacity = "0.5";
+    repeatButton.style.opacity = "0.5";
 }
 
 function repeatSong(){
-    repeatButton.classList.add('repeat_one');
-    // repeatButton.classList.remove('repeat_off');
-    // repeatButton.classList.add('repeat_playlist');
+    repeatButton.classList.remove('repeat_playlist');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat_one';
-    repeatButton.style.opacity = "";
+    repeatButton.style.opacity = "1";
 }
 
-// function repeatPlaylist(){
-//     repeatButton.classList.remove('repeat_one');
-//     repeatButton.classList.remove('repeat_playlist');
-//     repeatButton.classList.add('repeat_off');
-//     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
-//     repeatButton.style.opacity = "1";
-// }
+function repeatPlaylist(){
+    repeatButton.classList.add('repeat_playlist');
+    repeatButton.classList.remove('repeat_off');
+    repeatButton.querySelector('span.material-icons').innerText = 'repeat';
+    repeatButton.style.opacity = "1";
+}
 
+// For repeating the music that is playing or repeat whole playlist
 repeatButton.addEventListener('click', () => {
 
-    const isRepeating = repeatButton.classList.contains('repeat_one');
-
-    // if(isRepeating === repeatButton.classList.contains('repeat_playlist')){
-    //     repeatPlaylist();
-    // } else if(isRepeating === repeatButton.classList.contains('repeat_one')){
-    //     repeatSong();
-    // } else {
-    //     repeatOff();
-    // }
-
-    if(isRepeating){
-        repeatOff();
-    } else {
+    if(repeatButton.classList.contains('repeat_off')){
+        repeatPlaylist();
+    } else if(repeatButton.classList.contains('repeat_playlist')){
         repeatSong();
+    } else {
+        repeatOff();
     }
 
 })
@@ -290,7 +276,13 @@ shuffleButton.addEventListener('click', () => {
 
 // Music selected to play
 
-async function musicFetched(){
+async function musicFetched(id){
+
+    console.log(id.target.id);
+
+    //playSong();
+
+    let musicToPlay = await getMusicToPlay(id.target.id);
 
 }
 

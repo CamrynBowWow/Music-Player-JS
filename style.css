@@ -456,6 +456,10 @@ aside a {
   width: 3rem;
 }
 
+#repeat-song {
+  opacity: 0.5;
+}
+
 /* End of Play music are styling */
 
 /* makes buttons glow */

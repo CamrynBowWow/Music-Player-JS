@@ -42,5 +42,7 @@ export async function retrieve(){
 // Will get one song from the database using the ID of the song selected
 export async function getMusicToPlay(value){
 
+    const musicInfo = await db.get('musicList', parseInt(value));
 
+    return musicInfo;
 }
