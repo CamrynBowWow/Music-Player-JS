@@ -175,7 +175,7 @@ addMusic.addEventListener('click', async () => {
 
 // For play and pause music
 const playButton = document.querySelector('#play-button');
-const sourceTag = document.querySelector("#audioToPlay");
+let sourceTag = document.querySelector("#audioToPlay");
 
 function pauseSong() {
     playButton.classList.remove('playing');
@@ -184,12 +184,25 @@ function pauseSong() {
 
 }
 
-function playSong() {
+async function playSong(value) {
     
-    if(sourceTag.src === ''){
+    if(value === undefined){
         alert('No music has been selected to play.')
         return;
     }
+
+    //Needs work and doesn't work
+    let URL = window.URL || window.webkitURL;
+    
+    let imgURL = URL.createObjectURL(value);
+    
+    // sourceTag.setAttribute('src', value['name']);
+    sourceTag.setAttribute('src', imgURL);
+    sourceTag.setAttribute('type', value['type']);
+
+    let myAudio = new Audio(sourceTag); 
+
+    await myAudio.play();
 
     playButton.classList.add('playing');
     playButton.querySelector('span.material-icons').innerText = 'pause';
@@ -277,14 +290,76 @@ shuffleButton.addEventListener('click', () => {
 // Music selected to play
 
 async function musicFetched(id){
+    
+    let musicToPlay = await getMusicToPlay(id.target.id);   
 
-    console.log(id.target.id);
+    // let musicValue = musicToPlay['value'];
+    // console.log(musicValue);
 
-    //playSong();
+    // let musicBlob = new Blob([musicValue], {type: musicToPlay['type']})
 
-    let musicToPlay = await getMusicToPlay(id.target.id);
+    // console.log(musicBlob)
 
+    // let b = await blobToArrayBuffer(musicToPlay);
+
+    playSong(musicToPlay);
+    
 }
+
+// function blobToArrayBuffer(blob){
+//     console.log(blob);
+//     return new Promise((resolve, reject) => {
+//         const reader = new FileReader();
+//         reader.addEventListener('loadend', (e) => {
+//             resolve(reader.result);
+//         });
+//         reader.addEventListener('error', reject);
+//         reader.readAsArrayBuffer(blob);
+//     });
+// }
 
 
 // Music selected to play end
+
+// Volume control
+
+const volumeControl = document.querySelector('#volume-control');
+const volumeIcon = document.querySelector('#volume_icon');
+
+let previousVolume;
+
+volumeControl.addEventListener('input', async () => {
+
+    let volumeLevel = await volumeControl.value;
+
+    if(volumeLevel < 1){
+
+        volumeIcon.innerText = 'volume_off';
+
+        previousVolume = await volumeControl.value;
+        
+    } else if(volumeLevel < previousVolume){
+        console.log(volumeLevel);
+
+        volumeIcon.innerText = 'volume_down';
+
+        previousVolume = await volumeControl.value;
+
+    } else {
+
+        volumeIcon.innerText = 'volume_up';
+
+        previousVolume = await volumeControl.value;
+
+    }
+
+})
+
+// When the icon is clicked it will be muted
+volumeIcon.addEventListener('click', async () => {
+
+    volumeIcon.innerText = 'volume_off';
+
+    volumeControl.value = 0;
+
+})
