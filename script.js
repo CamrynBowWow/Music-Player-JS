@@ -161,12 +161,36 @@ addMusic.addEventListener('click', async () => {
     for await (const entry of peen.values()) {
 
         if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
-           const fileData = await entry.getFile();
-           await set(fileData.name, fileData.size, fileData.type)
+
+            const fileData = await entry.getFile();
+
+            // let musicFile = await setToBuffer(fileData);
+
+            // console.log(musicFile);
+
+            await set(fileData.name, fileData.size, fileData.type)
         }
     }
     
 })
+
+// const ctx = new AudioContext();
+
+// async function setToBuffer(value){
+
+//     let audio;
+
+//     fetch(value)
+//         .then(data => data.arrayBuffer())
+//         .then(arrayBuffer => ctx.decodeAudioData(arrayBuffer))
+//         .then(decodedAudio => {
+//             audio = decodedAudio;
+//         });
+
+
+//     return audio;
+
+// }
 
 
 // Fetching music and populating the playlist-area section class end
@@ -192,17 +216,24 @@ async function playSong(value) {
     }
 
     //Needs work and doesn't work
-    let URL = window.URL || window.webkitURL;
-    
-    let imgURL = URL.createObjectURL(value);
+
+    const url = window.URL.createObjectURL(value);
+
+    red.audio.src = url;
+    red.audio.play();
+    red.title.textContent = value['name'];
+
+    //const url = window.URL.createObjectURL(new Blob(value['value'], {type: 'audio/mpeg'}));
     
     // sourceTag.setAttribute('src', value['name']);
-    sourceTag.setAttribute('src', imgURL);
-    sourceTag.setAttribute('type', value['type']);
+    // sourceTag.setAttribute('src', url);
+    // sourceTag.setAttribute('type', value['type']);
 
-    let myAudio = new Audio(sourceTag); 
+    // sourceTag.audio.play();
 
-    await myAudio.play();
+    // let myAudio = new Audio(sourceTag); 
+
+    // await myAudio.play();
 
     playButton.classList.add('playing');
     playButton.querySelector('span.material-icons').innerText = 'pause';
@@ -326,8 +357,6 @@ async function musicFetched(id){
 const volumeControl = document.querySelector('#volume-control');
 const volumeIcon = document.querySelector('#volume_icon');
 
-let previousVolume;
-
 volumeControl.addEventListener('input', async () => {
 
     let volumeLevel = await volumeControl.value;
@@ -338,18 +367,13 @@ volumeControl.addEventListener('input', async () => {
 
         previousVolume = await volumeControl.value;
         
-    } else if(volumeLevel < previousVolume){
-        console.log(volumeLevel);
+    } else if(volumeLevel < 50){
 
         volumeIcon.innerText = 'volume_down';
-
-        previousVolume = await volumeControl.value;
 
     } else {
 
         volumeIcon.innerText = 'volume_up';
-
-        previousVolume = await volumeControl.value;
 
     }
 
