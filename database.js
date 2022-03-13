@@ -16,9 +16,9 @@ export async function doDatabaseStuff() {
 
 
 // Gets the music from the add filepath or add song to store in the table 'musicList'
-export async function set(name, value, type){
+export async function set(name, byteLength, type){
 
-    return (await db).put('musicList', {name: name, value: value, type: type});
+    return (await db).put('musicList', {name: name, byteLength: byteLength, type: type});
 
 }
 

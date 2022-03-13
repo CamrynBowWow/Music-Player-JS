@@ -23,8 +23,8 @@ async function musicDisplay(){
         
         let buttonPlay = document.createElement('button');
         buttonPlay.setAttribute('id', musicValues['id']);
+        buttonPlay.innerText = nameOfMusic;
         buttonPlay.addEventListener('click', musicFetched);
-        buttonPlay.innerHTML = '<span class="material-icons md-40">play_arrow</span>' + nameOfMusic;
         // buttonPlay.textContent = musicValues['name'];
         
         // let spanPlayArrow = document.createElement('span');
@@ -152,6 +152,17 @@ sidebarMenu.addEventListener('click', async () => {
 const addMusic = document.querySelector('.fetchDirectory')
 
 
+function blobToArrayBuffer(blob){
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.addEventListener('loadend', (e) => {
+            resolve(reader.result);
+        });
+        reader.addEventListener('error', reject);
+        reader.readAsArrayBuffer(blob);
+    })
+}
+
 addMusic.addEventListener('click', async () => {   
 
     const peen = await window.showDirectoryPicker();
@@ -164,33 +175,16 @@ addMusic.addEventListener('click', async () => {
 
             const fileData = await entry.getFile();
 
-            // let musicFile = await setToBuffer(fileData);
+            let byteSize = await blobToArrayBuffer(fileData);
 
-            // console.log(musicFile);
-
-            await set(fileData.name, fileData.size, fileData.type)
+            await set(fileData.name, byteSize, fileData.type)
+        
         }
     }
     
+    window.location.reload();
+
 })
-
-// const ctx = new AudioContext();
-
-// async function setToBuffer(value){
-
-//     let audio;
-
-//     fetch(value)
-//         .then(data => data.arrayBuffer())
-//         .then(arrayBuffer => ctx.decodeAudioData(arrayBuffer))
-//         .then(decodedAudio => {
-//             audio = decodedAudio;
-//         });
-
-
-//     return audio;
-
-// }
 
 
 // Fetching music and populating the playlist-area section class end
@@ -200,6 +194,7 @@ addMusic.addEventListener('click', async () => {
 // For play and pause music
 const playButton = document.querySelector('#play-button');
 let sourceTag = document.querySelector("#audioToPlay");
+let musicAudio = document.querySelector("#musicAudio");
 
 function pauseSong() {
     playButton.classList.remove('playing');
@@ -215,29 +210,17 @@ async function playSong(value) {
         return;
     }
 
-    //Needs work and doesn't work
+    // let blobUrl = URL.createObjectURL(value);
+    // const audioUrl = URL.createObjectURL(value);
+    // // console.log(blobUrl);
 
-    const url = window.URL.createObjectURL(value);
-
-    red.audio.src = url;
-    red.audio.play();
-    red.title.textContent = value['name'];
-
-    //const url = window.URL.createObjectURL(new Blob(value['value'], {type: 'audio/mpeg'}));
-    
-    // sourceTag.setAttribute('src', value['name']);
-    // sourceTag.setAttribute('src', url);
-    // sourceTag.setAttribute('type', value['type']);
-
-    // sourceTag.audio.play();
-
-    // let myAudio = new Audio(sourceTag); 
-
-    // await myAudio.play();
+    // URL.revokeObjectURL(audioUrl);
+    // musicAudio.play();
+    // musicAudio.volume = 1.0;
+    // console.log(audioUrl)
 
     playButton.classList.add('playing');
     playButton.querySelector('span.material-icons').innerText = 'pause';
-    
 }
 
 playButton.addEventListener('click', () => {
@@ -324,30 +307,23 @@ async function musicFetched(id){
     
     let musicToPlay = await getMusicToPlay(id.target.id);   
 
-    // let musicValue = musicToPlay['value'];
-    // console.log(musicValue);
+    //sourceTag = tag name for source tag
 
-    // let musicBlob = new Blob([musicValue], {type: musicToPlay['type']})
+    // let binary = new Uint8Array(musicToPlay.byteLength);
 
-    // console.log(musicBlob)
+    // let musicBlob = new Blob([binary], {type: musicToPlay.type})
+    const url = window.URL.createObjectURL(musicToPlay.byteLength);
 
-    // let b = await blobToArrayBuffer(musicToPlay);
+    sourceTag.setAttribute('src', musicToPlay.name);
+    sourceTag.setAttribute('type', musicToPlay.type);
 
-    playSong(musicToPlay);
-    
+    // const audioUrl = URL.createObjectURL(musicBlob);
+
+    console.log(url)
+
+    //playSong(musicBlob);
+    // URL.revokeObjectURL(audioUrl);
 }
-
-// function blobToArrayBuffer(blob){
-//     console.log(blob);
-//     return new Promise((resolve, reject) => {
-//         const reader = new FileReader();
-//         reader.addEventListener('loadend', (e) => {
-//             resolve(reader.result);
-//         });
-//         reader.addEventListener('error', reject);
-//         reader.readAsArrayBuffer(blob);
-//     });
-// }
 
 
 // Music selected to play end
@@ -357,33 +333,47 @@ async function musicFetched(id){
 const volumeControl = document.querySelector('#volume-control');
 const volumeIcon = document.querySelector('#volume_icon');
 
+let previousVolume = 30;
+
 volumeControl.addEventListener('input', async () => {
 
     let volumeLevel = await volumeControl.value;
+    await volumeCheck(volumeLevel);
+
+})
+
+async function volumeCheck(volumeLevel){
 
     if(volumeLevel < 1){
 
         volumeIcon.innerText = 'volume_off';
-
-        previousVolume = await volumeControl.value;
+        previousVolume = volumeLevel;
         
     } else if(volumeLevel < 50){
 
         volumeIcon.innerText = 'volume_down';
+        previousVolume = volumeLevel;
 
     } else {
 
         volumeIcon.innerText = 'volume_up';
+        previousVolume = volumeLevel;
 
     }
 
-})
+}
 
 // When the icon is clicked it will be muted
 volumeIcon.addEventListener('click', async () => {
 
-    volumeIcon.innerText = 'volume_off';
+    if(volumeControl.value > 0){
+        volumeIcon.innerText = 'volume_off';
+        volumeControl.value = 0;
+    } else {
+        volumeControl.value = previousVolume;
+        await volumeCheck(previousVolume);
+    }
 
-    volumeControl.value = 0;
+
 
 })
