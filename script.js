@@ -6,6 +6,22 @@ import {doDatabaseStuff, set, retrieve, getMusicToPlay} from './database.js'
 window.onload = function() {
     doDatabaseStuff();
     musicDisplay();
+    
+    const myTimeout = setTimeout(
+        loading,
+        1000
+    );
+
+    myStopFunction();
+}
+
+function loading(){
+    let body = document.body;
+    body.style.opacity = '1';
+}
+
+function myStopFunction(){
+    clearTimeout(myTimeout);
 }
 
 const musicDivDisplays = document.querySelector('.music__container')
@@ -194,16 +210,33 @@ addMusic.addEventListener('click', async () => {
 // For play and pause music
 const playButton = document.querySelector('#play-button');
 let sourceTag = document.querySelector("#audioToPlay");
-let musicAudio = document.querySelector("#musicAudio");
+//let musicAudio = document.querySelector("#musicAudio");
 
-function pauseSong() {
+async function pauseSong() {
     playButton.classList.remove('playing');
 
     playButton.querySelector('span.material-icons').innerText = 'play_arrow';
 
 }
 
+// let context = new AudioContext();
+// //not working
+// async function play(audioBuffer){
+//     let source = context.createBufferSource();
+//     source.buffer = audioBuffer;
+//     source.connect(context.destination);
+//     source.start(0);
+// }
+
 async function playSong(value) {
+
+    // console.log(value);
+    // let buffer = new Uint8Array(value.byteLength.length);
+    // console.log(buffer, "one");
+    // buffer.set(new Uint8Array(value.byteLength), 0);
+    // console.log(buffer, "two");
+
+    // context.decodeAudioData(buffer, play);
     
     if(value === undefined){
         alert('No music has been selected to play.')
@@ -215,7 +248,7 @@ async function playSong(value) {
     // // console.log(blobUrl);
 
     // URL.revokeObjectURL(audioUrl);
-    // musicAudio.play();
+    //sourceTag.play();
     // musicAudio.volume = 1.0;
     // console.log(audioUrl)
 
@@ -308,20 +341,21 @@ async function musicFetched(id){
     let musicToPlay = await getMusicToPlay(id.target.id);   
 
     //sourceTag = tag name for source tag
+    //let binary = new Uint8Array(musicToPlay.byteLength);
 
-    // let binary = new Uint8Array(musicToPlay.byteLength);
+    //let musicBlob = new Blob([musicToPlay], {type: 'audio/mpeg'})
+    //const url = window.URL.createObjectURL(musicToPlay.byteLength);
 
-    // let musicBlob = new Blob([binary], {type: musicToPlay.type})
-    const url = window.URL.createObjectURL(musicToPlay.byteLength);
+    //console.log(musicBlob);
 
-    sourceTag.setAttribute('src', musicToPlay.name);
-    sourceTag.setAttribute('type', musicToPlay.type);
+    // sourceTag.setAttribute('src', musicBlob);
+    // sourceTag.setAttribute('type', musicToPlay.type);
 
     // const audioUrl = URL.createObjectURL(musicBlob);
 
-    console.log(url)
-
-    //playSong(musicBlob);
+    // playSong().then(function(musicBlob){
+    // });
+    await playSong(musicToPlay);
     // URL.revokeObjectURL(audioUrl);
 }
 
