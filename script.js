@@ -16,8 +16,13 @@ window.onload = function() {
 }
 
 function loading(){
-    let body = document.body;
-    body.style.opacity = '1';
+    let peenDiv = document.querySelector('.peen');
+    let asideDiv = document.querySelector('aside');
+    let loadingDiv = document.querySelector('.loading');
+
+    asideDiv.style.display = 'flex';
+    peenDiv.style.display = 'flex';
+    loadingDiv.style.display = 'none';
 }
 
 function myStopFunction(){

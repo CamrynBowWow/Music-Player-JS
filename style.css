@@ -95,6 +95,20 @@
   --box-shadow-color: rgb(0 0 0 / 51%) 1.95px 1.95px 2.6px;
   --box-shadow-main-tags: rgb(0 0 0 / 25%) 4px 4px 6px,
     rgb(0 0 0 / 25%) -3px -2px 6px;
+
+  /* light mode color for loading spans */
+
+  --loading-text-color: #121212;
+
+  --loading-color-one: #e599f7;
+  --loading-color-two: #da77f2;
+  --loading-color-three: #cc5de8;
+  --loading-color-four: #be4bdb;
+  --loading-color-five: #ae3ec9;
+  --loading-color-six: #9c36b5;
+  --loading-color-seven: #862e9c;
+
+  /* light mode color for loading spans end*/
 }
 
 .darkmode {
@@ -142,6 +156,20 @@
   /* --box-shadow-main-tags: rgb(0 0 0 / 62%) 2px 2px 2px,
     rgb(0 0 0 / 62%) -1.5px -1.5px 2px; */
   --box-shadow-main-tags: rgba(0, 0, 0, 0);
+
+  /* light mode color for loading spans */
+
+  --loading-text-color: #b4b4b4;
+
+  --loading-color-one: #bb86fc;
+  --loading-color-two: #9960df;
+  --loading-color-three: #8343d2;
+  --loading-color-four: #7833ce;
+  --loading-color-five: #7424d9;
+  --loading-color-six: #6f19db;
+  --loading-color-seven: #6502e2;
+
+  /* light mode color for loading spans end*/
 }
 
 /* End of Dark Mode toggle */
@@ -165,7 +193,6 @@ body {
   height: 100vh;
   background: var(--background-body);
   color: var(--text-color);
-  opacity: 0;
 }
 
 body button {
@@ -210,7 +237,8 @@ span {
 aside {
   background: var(--aside-color);
   color: var(--icon-color);
-  display: flex;
+  display: none;
+  /* display: flex; */
   flex-direction: column;
   width: 12rem;
   height: 100vh;
@@ -273,7 +301,8 @@ aside a {
 /* Menu area, Play area  */
 
 .peen {
-  display: flex;
+  display: none;
+  /* display: flex; */
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -462,6 +491,79 @@ aside a {
 }
 
 /* End of Play music are styling */
+
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  text-transform: uppercase;
+  opacity: 1;
+}
+
+.loading h2 {
+  margin: 0;
+  color: var(--loading-text-color);
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: default;
+}
+
+.spans span {
+  display: inline-block;
+  vertical-align: middle;
+  width: 2em;
+  height: 2em;
+  margin: 0.9em;
+  background: var(--loading-color-one);
+  border-radius: 1em;
+  cursor: default;
+  animation: loading 1s infinite alternate;
+}
+
+.spans span:nth-of-type(2) {
+  background: var(--loading-color-two);
+  animation-delay: 0.2s;
+}
+.spans span:nth-of-type(3) {
+  background: var(--loading-color-three);
+  animation-delay: 0.4s;
+}
+
+.spans span:nth-of-type(4) {
+  background: var(--loading-color-four);
+  animation-delay: 0.6s;
+}
+
+.spans span:nth-of-type(5) {
+  background: var(--loading-color-five);
+  animation-delay: 0.8s;
+}
+
+.spans span:nth-of-type(6) {
+  background: var(--loading-color-six);
+  animation-delay: 1s;
+}
+
+.spans span:nth-of-type(7) {
+  background: var(--loading-color-seven);
+  animation-delay: 1.2s;
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Loading animation */
+
+/* loading animation end */
 
 /* makes buttons glow */
 /*
