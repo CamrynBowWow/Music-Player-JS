@@ -12,7 +12,9 @@ window.onload = function() {
         1000
     );
 
-    myStopFunction();
+    // function myStopFunction(){
+    //     clearTimeout(myTimeout);
+    // }
 }
 
 function loading(){
@@ -23,10 +25,6 @@ function loading(){
     asideDiv.style.display = 'flex';
     peenDiv.style.display = 'flex';
     loadingDiv.style.display = 'none';
-}
-
-function myStopFunction(){
-    clearTimeout(myTimeout);
 }
 
 const musicDivDisplays = document.querySelector('.music__container')
@@ -184,7 +182,7 @@ function blobToArrayBuffer(blob){
     })
 }
 
-addMusic.addEventListener('click', async () => {   
+addMusic.addEventListener('click', async () => {   // LOOK MATTHEW
 
     const peen = await window.showDirectoryPicker();
     
@@ -196,10 +194,12 @@ addMusic.addEventListener('click', async () => {
 
             const fileData = await entry.getFile();
 
-            let byteSize = await blobToArrayBuffer(fileData);
+            let byteSize = await blobToArrayBuffer(fileData); // Turns into blob
 
-            await set(fileData.name, byteSize, fileData.type)
-        
+            let binary = new Uint8Array(byteSize); // Gets the bytes to use for the audio
+
+            await set(fileData.name, binary, fileData.type)
+
         }
     }
     
@@ -214,48 +214,28 @@ addMusic.addEventListener('click', async () => {
 
 // For play and pause music
 const playButton = document.querySelector('#play-button');
-let sourceTag = document.querySelector("#audioToPlay");
-//let musicAudio = document.querySelector("#musicAudio");
+const sourceTag = document.querySelector("#audioToPlay");
+
+let audio;
 
 async function pauseSong() {
+
+    audio.pause();
+
     playButton.classList.remove('playing');
 
     playButton.querySelector('span.material-icons').innerText = 'play_arrow';
 
 }
 
-// let context = new AudioContext();
-// //not working
-// async function play(audioBuffer){
-//     let source = context.createBufferSource();
-//     source.buffer = audioBuffer;
-//     source.connect(context.destination);
-//     source.start(0);
-// }
-
-async function playSong(value) {
-
-    // console.log(value);
-    // let buffer = new Uint8Array(value.byteLength.length);
-    // console.log(buffer, "one");
-    // buffer.set(new Uint8Array(value.byteLength), 0);
-    // console.log(buffer, "two");
-
-    // context.decodeAudioData(buffer, play);
-    
+async function playSong(value) { // LOOK MATTHEW
+   
     if(value === undefined){
         alert('No music has been selected to play.')
         return;
-    }
+    }  
 
-    // let blobUrl = URL.createObjectURL(value);
-    // const audioUrl = URL.createObjectURL(value);
-    // // console.log(blobUrl);
-
-    // URL.revokeObjectURL(audioUrl);
-    //sourceTag.play();
-    // musicAudio.volume = 1.0;
-    // console.log(audioUrl)
+    audio.play();
 
     playButton.classList.add('playing');
     playButton.querySelector('span.material-icons').innerText = 'pause';
@@ -265,8 +245,10 @@ playButton.addEventListener('click', () => {
 
     const isPlaying = playButton.classList.contains('playing');
 
+    let valueToPlayOrPause = sourceTag.getAttribute('src');
+
     if(!isPlaying) {
-        playSong();
+        playSong(valueToPlayOrPause);
     } else {
         pauseSong();
     }
@@ -341,27 +323,24 @@ shuffleButton.addEventListener('click', () => {
 
 // Music selected to play
 
-async function musicFetched(id){
+async function musicFetched(id){ // LOOK MATTHEW
+
+    if(audio != null){
+        pauseSong();
+    }
     
     let musicToPlay = await getMusicToPlay(id.target.id);   
 
-    //sourceTag = tag name for source tag
-    //let binary = new Uint8Array(musicToPlay.byteLength);
+    let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
+    const url = URL.createObjectURL(musicBlob);
 
-    //let musicBlob = new Blob([musicToPlay], {type: 'audio/mpeg'})
-    //const url = window.URL.createObjectURL(musicToPlay.byteLength);
+    sourceTag.src =  "data:audio/mpeg;base64," + url; // Used for the createObjectURL to store audio to play
+    sourceTag.setAttribute('type', musicToPlay.type);
 
-    //console.log(musicBlob);
+    audio = new Audio(url);
 
-    // sourceTag.setAttribute('src', musicBlob);
-    // sourceTag.setAttribute('type', musicToPlay.type);
+    playSong(musicToPlay);
 
-    // const audioUrl = URL.createObjectURL(musicBlob);
-
-    // playSong().then(function(musicBlob){
-    // });
-    await playSong(musicToPlay);
-    // URL.revokeObjectURL(audioUrl);
 }
 
 
@@ -412,7 +391,5 @@ volumeIcon.addEventListener('click', async () => {
         volumeControl.value = previousVolume;
         await volumeCheck(previousVolume);
     }
-
-
 
 })
