@@ -215,6 +215,8 @@ addMusic.addEventListener('click', async () => {   // LOOK MATTHEW
 // For play and pause music
 const playButton = document.querySelector('#play-button');
 const sourceTag = document.querySelector("#audioToPlay");
+const songNameHeader = document.querySelector(".container-play-music-area h1");
+const artistNameHeader = document.querySelector(".container-play-music-area h3");
 
 let audio;
 
@@ -229,13 +231,16 @@ async function pauseSong() {
 }
 
 async function playSong(value) { // LOOK MATTHEW
-   
-    if(value === undefined){
+
+    if(value === undefined || value === ''){
         alert('No music has been selected to play.')
         return;
     }  
 
+    unmuteMusic();
+
     audio.play();
+    // audio.volume = previousVolume = previousVolume / 100;
 
     playButton.classList.add('playing');
     playButton.querySelector('span.material-icons').innerText = 'pause';
@@ -337,12 +342,32 @@ async function musicFetched(id){ // LOOK MATTHEW
     sourceTag.src =  "data:audio/mpeg;base64," + url; // Used for the createObjectURL to store audio to play
     sourceTag.setAttribute('type', musicToPlay.type);
 
+    await checkName(musicToPlay.name);
+
     audio = new Audio(url);
 
     playSong(musicToPlay);
 
 }
 
+async function checkName(nameOfMusic){
+
+    let songNameAndArtist = nameOfMusic.split("-");
+
+    if(songNameAndArtist.length > 1){
+        let musicName = songNameAndArtist[1].replace(/.(mp3)$/, '');
+
+        songNameHeader.innerText = musicName.trim();
+        artistNameHeader.innerText = songNameAndArtist[0].trim();
+
+    } else {
+        let musicName = nameOfMusic.replace(/.(mp3)$/, '');
+
+        songNameHeader.innerText = musicName.trim();
+        artistNameHeader.innerText = 'Unknown';
+    }
+
+}
 
 // Music selected to play end
 
@@ -356,6 +381,12 @@ let previousVolume = 30;
 volumeControl.addEventListener('input', async () => {
 
     let volumeLevel = await volumeControl.value;
+
+    if(audio != undefined || audio != null) {
+        let vol = volumeLevel / 100;
+        audio.volume = vol;
+    }
+
     await volumeCheck(volumeLevel);
 
 })
@@ -385,11 +416,36 @@ async function volumeCheck(volumeLevel){
 volumeIcon.addEventListener('click', async () => {
 
     if(volumeControl.value > 0){
-        volumeIcon.innerText = 'volume_off';
-        volumeControl.value = 0;
+        
+        mutedMusic(); // mute music
+
     } else {
-        volumeControl.value = previousVolume;
-        await volumeCheck(previousVolume);
+
+        unmuteMusic(); // unmute music
+        
+    }
+    
+    
+})
+
+async function mutedMusic(){
+
+    volumeIcon.innerText = 'volume_off';
+    volumeControl.value = 0;
+
+    if(audio != undefined || audio != null) {
+        audio.muted = true; // mute method
+    }
+    
+}
+
+async function unmuteMusic(){
+
+    volumeControl.value = previousVolume;
+    await volumeCheck(previousVolume);
+
+    if(audio != undefined || audio != null) {
+        audio.muted = false; // mute method
     }
 
-})
+}
