@@ -44,22 +44,8 @@ async function musicDisplay(){
         buttonPlay.setAttribute('id', musicValues['id']);
         buttonPlay.innerText = nameOfMusic;
         buttonPlay.addEventListener('click', musicFetched);
-        // buttonPlay.textContent = musicValues['name'];
-        
-        // let spanPlayArrow = document.createElement('span');
-        // spanPlayArrow.setAttribute('class', 'material-icons md-40');
-        // spanPlayArrow.innerText = 'play_arrow';
-        
-        // mainTagTabs.appendChild(spanPlayArrow);
 
         mainTagTabs.appendChild(buttonPlay);
-
-        // let musicPlayName = document.createElement('div');
-        // musicPlayName.setAttribute('class', 'music-play-div')
-
-        // musicPlayName.appendChild(spanPlayArrow);
-        // musicPlayName.appendChild(buttonPlay);
-        // mainTagTabs.appendChild(musicPlayName);
 
         let spanAddBox = document.createElement('span');
         spanAddBox.setAttribute('class', 'material-icons md-36');
@@ -168,8 +154,8 @@ sidebarMenu.addEventListener('click', async () => {
 
 // Fetching music and populating the playlist-area section class
 
-const addMusic = document.querySelector('.fetchDirectory')
-
+const addDirectory = document.querySelector('.fetchDirectory');
+const addMusic = document.querySelector('.fetchMusic');
 
 function blobToArrayBuffer(blob){
     return new Promise((resolve, reject) => {
@@ -182,7 +168,19 @@ function blobToArrayBuffer(blob){
     })
 }
 
-addMusic.addEventListener('click', async () => {   // LOOK MATTHEW
+async function makeBlobPutIntoDb(entry){
+
+    const fileData = await entry.getFile();
+
+    let byteSize = await blobToArrayBuffer(fileData); // Turns into blob
+
+    let binary = new Uint8Array(byteSize); // Gets the bytes to use for the audio
+    console.log('work')
+    await set(fileData.name, binary, fileData.type)
+
+}
+
+addDirectory.addEventListener('click', async () => {   // LOOK MATTHEW
 
     const peen = await window.showDirectoryPicker();
     
@@ -192,21 +190,32 @@ addMusic.addEventListener('click', async () => {   // LOOK MATTHEW
 
         if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
 
-            const fileData = await entry.getFile();
-
-            let byteSize = await blobToArrayBuffer(fileData); // Turns into blob
-
-            let binary = new Uint8Array(byteSize); // Gets the bytes to use for the audio
-
-            await set(fileData.name, binary, fileData.type)
+            await makeBlobPutIntoDb(entry);
 
         }
     }
     
+    alert("Music Directory has been added.")
     window.location.reload();
-
 })
 
+// Add music function
+addMusic.addEventListener('click', async () => {
+
+    const [filehandle] = await window.showOpenFilePicker();
+
+    const matchFileSpecs = ".(mp3)$";
+    
+    if (filehandle.kind === 'file' && filehandle.name.match(matchFileSpecs)){
+        await makeBlobPutIntoDb(filehandle);
+
+        alert("Music has been added.")
+        window.location.reload();
+    } else {
+        alert("Please select a music file only.");
+    }
+    
+})
 
 // Fetching music and populating the playlist-area section class end
 
@@ -232,6 +241,8 @@ async function pauseSong() {
 
 async function playSong(value) { // LOOK MATTHEW
 
+    audio.pause();
+
     if(value === undefined || value === ''){
         alert('No music has been selected to play.')
         return;
@@ -240,7 +251,7 @@ async function playSong(value) { // LOOK MATTHEW
     unmuteMusic();
 
     audio.play();
-    // audio.volume = previousVolume = previousVolume / 100;
+    audio.volume = previousVolume / 100;
 
     playButton.classList.add('playing');
     playButton.querySelector('span.material-icons').innerText = 'pause';
@@ -331,7 +342,7 @@ shuffleButton.addEventListener('click', () => {
 async function musicFetched(id){ // LOOK MATTHEW
 
     if(audio != null){
-        pauseSong();
+        audio.pause();
     }
     
     let musicToPlay = await getMusicToPlay(id.target.id);   
@@ -423,8 +434,7 @@ volumeIcon.addEventListener('click', async () => {
 
         unmuteMusic(); // unmute music
         
-    }
-    
+    } 
     
 })
 
@@ -449,3 +459,16 @@ async function unmuteMusic(){
     }
 
 }
+
+
+/* For deleting music */
+
+/* For deleting music end */
+
+/* For adding music to playlist */
+
+/* For adding music to playlist end */
+
+/* For adding to Favorite playlist */
+
+/* For adding to Favorite playlist end */
