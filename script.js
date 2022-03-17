@@ -3,10 +3,14 @@
 
 import {doDatabaseStuff, set, retrieve, getMusicToPlay} from './database.js'
 
+const musicID = localStorage.getItem('musicID');
+
 window.onload = function() {
     doDatabaseStuff();
     musicDisplay();
-    
+
+    //fetchMusicLocalStorage(musicID);
+
     const myTimeout = setTimeout(
         loading,
         1000
@@ -241,8 +245,6 @@ async function pauseSong() {
 
 async function playSong(value) { // LOOK MATTHEW
 
-    audio.pause();
-
     if(value === undefined || value === ''){
         alert('No music has been selected to play.')
         return;
@@ -333,19 +335,13 @@ shuffleButton.addEventListener('click', () => {
 
 })
 
-
 // Music area icon functions end
 
+async function fetchMusicLocalStorage(id){
 
-// Music selected to play
+    localStorage.setItem('musicID', id);
 
-async function musicFetched(id){ // LOOK MATTHEW
-
-    if(audio != null){
-        audio.pause();
-    }
-    
-    let musicToPlay = await getMusicToPlay(id.target.id);   
+    let musicToPlay = await getMusicToPlay(id);   
 
     let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
     const url = URL.createObjectURL(musicBlob);
@@ -356,6 +352,32 @@ async function musicFetched(id){ // LOOK MATTHEW
     await checkName(musicToPlay.name);
 
     audio = new Audio(url);
+
+}
+
+// Music selected to play
+
+async function musicFetched(id){ // LOOK MATTHEW
+
+    if(audio != null){
+        audio.pause();
+    }
+    
+    let musicToPlay = id.target.id;
+
+    await fetchMusicLocalStorage(musicToPlay);
+
+    // let musicToPlay = await getMusicToPlay(id.target.id);   
+
+    // let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
+    // const url = URL.createObjectURL(musicBlob);
+
+    // sourceTag.src =  "data:audio/mpeg;base64," + url; // Used for the createObjectURL to store audio to play
+    // sourceTag.setAttribute('type', musicToPlay.type);
+
+    // await checkName(musicToPlay.name);
+
+    // audio = new Audio(url);
 
     playSong(musicToPlay);
 
