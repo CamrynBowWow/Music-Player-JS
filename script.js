@@ -73,6 +73,7 @@ async function musicDisplay(){
 
     }
 
+    fetchMusicLocalStorage(musicID);
 }
 
 /* The IndexedDb */
@@ -482,6 +483,29 @@ async function unmuteMusic(){
 
 }
 
+/* Slider to show length of music */
+
+let rangeDisplaySlider = document.querySelector('#range-duration');
+
+// Function for moving the slider value
+sourceTag.ontimeupdate = function() {progressTimeUpdate()};
+
+function progressTimeUpdate() {
+
+    audio.addEventListener("timeupdate", () => {
+        let currentTime = audio.currentTime;
+        let duration = audio.duration;
+
+        const progressBar = (currentTime / duration) * 100;
+
+        rangeDisplaySlider.value = progressBar;
+
+        console.log(currentTime)
+        console.log(duration)
+    })
+}
+
+/* Slider to show length of music end */
 
 /* For deleting music */
 
