@@ -3,17 +3,21 @@ import { openDB } from './node_modules/idb/with-async-ittr.js';
 let db;
 
 // Creates the database and table for music 
+// TODO : Have more meaningful function names
 export async function doDatabaseStuff() {
     db = await openDB('musicStorage', 3, {
         upgrade(db) {
 
             const musicDb = db.createObjectStore('musicList', {keyPath: "id", autoIncrement: true,});
 
+            // TODO : Is this needed?
             const musicIndex = musicDb.createIndex('music_name', 'name', {unique: true});
         }
     });
 }
 
+
+// TODO : is the bytelength var appropraitely named?
 
 // Gets the music from the add filepath or add song to store in the table 'musicList'
 export async function set(name, byteLength, type){

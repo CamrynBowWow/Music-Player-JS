@@ -1,0 +1,3 @@
+// TODO the node_modules folder must not be pushed to the repo. 
+// If you had a big project with lots of packages this folder code easily get to 300+ megs
+// Also if someone on a different OS to you might experience problems loading up the solution
