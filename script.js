@@ -1,28 +1,23 @@
 
 /* The IndexedDb */
 
-import {doDatabaseStuff, set, retrieve, getMusicToPlay} from './database.js'
+import {createDatabase, set, retrieve, getMusicToPlay} from './database.js'
 
 const musicID = localStorage.getItem('musicID');
 
 window.onload = function() {
-    doDatabaseStuff();
+    createDatabase();
     musicDisplay();
-
-    //fetchMusicLocalStorage(musicID);
 
     const myTimeout = setTimeout(
         loading,
         1000
     );
 
-    // function myStopFunction(){
-    //     clearTimeout(myTimeout);
-    // }
 }
 
 function loading(){
-    let peenDiv = document.querySelector('.peen');
+    let peenDiv = document.querySelector('.container-class');
     let asideDiv = document.querySelector('aside');
     let loadingDiv = document.querySelector('.loading');
 
@@ -102,17 +97,13 @@ const disableDarkMode = () => {
 }
 
 // Javascript way of checking for dark mode
-let matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 if(darkMode === 'disabled'){
     disableDarkMode();
 } else if(matched){
     enabledDarkMode();
 }
-
-// if(matched){
-//     enabledDarkMode();
-// }
 
 function toggleChange(){
     
@@ -180,7 +171,7 @@ async function makeBlobPutIntoDb(entry){
     let byteSize = await blobToArrayBuffer(fileData); // Turns into blob
 
     let binary = new Uint8Array(byteSize); // Gets the bytes to use for the audio
-    console.log('work')
+    
     await set(fileData.name, binary, fileData.type)
 
 }
@@ -368,18 +359,6 @@ async function musicFetched(id){ // LOOK MATTHEW
 
     await fetchMusicLocalStorage(musicToPlay);
 
-    // let musicToPlay = await getMusicToPlay(id.target.id);   
-
-    // let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
-    // const url = URL.createObjectURL(musicBlob);
-
-    // sourceTag.src =  "data:audio/mpeg;base64," + url; // Used for the createObjectURL to store audio to play
-    // sourceTag.setAttribute('type', musicToPlay.type);
-
-    // await checkName(musicToPlay.name);
-
-    // audio = new Audio(url);
-
     playSong(musicToPlay);
 
 }
@@ -408,7 +387,7 @@ async function checkName(nameOfMusic){
 // Volume control
 
 const volumeControl = document.querySelector('#volume-control');
-const volumeIcon = document.querySelector('#volume_icon');
+const volumeIcon = document.querySelector('#volume-icon');
 
 let previousVolume = 30;
 
@@ -485,7 +464,7 @@ async function unmuteMusic(){
 
 /* Slider to show length of music */
 
-let rangeDisplaySlider = document.querySelector('#range-duration');
+const rangeDisplaySlider = document.querySelector('#range-duration');
 
 // Function for moving the slider value
 sourceTag.ontimeupdate = function() {progressTimeUpdate()};

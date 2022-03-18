@@ -224,7 +224,7 @@ body button {
     height: 100%;
   }
 
-  .peen {
+  .container-class {
     flex-direction: column;
     margin: 5rem 0rem 3rem 0rem;
     /* margin: 0 auto; */
@@ -317,7 +317,7 @@ aside a {
 
 /* Menu area, Play area  */
 
-.peen {
+.container-class {
   display: none;
   /* display: flex; */
   width: 100%;
@@ -433,7 +433,7 @@ aside a {
 
 /* Play music are styling */
 
-.header-play-music-area {
+.play-music-area-header {
   display: flex;
   justify-content: space-between;
   align-items: center;

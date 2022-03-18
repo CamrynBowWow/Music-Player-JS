@@ -3,7 +3,7 @@ import { openDB } from './node_modules/idb/with-async-ittr.js';
 let db;
 
 // Creates the database and table for music 
-export async function doDatabaseStuff() {
+export async function createDatabase() {
     db = await openDB('musicStorage', 3, {
         upgrade(db) {
 
@@ -41,7 +41,7 @@ export async function retrieve(){
 
 // Will get one song from the database using the ID of the song selected
 export async function getMusicToPlay(value){
-    
+
     const musicInfo = await db.get('musicList', parseInt(value));
 
     return musicInfo;
