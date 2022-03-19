@@ -8,10 +8,10 @@ const musicID = localStorage.getItem('musicID');
 window.onload = function() {
     createDatabase();
     musicDisplay();
-
+ 
     const myTimeout = setTimeout(
         loading,
-        1000
+        400
     );
 
 }
@@ -465,6 +465,7 @@ async function unmuteMusic(){
 /* Slider to show length of music */
 
 const rangeDisplaySlider = document.querySelector('#range-duration');
+const timeDisplayText = document.querySelector('#timer-display');
 
 // Function for moving the slider value
 sourceTag.ontimeupdate = function() {progressTimeUpdate()};
@@ -479,10 +480,34 @@ function progressTimeUpdate() {
 
         rangeDisplaySlider.value = progressBar;
 
-        console.log(currentTime)
-        console.log(duration)
+        let currentMinute = Math.floor(currentTime / 60);
+        let currentSecond = Math.floor(currentTime % 60);
+
+        if(currentSecond < 10){
+            currentSecond = `0${currentSecond}`;
+        }
+
+        timeDisplayText.innerText = `${currentMinute}:${currentSecond}`;
+
+        if(currentTime === duration){
+            pauseSong();
+            audio.currentTime = 0;
+        }
     })
 }
+
+// For the progressBar to update song when clicked
+
+rangeDisplaySlider.addEventListener('click', (value) => {
+
+    let widthOfSlider = rangeDisplaySlider.clientWidth;
+    let valueOffset = value.offsetX;
+
+    let duration = audio.duration;
+
+    audio.currentTime = (valueOffset / widthOfSlider ) * duration;
+
+})
 
 /* Slider to show length of music end */
 
