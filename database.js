@@ -9,7 +9,10 @@ export async function createDatabase() {
 
             const musicDb = db.createObjectStore('musicList', {keyPath: "id", autoIncrement: true,});
 
-            const musicIndex = musicDb.createIndex('music_name', 'name', {unique: true});
+            musicDb.createIndex('music_name', 'name', {unique: true});
+
+            let p = db.createObjectStore('playlists', {autoIncrement: true,});
+            p.put({playlistName: 'Favorites', musicInfo: ''});
         }
     });
 }
@@ -45,4 +48,16 @@ export async function getMusicToPlay(value){
     const musicInfo = await db.get('musicList', parseInt(value));
 
     return musicInfo;
+}
+
+// Puts music ID into playlists table musicInfo
+export async function storeMusicIntoPlaylists(valueId){
+
+    const musicDatabase = await openDB('musicStorage', undefined, {});
+    console.log(valueId)
+    
+    const store = musicDatabase.transaction('playlists', 'readwrite').objectStore('playlists');
+
+    const d = await store.add(valueId);
+    console.log(d);
 }

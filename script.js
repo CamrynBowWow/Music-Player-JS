@@ -1,7 +1,7 @@
 
 /* The IndexedDb */
 
-import {createDatabase, set, retrieve, getMusicToPlay} from './database.js'
+import {createDatabase, set, retrieve, getMusicToPlay, storeMusicIntoPlaylists} from './database.js'
 
 const musicID = localStorage.getItem('musicID');
 
@@ -47,20 +47,24 @@ async function musicDisplay(){
         mainTagTabs.appendChild(buttonPlay);
 
         let spanAddBox = document.createElement('span');
+        spanAddBox.setAttribute('id', musicValues['id']);
         spanAddBox.setAttribute('class', 'material-icons md-36');
         spanAddBox.innerText = 'add_box';
 
         mainTagTabs.appendChild(spanAddBox);
 
         let spanDelete = document.createElement('span');
+        spanDelete.setAttribute('id', musicValues['id']);
         spanDelete.setAttribute('class', 'material-icons md-36');
         spanDelete.innerText = 'delete';
 
         mainTagTabs.appendChild(spanDelete);
 
         let spanFavorite = document.createElement('span');
+        spanFavorite.setAttribute('id', musicValues['id']);
         spanFavorite.setAttribute('class', 'material-icons heart');
         spanFavorite.innerText = 'favorite';
+        spanFavorite.addEventListener('click', addToFavoritePlaylist);
 
         mainTagTabs.appendChild(spanFavorite);
         
@@ -176,7 +180,7 @@ async function makeBlobPutIntoDb(entry){
 
 }
 
-addDirectory.addEventListener('click', async () => {   // LOOK MATTHEW
+addDirectory.addEventListener('click', async () => { 
 
     const peen = await window.showDirectoryPicker();
     
@@ -204,7 +208,7 @@ addMusic.addEventListener('click', async () => {
     
     if (filehandle.kind === 'file' && filehandle.name.match(matchFileSpecs)){
         await makeBlobPutIntoDb(filehandle);
-
+        
         alert("Music has been added.")
         window.location.reload();
     } else {
@@ -235,7 +239,7 @@ async function pauseSong() {
 
 }
 
-async function playSong(value) { // LOOK MATTHEW
+async function playSong(value) {
 
     if(value === undefined || value === ''){
         alert('No music has been selected to play.')
@@ -334,7 +338,7 @@ async function fetchMusicLocalStorage(id){
     localStorage.setItem('musicID', id);
 
     let musicToPlay = await getMusicToPlay(id);   
-
+    
     let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
     const url = URL.createObjectURL(musicBlob);
 
@@ -349,7 +353,7 @@ async function fetchMusicLocalStorage(id){
 
 // Music selected to play
 
-async function musicFetched(id){ // LOOK MATTHEW
+async function musicFetched(id){ 
 
     if(audio != null){
         audio.pause();
@@ -520,5 +524,9 @@ rangeDisplaySlider.addEventListener('click', (value) => {
 /* For adding music to playlist end */
 
 /* For adding to Favorite playlist */
+
+async function addToFavoritePlaylist(id) {
+    storeMusicIntoPlaylists(id.target.id);
+}
 
 /* For adding to Favorite playlist end */
