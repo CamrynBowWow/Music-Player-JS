@@ -49,6 +49,7 @@ async function musicDisplay(){
         let spanAddBox = document.createElement('span');
         spanAddBox.setAttribute('id', musicValues['id']);
         spanAddBox.setAttribute('class', 'material-icons md-36');
+        spanAddBox.addEventListener('click', addToPlaylist);
         spanAddBox.innerText = 'add_box';
 
         mainTagTabs.appendChild(spanAddBox);
@@ -503,7 +504,7 @@ function progressTimeUpdate() {
 // For the progressBar to update song when clicked
 
 rangeDisplaySlider.addEventListener('click', (value) => {
-
+    
     let widthOfSlider = rangeDisplaySlider.clientWidth;
     let valueOffset = value.offsetX;
 
@@ -521,12 +522,18 @@ rangeDisplaySlider.addEventListener('click', (value) => {
 
 /* For adding music to playlist */
 
+async function addToPlaylist(id){
+
+    storeMusicIntoPlaylists("Vibe", id.target.id);
+
+}
+
 /* For adding music to playlist end */
 
 /* For adding to Favorite playlist */
 
 async function addToFavoritePlaylist(id) {
-    storeMusicIntoPlaylists(id.target.id);
+    storeMusicIntoPlaylists("Favorites", id.target.id);
 }
 
 /* For adding to Favorite playlist end */
