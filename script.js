@@ -11,7 +11,7 @@ window.onload = function() {
  
     const myTimeout = setTimeout(
         loading,
-        400
+        500
     );
 
 }
@@ -184,7 +184,7 @@ async function makeBlobPutIntoDb(entry){
 addDirectory.addEventListener('click', async () => { 
 
     const peen = await window.showDirectoryPicker();
-    
+
     const matchFileSpecs = ".(mp3)$";
 
     for await (const entry of peen.values()) {
@@ -451,6 +451,7 @@ async function mutedMusic(){
 
     volumeIcon.innerText = 'volume_off';
     volumeControl.value = 0;
+    volumeControl.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) 0%, var(--slider-background-color) 0%)`;
 
     if(audio != undefined || audio != null) {
         audio.muted = true; // mute method
@@ -461,6 +462,7 @@ async function mutedMusic(){
 async function unmuteMusic(){
 
     volumeControl.value = previousVolume;
+    volumeControl.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${previousVolume}%, var(--slider-background-color) 0%)`;
     await volumeCheck(previousVolume);
 
     if(audio != undefined || audio != null) {
@@ -473,21 +475,36 @@ async function unmuteMusic(){
 
 const rangeDisplaySlider = document.querySelector('#range-duration');
 const timeDisplayText = document.querySelector('#timer-display');
+const timeDuration = document.querySelector('#time-duration');
 
 // Function for moving the slider value
 sourceTag.ontimeupdate = function() {progressTimeUpdate()};
 
 function progressTimeUpdate() {
-
+    // Every update in music time this function will fire
     audio.addEventListener("timeupdate", () => {
         let currentTime = audio.currentTime;
         let duration = audio.duration;
 
         const progressBar = (currentTime / duration) * 100;
 
-        rangeDisplaySlider.value = progressBar;
+        rangeDisplaySlider.value = Math.round(progressBar);
 
-        rangeDisplaySlider.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${progressBar}%, var(--slider-background-color) 0%)`;
+        rangeDisplaySlider.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${Math.round(progressBar)}%, var(--slider-background-color) 0%)`;
+
+        sourceTag.addEventListener("loadeddata", () => { // not working
+            console.log("c")
+            let durationEnd = audio.duration;
+
+            let totalMinEnd = Math.floor(durationEnd / 60);
+            let totalSecEnd = Math.floor(durationEnd % 60);
+
+            if(totalSecEnd < 10){
+                totalSecEnd = `0${totalSecEnd}`;
+            }
+
+            timeDuration.innerText = `${totalMinEnd}:${totalSecEnd}`; 
+        })
 
         let currentMinute = Math.floor(currentTime / 60);
         let currentSecond = Math.floor(currentTime % 60);
@@ -513,7 +530,7 @@ rangeDisplaySlider.addEventListener('click', (value) => {
     let valueOffset = value.offsetX;
 
     let duration = audio.duration;
-
+    
     audio.currentTime = (valueOffset / widthOfSlider ) * duration;
 
 })

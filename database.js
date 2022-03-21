@@ -12,7 +12,7 @@ export async function createDatabase() {
             musicDb.createIndex('music_name', 'name', {unique: true});
 
             // const playlistTable = db.createObjectStore('playlists', {keyPath: "id", autoIncrement: true,});
-            const playlistTable = db.createObjectStore('playlists', {autoIncrement: false,});         
+            db.createObjectStore('playlists', {autoIncrement: false,});         
         }
     });
 }
@@ -59,10 +59,31 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
    let arrayValues = [];
 
    arrayValues = await getKeyName(playlistName);
+    //still need work
+    if(arrayValues === undefined){
+        await arrayValues.push(valueId);
+    } else {
+        await arrayValues.push(valueId);
+        
+        for(let i = 0; i < arrayValues.length; i++){
+            if(arrayValues[i] === valueId){
+                let valueIndex = arrayValues.indexOf(valueId);
+                arrayValues.splice(valueIndex, 1)
+            }
+        }
+        musicDatabase.put('playlists', arrayValues, playlistName)
+    }
+    console.log(arrayValues)
+    //const transactionPlaylist = musicDatabase()
 
-   console.log(arrayValues)
+    //const store = musicDatabase.transaction('playlists').objectStore('playlists');
+    //return store.put(arrayInsertValues, playlistName);
+
+    // let transactionDelete = musicDatabase.transaction(['playlists'], 'readwrite');
+    // transactionDelete.objectStore('playlists').delete(playlistName);
     
-    //const store = musicDatabase.transaction('playlists', 'readwrite').objectStore('playlists');
+    //musicDatabase.delete('playlists', playlistName)
+    return await musicDatabase.put('playlists', arrayValues, playlistName)
 
     //const index = store.index("music_id")
     //console.log(index)
@@ -88,25 +109,7 @@ async function getKeyName(keyName){
 
     const dbOpenCheck = await openDB('musicStorage', undefined, {});
 
-    //const retrieveMusic = dbOpenCheck.transaction('playlists'); 
-
-    //const arrayOfMusic = await retrieveMusic.get(keyName);
-    const arrayOfMusic = await dbOpenCheck.get('playlists', keyName);
-    console.log(arrayOfMusic);
-    
-    if(arrayOfMusic != undefined){
-
-        arrayOfMusic.onerror = async function(e){
-            console.log(arrayOfMusic)
-            return arrayOfMusic;
-        }
-    
-        arrayOfMusic.oncomplete = async function(e) {
-            console.log(arrayOfMusic)
-            return arrayOfMusic;
-        }
-
-    }
-
-    return;
+    let arrayOfMusic = await dbOpenCheck.get('playlists', keyName);
+ 
+    return arrayOfMusic; 
 }

@@ -67,6 +67,8 @@
   --grape-8: #9c36b5;
   --grape-9: #862e9c;
 
+  --music-icons-button-border-color: #ae3ec9;
+
   --icon-hover-songs: #ae3ec9; /* Changes color for the icons that will display with the music  */
 
   --button-hover-background-color: #be4bdb;
@@ -145,6 +147,8 @@
   --main-tags-headers-color: #6649d6;
   --text-color-main-tag-tabs-class: #b4b4b4;
   --text-color-headers-main-tags: #b4b4b4;
+
+  --music-icons-button-border-color: #bb86fc;
 
   --icon-hover-songs: #6649d6; /* Changes color for the icons that will display with the music  */
 
@@ -353,6 +357,7 @@ aside a {
   align-self: center;
   box-shadow: var(--box-shadow-main-tags);
   background: var(--background-secondary-color);
+  cursor: default;
 }
 
 .header-playlist-area {
@@ -362,6 +367,7 @@ aside a {
   background: var(--main-tags-headers-color);
   color: var(--text-color-headers-main-tags);
   padding: 1rem;
+  cursor: default;
 }
 
 .main-tag-tabs {
@@ -505,7 +511,7 @@ aside a {
   border-radius: 25px;
   width: 3rem;
   height: 3rem;
-  border: 2px solid var(--grape-7);
+  border: 2px solid var(--music-icons-button-border-color);
   align-items: center;
   display: flex;
   justify-content: center;
@@ -592,7 +598,14 @@ aside a {
 
 /* Slider styling */
 
+.time-holder {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+
 #range-duration {
+  cursor: pointer;
   -webkit-appearance: none;
   border-radius: 10px;
   height: 0.4rem;
@@ -604,6 +617,7 @@ aside a {
 }
 #volume-control {
   -webkit-appearance: none;
+  cursor: pointer;
   border-radius: 10px;
   height: 0.4rem;
   background: linear-gradient(
