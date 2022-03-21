@@ -403,6 +403,8 @@ volumeControl.addEventListener('input', async () => {
     if(audio != undefined || audio != null) {
         let vol = volumeLevel / 100;
         audio.volume = vol;
+
+        volumeControl.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${volumeLevel}%, var(--slider-background-color) 0%)`;
     }
 
     await volumeCheck(volumeLevel);
@@ -485,6 +487,8 @@ function progressTimeUpdate() {
 
         rangeDisplaySlider.value = progressBar;
 
+        rangeDisplaySlider.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${progressBar}%, var(--slider-background-color) 0%)`;
+
         let currentMinute = Math.floor(currentTime / 60);
         let currentSecond = Math.floor(currentTime % 60);
 
@@ -511,6 +515,13 @@ rangeDisplaySlider.addEventListener('click', (value) => {
     let duration = audio.duration;
 
     audio.currentTime = (valueOffset / widthOfSlider ) * duration;
+
+})
+
+// For when mouse moves the thumb of the range slider
+rangeDisplaySlider.addEventListener('input', (value) => {
+
+    rangeDisplaySlider.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${value.target.value}%, var(--slider-background-color) 0%)`;
 
 })
 

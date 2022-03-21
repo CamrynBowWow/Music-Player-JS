@@ -88,7 +88,7 @@
   --heart-icon-color: #cb3333;
   --heart-icon-hover-color: #e21a1ae8;
 
-  --play-music-area-music-icon-button: black;
+  --play-music-area-music-icon-button: #ae3ec9;
 
   --default-transition-duration: 0.5s ease-in-out; /* going with this for now */
   /* --default-transition-duration: 0.8s ease-in-out; */ /* which one would be bette? */
@@ -113,6 +113,7 @@
   /* sliders colors */
 
   --slider-background-color: #f3d9fa;
+  --slider-background-color-fill: #ae3ec9;
   --slider-thumb-color: #cc5de8;
   --slider-brightness: brightness(0.9);
 
@@ -182,6 +183,7 @@
   /* sliders colors */
 
   --slider-background-color: #b4b4b4;
+  --slider-background-color-fill: #9960df;
   --slider-thumb-color: #9960df;
   --slider-brightness: brightness(0.75);
   /* --hover-slider-color: #8343d2; */
@@ -499,9 +501,14 @@ aside a {
 }
 
 .music-icons button {
-  border: none;
   background: none;
+  border-radius: 25px;
   width: 3rem;
+  height: 3rem;
+  border: 2px solid var(--grape-7);
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 #repeat-song {
@@ -585,12 +592,25 @@ aside a {
 
 /* Slider styling */
 
-#volume-control,
 #range-duration {
   -webkit-appearance: none;
   border-radius: 10px;
   height: 0.4rem;
-  background: var(--slider-background-color);
+  background: linear-gradient(
+    90deg,
+    var(--slider-background-color-fill) 0%,
+    var(--slider-background-color) 0%
+  );
+}
+#volume-control {
+  -webkit-appearance: none;
+  border-radius: 10px;
+  height: 0.4rem;
+  background: linear-gradient(
+    90deg,
+    var(--slider-background-color-fill) 30%,
+    var(--slider-background-color) 0%
+  );
 }
 
 #volume-control::-webkit-slider-thumb,
