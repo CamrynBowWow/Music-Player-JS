@@ -1,4 +1,5 @@
 import { openDB } from './node_modules/idb/with-async-ittr.js';
+// import { openDB } from 'https://cdn.jsdelivr.net/npm/idb@7/build/umd-with-async-ittr.js';
 
 let db;
 

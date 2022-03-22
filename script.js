@@ -11,7 +11,7 @@ window.onload = function() {
  
     const myTimeout = setTimeout(
         loading,
-        500
+        600
     );
 
 }
@@ -492,19 +492,7 @@ function progressTimeUpdate() {
 
         rangeDisplaySlider.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${Math.round(progressBar)}%, var(--slider-background-color) 0%)`;
 
-        sourceTag.addEventListener("loadeddata", () => { // not working
-            console.log("c")
-            let durationEnd = audio.duration;
-
-            let totalMinEnd = Math.floor(durationEnd / 60);
-            let totalSecEnd = Math.floor(durationEnd % 60);
-
-            if(totalSecEnd < 10){
-                totalSecEnd = `0${totalSecEnd}`;
-            }
-
-            timeDuration.innerText = `${totalMinEnd}:${totalSecEnd}`; 
-        })
+        
 
         let currentMinute = Math.floor(currentTime / 60);
         let currentSecond = Math.floor(currentTime % 60);
@@ -519,6 +507,20 @@ function progressTimeUpdate() {
             pauseSong();
             audio.currentTime = 0;
         }
+    })
+
+    // Displays the song duration
+    audio.addEventListener("loadeddata", () => { 
+        let durationEnd = audio.duration;
+
+        let totalMinEnd = Math.floor(durationEnd / 60);
+        let totalSecEnd = Math.floor(durationEnd % 60);
+
+        if(totalSecEnd < 10){
+            totalSecEnd = `0${totalSecEnd}`;
+        }
+
+        timeDuration.innerText = `${totalMinEnd}:${totalSecEnd}`; 
     })
 }
 
