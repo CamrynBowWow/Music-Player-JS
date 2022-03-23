@@ -55,55 +55,32 @@ export async function getMusicToPlay(value){
 export async function storeMusicIntoPlaylists(playlistName, valueId){
 
     const musicDatabase = await openDB('musicStorage', undefined, {});
-   // console.log(valueId)
 
-   let arrayValues = [];
+    let arrayValues = [];
 
-   arrayValues = await getKeyName(playlistName);
-    //still need work
-    if(arrayValues === undefined){
-        await arrayValues.push(valueId);
-    } else {
-        await arrayValues.push(valueId);
-        
-        for(let i = 0; i < arrayValues.length; i++){
-            if(arrayValues[i] === valueId){
-                let valueIndex = arrayValues.indexOf(valueId);
-                arrayValues.splice(valueIndex, 1)
-            }
-        }
-        musicDatabase.put('playlists', arrayValues, playlistName)
-    }
-    console.log(arrayValues)
-    //const transactionPlaylist = musicDatabase()
-
-    //const store = musicDatabase.transaction('playlists').objectStore('playlists');
-    //return store.put(arrayInsertValues, playlistName);
-
-    // let transactionDelete = musicDatabase.transaction(['playlists'], 'readwrite');
-    // transactionDelete.objectStore('playlists').delete(playlistName);
+    let valueArray = await getKeyName(playlistName); // checks to see if there is no playlist with specified name in the database
     
-    //musicDatabase.delete('playlists', playlistName)
+    // If no name then push to array but if there is an array already will add to it
+    if(valueArray == null){
+        arrayValues.push(valueId);
+        console.log(arrayValues, "1")
+    } else {
+        
+        for(let i = 0; i < valueArray.length; i++){
+            // Checks to see if value of Music ID is already in database and then won't add it again
+            if(valueArray[i] != valueId){
+                arrayValues.push(valueArray[i]);
+            }
+
+        }
+
+        arrayValues.push(valueId);
+
+    }
+
+
     return await musicDatabase.put('playlists', arrayValues, playlistName)
 
-    //const index = store.index("music_id")
-    //console.log(index)
-
-
-    //const d = await db.get('playlists', parseInt(valueId));
-    //console.log(d);
-
-    //const v = await musicDatabase.add('playlists', {playlistName:playlistName, musicID:valueId})
-    //console.log(v);
-
-    //const v = await musicDatabase.getKeyFromIndex('playlists', 'musicId', valueId);
-
-    //console.log(v);
-
-   // const p = await musicDatabase.put('playlists', {playlistName:playlistName, musicId: valueId})
-
-    //const d = await musicDatabase.add('playlists',valueId);
-   // console.log(p);
 }
 
 async function getKeyName(keyName){
@@ -111,6 +88,6 @@ async function getKeyName(keyName){
     const dbOpenCheck = await openDB('musicStorage', undefined, {});
 
     let arrayOfMusic = await dbOpenCheck.get('playlists', keyName);
- 
+
     return arrayOfMusic; 
 }
