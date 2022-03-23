@@ -478,7 +478,7 @@ aside a {
   display: flex;
   gap: 2.15rem;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   width: 100%;
   padding: 0.5rem;
 }

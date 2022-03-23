@@ -104,10 +104,12 @@ const disableDarkMode = () => {
 // Javascript way of checking for dark mode
 const matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-if(darkMode === 'disabled'){
-    disableDarkMode();
+if(darkMode === 'enabled'){
+    enabledDarkMode();
 } else if(matched){
     enabledDarkMode();
+} else {
+    disableDarkMode();
 }
 
 function toggleChange(){
@@ -336,9 +338,18 @@ shuffleButton.addEventListener('click', () => {
 
 async function fetchMusicLocalStorage(id){
 
-    localStorage.setItem('musicID', id);
+    let musicIdentifier;
 
-    let musicToPlay = await getMusicToPlay(id);   
+    if(id == null || id === "null"){
+        musicIdentifier = 1;
+    } else {
+        musicIdentifier = id;
+    }
+    
+
+    localStorage.setItem('musicID', musicIdentifier);
+
+    let musicToPlay = await getMusicToPlay(musicIdentifier);   
     
     let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
     const url = URL.createObjectURL(musicBlob);
@@ -404,8 +415,9 @@ volumeControl.addEventListener('input', async () => {
         let vol = volumeLevel / 100;
         audio.volume = vol;
 
-        volumeControl.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${volumeLevel}%, var(--slider-background-color) 0%)`;
     }
+
+    volumeControl.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${volumeLevel}%, var(--slider-background-color) 0%)`;
 
     await volumeCheck(volumeLevel);
 
