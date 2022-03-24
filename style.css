@@ -16,7 +16,7 @@
   background: var(--scrollBar-color-background);
 }
 
-.playlist-area ::-webkit-scrollbar-track {
+#playlist-area ::-webkit-scrollbar-track {
   background: var(--scrollBar-bg-playlist-area);
 }
 
@@ -240,7 +240,7 @@ body button {
     /* margin: 0 auto; */
   }
 
-  .playlist-area {
+  #playlist-area {
     max-height: 50rem;
     width: 90%;
     margin: 0 auto;
@@ -337,7 +337,7 @@ aside a {
   overflow: hidden;
 }
 
-.playlist-area {
+#playlist-area {
   height: 90%;
   margin: 0 1rem;
   width: 50rem;

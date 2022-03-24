@@ -87,6 +87,7 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
 
 }
 
+// For storeMusicIntoPlaylists function
 async function getKeyName(keyName){
 
     const dbOpenCheck = await openDB('musicStorage', undefined, {});

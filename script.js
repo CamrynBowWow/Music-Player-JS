@@ -27,9 +27,20 @@ function loading(){
 }
 
 const musicDivDisplays = document.querySelector('.music-container')
+const playlistAreaSection = document.querySelector('#playlist-area');
+const headerPlaylistArea = document.querySelector('.header-playlist-area h1');
 
 async function musicDisplay(){
-    let allMusic = await retrieve();
+
+    let allMusic;
+
+    if(playlistAreaSection.classList.contains('favorite')){
+        alert('Please')
+        headerPlaylistArea.innerText = "Favorites";
+    } else {
+        headerPlaylistArea.innerText = "All Music";
+        allMusic = await retrieve();
+    }
 
     for (let musicValues of allMusic) {
 
@@ -96,6 +107,14 @@ async function musicDisplay(){
 
 /* The IndexedDb end */
 
+// Removes children divs from playlist-area section
+async function removeDivsChildren() {
+    while(musicDivDisplays.firstChild){
+
+        musicDivDisplays.removeChild(musicDivDisplays.firstChild);
+
+    }
+}
 
 // Sidebar function
 
@@ -476,15 +495,7 @@ function progressTimeUpdate() {
         rangeDisplaySlider.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${Math.round(progressBar)}%, var(--slider-background-color) 0%)`;
 
         
-
-        let currentMinute = Math.floor(currentTime / 60);
-        let currentSecond = Math.floor(currentTime % 60);
-
-        if(currentSecond < 10){
-            currentSecond = `0${currentSecond}`;
-        }
-
-        timeDisplayText.innerText = `${currentMinute}:${currentSecond}`;
+        CurrentTimeClock(currentTime);
 
         if(currentTime === duration){
             pauseSong();
@@ -507,10 +518,23 @@ function progressTimeUpdate() {
     })
 }
 
+function CurrentTimeClock(currentTime){
+
+    let currentMinute = Math.floor(currentTime / 60);
+    let currentSecond = Math.floor(currentTime % 60);
+
+    if(currentSecond < 10){
+        currentSecond = `0${currentSecond}`;
+    }
+
+    timeDisplayText.innerText = `${currentMinute}:${currentSecond}`;
+}
+
 // For the progressBar to update song when clicked
 
 rangeDisplaySlider.addEventListener('click', (value) => {
     
+
     let widthOfSlider = rangeDisplaySlider.clientWidth;
     let valueOffset = value.offsetX;
 
@@ -565,5 +589,14 @@ async function addToFavoritePlaylist(id) {
 
 /* For adding to Favorite playlist end */
 
-/* Meme quick */
+/* Favorite Playlist display */
 
+const favoritePlaylistButton = document.querySelector('.favourite-playlist');
+
+favoritePlaylistButton.addEventListener('click', async () => {
+    playlistAreaSection.setAttribute('class', 'favorite');
+    await removeDivsChildren();
+    await musicDisplay();
+})
+
+/* Favorite Playlist display end */
