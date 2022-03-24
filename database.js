@@ -97,6 +97,7 @@ async function getKeyName(keyName){
     return arrayOfMusic; 
 }
 
+// Checks to see if music is in Favorite playlist and then makes color of heart the hover color
 export async function getFromFavoritesColor(valueID){
 
     const dbOpen = await openDB('musicStorage', undefined, {});
@@ -109,4 +110,12 @@ export async function getFromFavoritesColor(valueID){
         return false;
     }
     
+}
+
+export async function retrieveMusicFromPlaylist(playlistName){
+
+    const dbOpen = await openDB('musicStorage', undefined, {});
+
+    let playlistValues = await dbOpen.get('playlists', playlistName);
+
 }

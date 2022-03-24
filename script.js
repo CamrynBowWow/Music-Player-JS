@@ -1,7 +1,7 @@
 
 /* The IndexedDb */
 
-import {createDatabase, set, retrieve, getMusicToPlay, storeMusicIntoPlaylists, getFromFavoritesColor} from './database.js'
+import {createDatabase, set, retrieve, getMusicToPlay, storeMusicIntoPlaylists, getFromFavoritesColor, retrieveMusicFromPlaylist} from './database.js'
 
 const musicID = localStorage.getItem('musicID');
 
@@ -10,13 +10,13 @@ window.onload = function() {
     musicDisplay();
  
     const myTimeout = setTimeout(
-        loading,
+        loaded,
         600
     );
 
 }
 
-function loading(){
+function loaded(){
     let peenDiv = document.querySelector('.container-class');
     let asideDiv = document.querySelector('aside');
     let loadingDiv = document.querySelector('.loading');
@@ -30,13 +30,13 @@ const musicDivDisplays = document.querySelector('.music-container')
 const playlistAreaSection = document.querySelector('#playlist-area');
 const headerPlaylistArea = document.querySelector('.header-playlist-area h1');
 
-async function musicDisplay(){
+async function musicDisplay(playlistNameCheck){
 
     let allMusic;
 
-    if(playlistAreaSection.classList.contains('favorite')){
-        alert('Please')
-        headerPlaylistArea.innerText = "Favorites";
+    if(playlistNameCheck != null){
+        allMusic = await retrieveMusicFromPlaylist(playlistNameCheck);
+        headerPlaylistArea.innerText = playlistNameCheck;      
     } else {
         headerPlaylistArea.innerText = "All Music";
         allMusic = await retrieve();
@@ -594,9 +594,15 @@ async function addToFavoritePlaylist(id) {
 const favoritePlaylistButton = document.querySelector('.favourite-playlist');
 
 favoritePlaylistButton.addEventListener('click', async () => {
-    playlistAreaSection.setAttribute('class', 'favorite');
+    //playlistAreaSection.setAttribute('class', 'favorite');
+    let valueToBeChecked = "Favorites";
+
+    headerPlaylistArea.innerText = "Favorites";
+
     await removeDivsChildren();
-    await musicDisplay();
+
+    await musicDisplay(valueToBeChecked);
+
 })
 
 /* Favorite Playlist display end */
