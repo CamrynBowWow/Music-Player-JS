@@ -89,6 +89,7 @@ const enabledDarkMode = () => {
     document.body.classList.add('darkmode');
     
     toggleMode.querySelector('span.material-icons').innerText = 'brightness_7';
+    toggleMode.querySelector('span.tooltip-text-sidebar').innerText = 'Enable Light Mode';
 
     localStorage.setItem('darkMode', 'enabled');
 }
@@ -97,6 +98,7 @@ const disableDarkMode = () => {
     document.body.classList.remove('darkmode');
 
     toggleMode.querySelector('span.material-icons').innerText = 'nightlight';
+    toggleMode.querySelector('span.tooltip-text-sidebar').innerText = 'Enable Dark Mode';
 
     localStorage.setItem('darkMode', 'disabled');
 }
@@ -157,8 +159,8 @@ sidebarMenu.addEventListener('click', async () => {
 
 // Fetching music and populating the playlist-area section class
 
-const addDirectory = document.querySelector('.fetchDirectory');
-const addMusic = document.querySelector('.fetchMusic');
+const addDirectory = document.querySelector('.fetch-directory');
+const addMusic = document.querySelector('.fetch-music');
 
 function blobToArrayBuffer(blob){
     return new Promise((resolve, reject) => {
@@ -579,3 +581,6 @@ async function addToFavoritePlaylist(id) {
 }
 
 /* For adding to Favorite playlist end */
+
+/* Meme quick */
+

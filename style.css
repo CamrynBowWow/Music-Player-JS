@@ -40,6 +40,8 @@
   --scrollBar-color-thumb-hover: #da77f2;
   --scrollBar-bg-playlist-area: #ffffff;
 
+  --tooltip-background-color: #e599f7;
+
   /* --background-body: linear-gradient(
     89.89deg,
     #62abe0 0.11%,
@@ -127,6 +129,8 @@
   --icon-color: #b4b4b4;
   --aside-color: #1f1f1f;
   --text-color: #b4b4b4;
+
+  --tooltip-background-color: #292929;
 
   --scrollBar-color-background: #292929;
   --scrollBar-color-thumb: #f9f9f98c;
@@ -652,6 +656,42 @@ aside a {
 }
 
 /* Slider styling */
+
+/* Tooltips styling */
+
+#menu-items .tooltip-text-sidebar {
+  visibility: hidden;
+  background: var(--tooltip-background-color);
+  color: var(--text-color);
+  text-align: center;
+  border-radius: 5px;
+  position: absolute;
+  padding: 0.3em;
+  width: 50%;
+  z-index: 1;
+  /* top: -5px; */
+  left: 105%;
+  /* filter: brightness(0.9); */
+  /* filter: drop-shadow(0px 1px 2px black); */
+}
+
+#menu-items .tooltip-text-sidebar::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent var(--tooltip-background-color) transparent
+    transparent;
+}
+
+#menu-items button:hover .tooltip-text-sidebar {
+  visibility: visible;
+}
+
+/* Tooltips styling end */
 
 /* makes buttons glow */
 /*
