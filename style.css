@@ -89,8 +89,8 @@
   --main-div-hover-border: #0187865c;
   /* main div hover effects end */
 
-  --heart-icon-color: #cb3333;
-  --heart-icon-hover-color: #e21a1ae8;
+  --heart-icon-color: #cb3333b3;
+  --heart-icon-hover-color: #ff0000;
 
   --play-music-area-music-icon-button: #ae3ec9;
 
@@ -384,10 +384,11 @@ aside a {
   height: 4rem;
   background: var(--main-tabs-background-color);
   font-weight: 700;
+  position: relative;
 }
 
 .main-tag-tabs button {
-  font-size: 20px;
+  font-size: 1.2rem;
   padding: 0.5em;
   width: 100%;
   display: flex;
@@ -435,7 +436,7 @@ aside a {
   font-size: 2.75rem;
 }
 
-.music__container {
+.music-container {
   height: 94%;
   overflow: hidden;
   overflow-y: scroll;
@@ -669,7 +670,6 @@ aside a {
   padding: 0.3em;
   width: 50%;
   z-index: 1;
-  /* top: -5px; */
   left: 105%;
   /* filter: brightness(0.9); */
   /* filter: drop-shadow(0px 1px 2px black); */
@@ -690,6 +690,39 @@ aside a {
 #menu-items button:hover .tooltip-text-sidebar {
   visibility: visible;
 }
+
+/* .main-tag-tabs span .tooltip-music-area {
+  visibility: hidden;
+  background: var(--tooltip-background-color);
+  color: var(--text-color);
+  text-align: center;
+  border-radius: 5px;
+  position: absolute;
+  padding: 0.3em;
+  height: 60%;
+  width: 8%;
+  z-index: 1;
+  left: 50%;
+  bottom: 110%;
+  font-size: 0.8rem;
+} */
+
+/* .main-tag-tabs button .tooltip-music-area::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent transparent;
+} */
+
+/* .main-tag-tabs span:hover .tooltip-music-area {
+  visibility: visible;
+  font-size: 0.8rem;
+  color: var(--text-color);
+} */
 
 /* Tooltips styling end */
 

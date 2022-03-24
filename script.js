@@ -1,7 +1,7 @@
 
 /* The IndexedDb */
 
-import {createDatabase, set, retrieve, getMusicToPlay, storeMusicIntoPlaylists} from './database.js'
+import {createDatabase, set, retrieve, getMusicToPlay, storeMusicIntoPlaylists, getFromFavoritesColor} from './database.js'
 
 const musicID = localStorage.getItem('musicID');
 
@@ -26,12 +26,14 @@ function loading(){
     loadingDiv.style.display = 'none';
 }
 
-const musicDivDisplays = document.querySelector('.music__container')
+const musicDivDisplays = document.querySelector('.music-container')
 
 async function musicDisplay(){
     let allMusic = await retrieve();
 
     for (let musicValues of allMusic) {
+
+        let inFavoritePlaylist = await getFromFavoritesColor(musicValues['id'])
 
         let nameOfMusic = musicValues['name'].replace(/.(mp3)$/, '');
 
@@ -39,6 +41,7 @@ async function musicDisplay(){
 
         mainTagTabs.setAttribute('class', 'main-tag-tabs');      
         
+        // Creates button to play song
         let buttonPlay = document.createElement('button');
         buttonPlay.setAttribute('id', musicValues['id']);
         buttonPlay.innerText = nameOfMusic;
@@ -46,6 +49,7 @@ async function musicDisplay(){
 
         mainTagTabs.appendChild(buttonPlay);
 
+        // Creates icon to add to playlist
         let spanAddBox = document.createElement('span');
         spanAddBox.setAttribute('id', musicValues['id']);
         spanAddBox.setAttribute('class', 'material-icons md-36');
@@ -54,6 +58,7 @@ async function musicDisplay(){
 
         mainTagTabs.appendChild(spanAddBox);
 
+        // Creates icon to delete music
         let spanDelete = document.createElement('span');
         spanDelete.setAttribute('id', musicValues['id']);
         spanDelete.setAttribute('class', 'material-icons md-36');
@@ -61,13 +66,26 @@ async function musicDisplay(){
 
         mainTagTabs.appendChild(spanDelete);
 
+        // Creates icon to add to Favorite playlist
         let spanFavorite = document.createElement('span');
         spanFavorite.setAttribute('id', musicValues['id']);
         spanFavorite.setAttribute('class', 'material-icons heart');
         spanFavorite.innerText = 'favorite';
+
+        if(inFavoritePlaylist) { // Gives hover color if in favorite playlist
+            spanFavorite.style.color = 'var(--heart-icon-hover-color)';
+        }
+
         spanFavorite.addEventListener('click', addToFavoritePlaylist);
 
-        mainTagTabs.appendChild(spanFavorite);
+        mainTagTabs.appendChild(spanFavorite);     
+        
+        // Creates tooltip for music button play
+        // let spanMusicNameTooltip = document.createElement('span');
+        // spanMusicNameTooltip.setAttribute('class', 'tooltip-music-area');
+        // spanMusicNameTooltip.innerText = 'Play';
+
+        // spanFavorite.appendChild(spanMusicNameTooltip);
         
         musicDivDisplays.appendChild(mainTagTabs);
 
@@ -76,56 +94,7 @@ async function musicDisplay(){
     fetchMusicLocalStorage(musicID);
 }
 
-/* The IndexedDb */
-
-
-// Dark Mode toggle
-let darkMode = localStorage.getItem('darkMode'); 
-const toggleMode = document.querySelector('.toggle-change')
-
-toggleMode.addEventListener('click', toggleChange);
-
-const enabledDarkMode = () => {
-    document.body.classList.add('darkmode');
-    
-    toggleMode.querySelector('span.material-icons').innerText = 'brightness_7';
-    toggleMode.querySelector('span.tooltip-text-sidebar').innerText = 'Enable Light Mode';
-
-    localStorage.setItem('darkMode', 'enabled');
-}
-
-const disableDarkMode = () => {
-    document.body.classList.remove('darkmode');
-
-    toggleMode.querySelector('span.material-icons').innerText = 'nightlight';
-    toggleMode.querySelector('span.tooltip-text-sidebar').innerText = 'Enable Dark Mode';
-
-    localStorage.setItem('darkMode', 'disabled');
-}
-
-// Javascript way of checking for dark mode
-const matched = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-if(darkMode === 'enabled'){
-    enabledDarkMode();
-} else if(matched){
-    enabledDarkMode();
-} else {
-    disableDarkMode();
-}
-
-function toggleChange(){
-    
-    darkMode = localStorage.getItem('darkMode'); 
-    
-    if (darkMode !== 'enabled') {
-        enabledDarkMode();
-    } else {
-        disableDarkMode();
-    }
-}
-
-// End of Dark Mode toggle
+/* The IndexedDb end */
 
 
 // Sidebar function
@@ -578,6 +547,20 @@ async function addToPlaylist(id){
 
 async function addToFavoritePlaylist(id) {
     storeMusicIntoPlaylists("Favorites", id.target.id);
+    let spanHeart = getFromFavoritesColor(id.target.id);
+
+    // Still working on this
+    // console.log(id);
+
+    // let spanFavoriteID = document.querySelector('span' + id.target.id + '.material-icons heart');
+    // //let spanFavoriteID = document.querySelector(id.target.id);
+
+    // if(spanHeart){
+    //     spanFavoriteID.style.color  = "var(--heart-icon-hover-color)";
+    //    // musicDivDisplays.querySelector('.main-tag-tabs span')[0].style.color = "var(--heart-icon-hover-color)";
+    // } else{
+    //     spanFavoriteID.style.color  = "var(--heart-icon-color)";
+    // }
 }
 
 /* For adding to Favorite playlist end */

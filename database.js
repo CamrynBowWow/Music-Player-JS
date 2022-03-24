@@ -78,14 +78,12 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
                 const indexValue = arrayValues.indexOf(valueId);
                 
                 arrayValues.splice(indexValue, 1);
-
+                
             }
-        }
-        
-        console.log(arrayValues)     
+        }   
     }
 
-    return await musicDatabase.put('playlists', arrayValues, playlistName)
+    await musicDatabase.put('playlists', arrayValues, playlistName)
 
 }
 
@@ -96,4 +94,18 @@ async function getKeyName(keyName){
     let arrayOfMusic = await dbOpenCheck.get('playlists', keyName);
 
     return arrayOfMusic; 
+}
+
+export async function getFromFavoritesColor(valueID){
+
+    const dbOpen = await openDB('musicStorage', undefined, {});
+
+    let arrayValueIDs = await dbOpen.get('playlists', 'Favorites');
+
+    if(arrayValueIDs.includes(valueID.toString())){
+        return true;
+    } else {
+        return false;
+    }
+    
 }
