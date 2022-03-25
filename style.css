@@ -543,7 +543,7 @@ aside a {
 .loading h2 {
   margin: 0;
   color: var(--loading-text-color);
-  font-size: 2rem;
+  font-size: 1.7rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   cursor: default;
@@ -554,7 +554,7 @@ aside a {
   vertical-align: middle;
   width: 2em;
   height: 2em;
-  margin: 0.9em;
+  margin: 0.6em;
   background: var(--loading-color-one);
   border-radius: 1em;
   cursor: default;

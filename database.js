@@ -116,6 +116,13 @@ export async function retrieveMusicFromPlaylist(playlistName){
 
     const dbOpen = await openDB('musicStorage', undefined, {});
 
+    let musicToDisplaySend = [];
+
     let playlistValues = await dbOpen.get('playlists', playlistName);
 
+    for(let i = 0; i < playlistValues.length; i++) {
+        musicToDisplaySend.push(await getMusicToPlay(playlistValues[i]));
+    }
+    
+    return musicToDisplaySend;
 }

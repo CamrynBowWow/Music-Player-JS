@@ -16,18 +16,27 @@ window.onload = function() {
 
 }
 
-function loaded(){
-    let peenDiv = document.querySelector('.container-class');
-    let asideDiv = document.querySelector('aside');
-    let loadingDiv = document.querySelector('.loading');
+const peenDiv = document.querySelector('.container-class');
+const asideDiv = document.querySelector('aside');
+const loadingDiv = document.querySelector('.loading');
+const musicContainer = document.querySelector('.music-container');
 
+function loaded(){
+    //loadingDiv.querySelector('h2').innerHTML = 'Loading Music Player';
     asideDiv.style.display = 'flex';
     peenDiv.style.display = 'flex';
     loadingDiv.style.display = 'none';
 }
 
+function loading(){// Still working on it
+    //loadingDiv.querySelector('h2').innerText = 'Loading Music';
+    musicContainer.querySelectorAll('.main-tag-tabs').zIndex = '-1';
+    musicContainer.prependChild(loadingDiv);
+    loadingDiv.style.display = 'block';
+}
+
 const musicDivDisplays = document.querySelector('.music-container')
-const playlistAreaSection = document.querySelector('#playlist-area');
+//const playlistAreaSection = document.querySelector('#playlist-area'); Not in use yet # Look here for next and pre btn Cam
 const headerPlaylistArea = document.querySelector('.header-playlist-area h1');
 
 async function musicDisplay(playlistNameCheck){
@@ -69,13 +78,15 @@ async function musicDisplay(playlistNameCheck){
 
         mainTagTabs.appendChild(spanAddBox);
 
-        // Creates icon to delete music
-        let spanDelete = document.createElement('span');
-        spanDelete.setAttribute('id', musicValues['id']);
-        spanDelete.setAttribute('class', 'material-icons md-36');
-        spanDelete.innerText = 'delete';
-
-        mainTagTabs.appendChild(spanDelete);
+        if(playlistNameCheck == null){
+            // Creates icon to delete music
+            let spanDelete = document.createElement('span');
+            spanDelete.setAttribute('id', musicValues['id']);
+            spanDelete.setAttribute('class', 'material-icons md-36');
+            spanDelete.innerText = 'delete';
+    
+            mainTagTabs.appendChild(spanDelete);
+        }
 
         // Creates icon to add to Favorite playlist
         let spanFavorite = document.createElement('span');
@@ -606,3 +617,15 @@ favoritePlaylistButton.addEventListener('click', async () => {
 })
 
 /* Favorite Playlist display end */
+
+
+/* All Music display */
+
+const allMusicButton = document.querySelector('.all-songs-playlist');
+
+allMusicButton.addEventListener('click', async () => {
+    await removeDivsChildren();
+    await musicDisplay();
+})
+
+/* All Music display end */
