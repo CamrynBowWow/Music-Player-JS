@@ -1,13 +1,22 @@
 import { openDB } from './node_modules/idb/with-async-ittr.js';
+// TODO : Remove unnecessary import
 // import { openDB } from 'https://cdn.jsdelivr.net/npm/idb@7/build/umd-with-async-ittr.js';
 
 let db;
 
 // Creates the database and table for music 
+/**
+ * TODO : Consider getting rid of this funciton altogether and creating
+ * an upgrade function that you can call on every "openDB"
+ * the upgrade function will not be executed unless a new version of the db
+ * has been specified
+ */
 export async function createDatabase() {
+
+    // TODO : Store the version number in a global constant
     db = await openDB('musicStorage', 3, {
         upgrade(db) {
-
+            // TODO : Refer to comment above the createDatabase signature
             const musicDb = db.createObjectStore('musicList', {keyPath: "id", autoIncrement: true,});
 
             musicDb.createIndex('music_name', 'name', {unique: true});
@@ -20,6 +29,7 @@ export async function createDatabase() {
 
 
 // Gets the music from the add filepath or add song to store in the table 'musicList'
+// TODO : What is the function setting?
 export async function set(name, byteLength, type){
 
     return (await db).put('musicList', {name: name, byteLength: byteLength, type: type});
@@ -27,6 +37,7 @@ export async function set(name, byteLength, type){
 }
 
 // Gets the info from database but must open it first to use the features
+// What is this function retrieving?
 export async function retrieve(){
 
     const dbGet = await openDB('musicStorage', undefined, {});
@@ -88,6 +99,7 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
 }
 
 // For storeMusicIntoPlaylists function
+// TODO: What is this function doing? More descriptive
 async function getKeyName(keyName){
 
     const dbOpenCheck = await openDB('musicStorage', undefined, {});
@@ -97,6 +109,9 @@ async function getKeyName(keyName){
     return arrayOfMusic; 
 }
 
+// TODO: Fix the comment and function name both make no sense.
+// the database script should not be interacted with any dom elements
+// its purpose is only for database read and writes
 // Checks to see if music is in Favorite playlist and then makes color of heart the hover color
 export async function getFromFavoritesColor(valueID){
 
@@ -125,6 +140,9 @@ export async function retrieveMusicFromPlaylist(playlistName){
 
     let playlistValues = await dbOpen.get('playlists', playlistName);
 
+    // TODO : Looping through mulitple database calls is a no-no
+    // espicially when using await. Consider changing the getMusicPlay function
+    // to take an array of ids and return an array of objects fetch from the DB
     for(let i = 0; i < playlistValues.length; i++) {
         musicToDisplaySend.push(await getMusicToPlay(playlistValues[i]));
     }

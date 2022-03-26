@@ -9,13 +9,14 @@ window.onload = function() {
     createDatabase();
     musicDisplay();
  
+    // TODO : Please conisder removing this, rather only have a loader on the songs section while it is loading music
     const myTimeout = setTimeout(
         loaded,
         600
     );
 
 }
-
+// TODO : Be more descriptive when naming variables 
 const peenDiv = document.querySelector('.container-class');
 const asideDiv = document.querySelector('aside');
 const loadingDiv = document.querySelector('.loading');
@@ -234,11 +235,15 @@ addMusic.addEventListener('click', async () => {
 
 // Music area icon functions
 
+// TODO : Consider moving all the things related to the currently playing song card to a seperate js file
+
 // For play and pause music
 const playButton = document.querySelector('#play-button');
 const sourceTag = document.querySelector("#audioToPlay");
 const songNameHeader = document.querySelector(".container-play-music-area h1");
 const artistNameHeader = document.querySelector(".container-play-music-area h3");
+
+
 
 let audio;
 
@@ -480,6 +485,8 @@ volumeIcon.addEventListener('click', async () => {
     
 })
 
+// TODO : Muted[D] muisc? 
+
 async function mutedMusic(){
 
     volumeIcon.innerText = 'volume_off';
@@ -548,7 +555,7 @@ function progressTimeUpdate() {
         timeDuration.innerText = `${totalMinEnd}:${totalSecEnd}`; 
     })
 }
-
+// TODO : Please change to camelCase as all your other functions are
 function CurrentTimeClock(currentTime){
 
     let currentMinute = Math.floor(currentTime / 60);
