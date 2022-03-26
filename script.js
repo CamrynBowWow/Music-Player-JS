@@ -52,7 +52,7 @@ async function musicDisplay(playlistNameCheck){
     }
 
     for (let musicValues of allMusic) {
-        
+
         let inFavoritePlaylist = await getFromFavoritesColor(musicValues['id'])
 
         let nameOfMusic = musicValues['name'].replace(/.(mp3)$/, '');
@@ -189,18 +189,25 @@ addDirectory.addEventListener('click', async () => {
     const peen = await window.showDirectoryPicker();
 
     const matchFileSpecs = ".(mp3)$";
+    let countMp3 = 0;
 
     for await (const entry of peen.values()) {
 
         if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
-
+            countMp3++;
             await makeBlobPutIntoDb(entry);
 
         }
     }
     
-    alert("Music Directory has been added.")
-    window.location.reload();
+    // alert("Music Directory has been added.")
+    //alert(countMp3 === 0 ? "No music file found." : "Music Directory has been added")
+    if(countMp3 === 0){
+        alert("No music file found.");
+    } else {
+        alert("Music Directory has been added.")
+        window.location.reload();
+    }
 })
 
 // Add music function
@@ -352,15 +359,26 @@ async function fetchMusicLocalStorage(id){
 
     let musicToPlay = await getMusicToPlay(musicIdentifier);   
     
-    let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
-    const url = URL.createObjectURL(musicBlob);
+    if(musicToPlay != null){
+        let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
+        const url = URL.createObjectURL(musicBlob);
 
-    sourceTag.src =  "data:audio/mpeg;base64," + url; // Used for the createObjectURL to store audio to play
-    sourceTag.setAttribute('type', musicToPlay.type);
+        sourceTag.src =  "data:audio/mpeg;base64," + url; // Used for the createObjectURL to store audio to play
+        sourceTag.setAttribute('type', musicToPlay.type);
 
-    await checkName(musicToPlay.name);
+        await checkName(musicToPlay.name);
 
-    audio = new Audio(url);
+        audio = new Audio(url);
+    }
+    // let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
+    // const url = URL.createObjectURL(musicBlob);
+
+    // sourceTag.src =  "data:audio/mpeg;base64," + url; // Used for the createObjectURL to store audio to play
+    // sourceTag.setAttribute('type', musicToPlay.type);
+
+    // await checkName(musicToPlay.name);
+
+    // audio = new Audio(url);
 
 }
 
