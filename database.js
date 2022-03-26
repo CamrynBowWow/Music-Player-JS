@@ -103,12 +103,19 @@ export async function getFromFavoritesColor(valueID){
     const dbOpen = await openDB('musicStorage', undefined, {});
 
     let arrayValueIDs = await dbOpen.get('playlists', 'Favorites');
+    console.log(arrayValueIDs)
+    console.log(valueID)
 
-    if(arrayValueIDs.includes(valueID.toString())){
+    //if(arrayValueIDs != undefined){
+    if(arrayValueIDs != null && arrayValueIDs.includes(valueID.toString())){
         return true;
     } else {
         return false;
     }
+   // } else {
+    //    return false;
+   // }
+
     
 }
 

@@ -52,7 +52,7 @@ async function musicDisplay(playlistNameCheck){
     }
 
     for (let musicValues of allMusic) {
-
+        
         let inFavoritePlaylist = await getFromFavoritesColor(musicValues['id'])
 
         let nameOfMusic = musicValues['name'].replace(/.(mp3)$/, '');
