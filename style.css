@@ -50,6 +50,7 @@
   --background-body: #f8f0fc;
   --icon-color: #ffffff;
   --aside-color: #da77f2;
+  --aside-a-color: #d46ced;
   --text-color: #ffffff;
   /* --text-color: #121212; */
   --background-secondary-color: #ffffff; /* for main tags background */
@@ -94,11 +95,14 @@
 
   --play-music-area-music-icon-button: #ae3ec9;
 
-  --default-transition-duration: 0.5s ease-in-out; /* going with this for now */
+  --default-transition-duration: 0.5s linear; /* going with this for now */
   /* --default-transition-duration: 0.8s ease-in-out; */ /* which one would be bette? */
-  --box-shadow-color: rgb(0 0 0 / 51%) 1.95px 1.95px 2.6px;
-  --box-shadow-main-tags: rgb(0 0 0 / 25%) 4px 4px 6px,
-    rgb(0 0 0 / 25%) -3px -2px 6px;
+  /* --box-shadow-color: rgb(0 0 0 / 51%) 1.95px 1.95px 2.6px; */
+  --box-shadow-color: rgb(0 0 0 / 10%) 0px 0px 33px;
+  /* --box-shadow-main-tags: rgb(0 0 0 / 25%) 4px 4px 6px,
+    rgb(0 0 0 / 25%) -3px -2px 6px; */
+  --box-shadow-main-tags: rgb(0 0 0 / 10%) 0px 0px 33px,
+    rgb(0 0 0 / 10%) 0px 0px 0px;
 
   /* light mode color for loading spans */
 
@@ -128,6 +132,7 @@
   --background-body: #292929;
   --icon-color: #b4b4b4;
   --aside-color: #1f1f1f;
+  --aside-a-color: #1f1f1f;
   --text-color: #b4b4b4;
 
   --tooltip-background-color: #292929;
@@ -284,11 +289,11 @@ aside a {
   width: 3.5rem;
   height: 3rem;
   left: 12rem;
-  background: var(--aside-color);
+  background: var(--aside-a-color);
   box-shadow: var(--box-shadow-color);
   position: relative;
   padding: 0 0.5rem;
-  transition: width var(--default-transition-duration);
+  /* transition: width var(--default-transition-duration); */
 }
 
 #menu-items {

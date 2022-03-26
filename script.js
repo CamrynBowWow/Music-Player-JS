@@ -141,6 +141,7 @@ sidebarMenu.addEventListener('click', async () => {
         headerSize.style.transform = 'translateX(0rem)';
         sideBarA.style.boxShadow = 'var(--box-shadow-color)';
         sideBarA.style.width = "3rem";
+        sideBarA.style.left = "9rem";
         menuDisplay.classList.remove('hidden');
         menuDisplay.classList.add('show');
     
@@ -148,6 +149,7 @@ sidebarMenu.addEventListener('click', async () => {
         headerSize.style.transform = 'translateX(-12rem)';
         menuDisplay.classList.remove('show');
         menuDisplay.classList.add('hidden');
+        sideBarA.style.left = "12rem";
         sideBarA.style.width = "3.5rem";
         sideBarA.style.boxShadow = 'var(--box-shadow-color)';
         
