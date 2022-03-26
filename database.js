@@ -98,6 +98,10 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
 
     await musicDatabase.put('playlists', arrayValues, playlistName)
 
+    // This checks to see if music is being added Favorites playlist
+    if(playlistName === "Favorites"){
+        return getFavoritesIDs(valueId);
+    }
 }
 
 // For storeMusicIntoPlaylists function

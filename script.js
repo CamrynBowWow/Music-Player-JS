@@ -600,22 +600,17 @@ async function addToPlaylist(id){
 
 async function addToFavoritePlaylist(id) {
     let valueId = id.target.id.split("_");
+    
+    // Will return a true or false depending if music is in Favorite playlist
+    let spanHeart = await storeMusicIntoPlaylists("Favorites", valueId[0]);
+    
+    let spanFavoriteID = document.querySelector("[id='" + id.target.id + "']")
 
-    storeMusicIntoPlaylists("Favorites", valueId[0]);
-    //let spanHeart = getFavoritesIDs(id.target.id);
-
-    // Still working on this
-    // console.log(id);
-
-    // let spanFavoriteID = document.querySelector('span' + id.target.id + '.material-icons heart');
-    // //let spanFavoriteID = document.querySelector(id.target.id);
-
-    // if(spanHeart){
-    //     spanFavoriteID.style.color  = "var(--heart-icon-hover-color)";
-    //    // musicDivDisplays.querySelector('.main-tag-tabs span')[0].style.color = "var(--heart-icon-hover-color)";
-    // } else{
-    //     spanFavoriteID.style.color  = "var(--heart-icon-color)";
-    // }
+    if(spanHeart){
+        spanFavoriteID.style.color  = "var(--heart-icon-hover-color)";
+    } else{
+        spanFavoriteID.style.color  = "var(--heart-icon-color)";
+    }
 }
 
 /* For adding to Favorite playlist end */
