@@ -174,10 +174,10 @@
 
   --play-music-area-music-icon-button: #b4b4b4;
 
-  --box-shadow-color: rgb(0 0 0 / 1) 1.95px 1.95px 2.6px;
+  --box-shadow-color: rgb(0 0 0 / 10%) 0px 0px 33px;
   /* --box-shadow-main-tags: rgb(0 0 0 / 62%) 2px 2px 2px,
     rgb(0 0 0 / 62%) -1.5px -1.5px 2px; */
-  --box-shadow-main-tags: rgba(0, 0, 0, 0);
+  --box-shadow-main-tags: rgba(0, 0, 0, 10%);
 
   /* light mode color for loading spans */
 

@@ -1,7 +1,7 @@
 
 /* The IndexedDb */
 
-import {createDatabase, set, retrieve, getMusicToPlay, storeMusicIntoPlaylists, getFromFavoritesColor, retrieveMusicFromPlaylist} from './database.js'
+import {createDatabase, setMusicValue, retrieve, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js'
 
 const musicID = localStorage.getItem('musicID');
 
@@ -14,8 +14,10 @@ window.onload = function() {
         loaded,
         600
     );
-
+        
 }
+
+
 // TODO : Be more descriptive when naming variables 
 const peenDiv = document.querySelector('.container-class');
 const asideDiv = document.querySelector('aside');
@@ -54,7 +56,7 @@ async function musicDisplay(playlistNameCheck){
 
     for (let musicValues of allMusic) {
 
-        let inFavoritePlaylist = await getFromFavoritesColor(musicValues['id'])
+        let inFavoritePlaylist = await getFavoritesIDs(musicValues['id'])
 
         let nameOfMusic = musicValues['name'].replace(/.(mp3)$/, '');
 
@@ -72,7 +74,7 @@ async function musicDisplay(playlistNameCheck){
 
         // Creates icon to add to playlist
         let spanAddBox = document.createElement('span');
-        spanAddBox.setAttribute('id', musicValues['id']);
+        spanAddBox.setAttribute('id', musicValues['id'] + "_add");
         spanAddBox.setAttribute('class', 'material-icons md-36');
         spanAddBox.addEventListener('click', addToPlaylist);
         spanAddBox.innerText = 'add_box';
@@ -82,7 +84,7 @@ async function musicDisplay(playlistNameCheck){
         if(playlistNameCheck == null){
             // Creates icon to delete music
             let spanDelete = document.createElement('span');
-            spanDelete.setAttribute('id', musicValues['id']);
+            spanDelete.setAttribute('id', musicValues['id' + "_delete"]);
             spanDelete.setAttribute('class', 'material-icons md-36');
             spanDelete.innerText = 'delete';
     
@@ -91,7 +93,7 @@ async function musicDisplay(playlistNameCheck){
 
         // Creates icon to add to Favorite playlist
         let spanFavorite = document.createElement('span');
-        spanFavorite.setAttribute('id', musicValues['id']);
+        spanFavorite.setAttribute('id', musicValues['id'] + "_heart");
         spanFavorite.setAttribute('class', 'material-icons heart');
         spanFavorite.innerText = 'favorite';
 
@@ -140,7 +142,7 @@ sidebarMenu.addEventListener('click', async () => {
     if(menuDisplay.className === 'hidden' ){    
         
         headerSize.style.transform = 'translateX(0rem)';
-        sideBarA.style.boxShadow = 'var(--box-shadow-color)';
+        //sideBarA.style.boxShadow = 'var(--box-shadow-color)';
         sideBarA.style.width = "3rem";
         sideBarA.style.left = "9rem";
         menuDisplay.classList.remove('hidden');
@@ -152,7 +154,7 @@ sidebarMenu.addEventListener('click', async () => {
         menuDisplay.classList.add('hidden');
         sideBarA.style.left = "12rem";
         sideBarA.style.width = "3.5rem";
-        sideBarA.style.boxShadow = 'var(--box-shadow-color)';
+        //sideBarA.style.boxShadow = 'var(--box-shadow-color)';
         
     }
 })
@@ -183,7 +185,7 @@ async function makeBlobPutIntoDb(entry){
 
     let binary = new Uint8Array(byteSize); // Gets the bytes to use for the audio
     
-    await set(fileData.name, binary, fileData.type)
+    await setMusicValue(fileData.name, binary, fileData.type)
 
 }
 
@@ -291,7 +293,7 @@ playButton.addEventListener('click', () => {
 const repeatButton = document.querySelector('#repeat-song');
 
 function repeatOff(){
-    repeatButton.classList.add('repeat_off');
+    repeatButton.classList.add('repeat-off');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
     repeatButton.style.opacity = "0.5";
 }
@@ -304,7 +306,7 @@ function repeatSong(){
 
 function repeatPlaylist(){
     repeatButton.classList.add('repeat_playlist');
-    repeatButton.classList.remove('repeat_off');
+    repeatButton.classList.remove('repeat-off');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
     repeatButton.style.opacity = "1";
 }
@@ -312,7 +314,7 @@ function repeatPlaylist(){
 // For repeating the music that is playing or repeat whole playlist
 repeatButton.addEventListener('click', () => {
 
-    if(repeatButton.classList.contains('repeat_off')){
+    if(repeatButton.classList.contains('repeat-off')){
         repeatPlaylist();
     } else if(repeatButton.classList.contains('repeat_playlist')){
         repeatSong();
@@ -350,7 +352,7 @@ shuffleButton.addEventListener('click', () => {
 })
 
 // Music area icon functions end
-
+// TODO I must work on this function because plays music when goes to another playlist
 async function fetchMusicLocalStorage(id){
 
     let musicIdentifier;
@@ -364,8 +366,8 @@ async function fetchMusicLocalStorage(id){
 
     localStorage.setItem('musicID', musicIdentifier);
 
-    let musicToPlay = await getMusicToPlay(musicIdentifier);   
-    
+    let musicToPlay = await getMusicToPlay([musicIdentifier]);   
+
     if(musicToPlay != null){
         let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
         const url = URL.createObjectURL(musicBlob);
@@ -377,16 +379,6 @@ async function fetchMusicLocalStorage(id){
 
         audio = new Audio(url);
     }
-    // let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
-    // const url = URL.createObjectURL(musicBlob);
-
-    // sourceTag.src =  "data:audio/mpeg;base64," + url; // Used for the createObjectURL to store audio to play
-    // sourceTag.setAttribute('type', musicToPlay.type);
-
-    // await checkName(musicToPlay.name);
-
-    // audio = new Audio(url);
-
 }
 
 // Music selected to play
@@ -395,6 +387,7 @@ async function musicFetched(id){
 
     if(audio != null){
         audio.pause();
+        console.log('t');
     }
     
     let musicToPlay = id.target.id;
@@ -475,7 +468,7 @@ volumeIcon.addEventListener('click', async () => {
 
     if(volumeControl.value > 0){
         
-        mutedMusic(); // mute music
+        muteMusic(); // mute music
 
     } else {
 
@@ -485,9 +478,7 @@ volumeIcon.addEventListener('click', async () => {
     
 })
 
-// TODO : Muted[D] muisc? 
-
-async function mutedMusic(){
+async function muteMusic(){
 
     volumeIcon.innerText = 'volume_off';
     volumeControl.value = 0;
@@ -533,7 +524,7 @@ function progressTimeUpdate() {
         rangeDisplaySlider.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${Math.round(progressBar)}%, var(--slider-background-color) 0%)`;
 
         
-        CurrentTimeClock(currentTime);
+        currentTimeClock(currentTime);
 
         if(currentTime === duration){
             pauseSong();
@@ -556,7 +547,7 @@ function progressTimeUpdate() {
     })
 }
 // TODO : Please change to camelCase as all your other functions are
-function CurrentTimeClock(currentTime){
+function currentTimeClock(currentTime){
 
     let currentMinute = Math.floor(currentTime / 60);
     let currentSecond = Math.floor(currentTime % 60);
@@ -608,8 +599,10 @@ async function addToPlaylist(id){
 /* For adding to Favorite playlist */
 
 async function addToFavoritePlaylist(id) {
-    storeMusicIntoPlaylists("Favorites", id.target.id);
-    let spanHeart = getFromFavoritesColor(id.target.id);
+    let valueId = id.target.id.split("_");
+
+    storeMusicIntoPlaylists("Favorites", valueId[0]);
+    //let spanHeart = getFavoritesIDs(id.target.id);
 
     // Still working on this
     // console.log(id);

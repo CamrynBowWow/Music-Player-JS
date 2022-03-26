@@ -1,6 +1,4 @@
 import { openDB } from './node_modules/idb/with-async-ittr.js';
-// TODO : Remove unnecessary import
-// import { openDB } from 'https://cdn.jsdelivr.net/npm/idb@7/build/umd-with-async-ittr.js';
 
 let db;
 
@@ -29,8 +27,7 @@ export async function createDatabase() {
 
 
 // Gets the music from the add filepath or add song to store in the table 'musicList'
-// TODO : What is the function setting?
-export async function set(name, byteLength, type){
+export async function setMusicValue(name, byteLength, type){
 
     return (await db).put('musicList', {name: name, byteLength: byteLength, type: type});
 
@@ -57,7 +54,14 @@ export async function retrieve(){
 // Will get one song from the database using the ID of the song selected
 export async function getMusicToPlay(value){
 
-    const musicInfo = await db.get('musicList', parseInt(value));
+    let musicInfo = [];
+
+    if(value.length > 1){
+        musicInfo = await db.getAll('musicList');
+    } else {
+        musicInfo = await db.get('musicList', parseInt(value[0]));
+    }
+
 
     return musicInfo;
 }
@@ -70,14 +74,12 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
     let arrayValues = [];
 
     let valueArray = await getKeyName(playlistName); // checks to see if there is no playlist with specified name in the database
+   
+    arrayValues.push(valueId);
     
+    // TODO more simple #map
     // If no name then push to array but if there is an array already will add to it
-    if(valueArray == null){
-        arrayValues.push(valueId);
-    } else {
-
-        arrayValues.push(valueId);
-
+    if(valueArray != null){
         for(let i = 0; i < valueArray.length; i++){
             // Checks to see if value of Music ID is already in database and then won't add it again
             if(valueArray[i] != valueId){
@@ -92,7 +94,7 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
                 
             }
         }   
-    }
+    } 
 
     await musicDatabase.put('playlists', arrayValues, playlistName)
 
@@ -109,26 +111,18 @@ async function getKeyName(keyName){
     return arrayOfMusic; 
 }
 
-// TODO: Fix the comment and function name both make no sense.
-// the database script should not be interacted with any dom elements
-// its purpose is only for database read and writes
-// Checks to see if music is in Favorite playlist and then makes color of heart the hover color
-export async function getFromFavoritesColor(valueID){
+// Checks to see if music is in Favorite playlist 
+export async function getFavoritesIDs(valueID){
 
     const dbOpen = await openDB('musicStorage', undefined, {});
 
     let arrayValueIDs = await dbOpen.get('playlists', 'Favorites');
 
-    //if(arrayValueIDs != undefined){
     if(arrayValueIDs != null && arrayValueIDs.includes(valueID.toString())){
         return true;
     } else {
         return false;
     }
-   // } else {
-    //    return false;
-   // }
-
     
 }
 
@@ -138,13 +132,21 @@ export async function retrieveMusicFromPlaylist(playlistName){
 
     let musicToDisplaySend = [];
 
-    let playlistValues = await dbOpen.get('playlists', playlistName);
+    let playlistValues  = await dbOpen.get('playlists', playlistName);
 
     // TODO : Looping through mulitple database calls is a no-no
     // espicially when using await. Consider changing the getMusicPlay function
     // to take an array of ids and return an array of objects fetch from the DB
-    for(let i = 0; i < playlistValues.length; i++) {
-        musicToDisplaySend.push(await getMusicToPlay(playlistValues[i]));
+
+    let allMusicFetched = await getMusicToPlay(playlistValues);
+   
+    for(let i = 0; i < playlistValues.length; i++){
+        
+        for(let j = 0; j < allMusicFetched.length; j++){
+            if(allMusicFetched[j].id == playlistValues[i]){
+                musicToDisplaySend.push(allMusicFetched[j])
+            }
+        }
     }
     
     return musicToDisplaySend;
