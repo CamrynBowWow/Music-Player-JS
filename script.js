@@ -1,7 +1,7 @@
 
 /* The IndexedDb */
 
-import {createDatabase, setMusicValue, retrieve, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js'
+import {createDatabase, setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js'
 
 let musicID;
 
@@ -19,7 +19,7 @@ window.onload = function() {
 
 
 // TODO : Be more descriptive when naming variables
-const peenDiv = document.querySelector('.container-class');
+const containerClassDiv = document.querySelector('.container-class');
 const asideDiv = document.querySelector('aside');
 const loadingDiv = document.querySelector('.loading');
 const musicContainer = document.querySelector('.music-container');
@@ -27,7 +27,7 @@ const musicContainer = document.querySelector('.music-container');
 function loaded(){
     //loadingDiv.querySelector('h2').innerHTML = 'Loading Music Player';
     asideDiv.style.display = 'flex';
-    peenDiv.style.display = 'flex';
+    containerClassDiv.style.display = 'flex';
     loadingDiv.style.display = 'none';
 }
 
@@ -51,10 +51,10 @@ async function musicDisplay(playlistNameCheck){
         headerPlaylistArea.innerText = playlistNameCheck;
     } else {
         headerPlaylistArea.innerText = "All Music";
-        allMusic = await retrieve();
+        allMusic = await retrieveAllMusicInfo();
     }
-
-    if(allMusic != null && allMusic.length-1){
+    
+    if(allMusic != null && !(allMusic[0].length -1)){
         await createDivsToDisplay(allMusic, playlistNameCheck);
     }
 
@@ -88,7 +88,7 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
 
         mainTagTabs.appendChild(spanAddBox);
 
-        if(playlistNameCheck == null){
+        if(playlistNameCheck != "Favorites"){
             // Creates icon to delete music
             let spanDelete = document.createElement('span');
             spanDelete.setAttribute('id', musicValues['id' + "_delete"]);

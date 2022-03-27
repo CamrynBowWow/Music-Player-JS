@@ -1,7 +1,5 @@
 import { openDB } from './node_modules/idb/with-async-ittr.js';
 
-let db;
-
 // Creates the database and table for music 
 /**
  * TODO : Consider getting rid of this funciton altogether and creating
@@ -9,6 +7,9 @@ let db;
  * the upgrade function will not be executed unless a new version of the db
  * has been specified
  */
+
+let db;
+
 export async function createDatabase() {
 
     // TODO : Store the version number in a global constant
@@ -34,8 +35,7 @@ export async function setMusicValue(name, byteLength, type){
 }
 
 // Gets the info from database but must open it first to use the features
-// What is this function retrieving?
-export async function retrieve(){
+export async function retrieveAllMusicInfo(){
 
     const dbGet = await openDB('musicStorage', undefined, {});
     
@@ -74,7 +74,7 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
 
     let arrayValues = [];
 
-    let valueArray = await getKeyName(playlistName); // checks to see if there is no playlist with specified name in the database
+    let valueArray = await checksForPlaylist(playlistName); // checks to see if there is no playlist with specified name in the database
    
     arrayValues.push(valueId);
     
@@ -106,8 +106,7 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
 }
 
 // For storeMusicIntoPlaylists function
-// TODO: What is this function doing? More descriptive
-async function getKeyName(keyName){
+async function checksForPlaylist(keyName){
 
     const dbOpenCheck = await openDB('musicStorage', undefined, {});
 
@@ -156,7 +155,6 @@ export async function retrieveMusicFromPlaylist(playlistName){
             }
         }
     }
-
 
     return musicToDisplaySend;
 }
