@@ -8,17 +8,17 @@ let musicID;
 window.onload = function() {
     createDatabase();
     musicDisplay();
-   
+
     // TODO : Please conisder removing this, rather only have a loader on the songs section while it is loading music
     const myTimeout = setTimeout(
         loaded,
         600
     );
-        
+
 }
 
 
-// TODO : Be more descriptive when naming variables 
+// TODO : Be more descriptive when naming variables
 const peenDiv = document.querySelector('.container-class');
 const asideDiv = document.querySelector('aside');
 const loadingDiv = document.querySelector('.loading');
@@ -45,19 +45,19 @@ const headerPlaylistArea = document.querySelector('.header-playlist-area h1');
 async function musicDisplay(playlistNameCheck){
     musicID = localStorage.getItem('musicID');
     let allMusic;
-    
+
     if(playlistNameCheck != null && playlistNameCheck != "All Music"){
         allMusic = await retrieveMusicFromPlaylist(playlistNameCheck);
-        headerPlaylistArea.innerText = playlistNameCheck;      
+        headerPlaylistArea.innerText = playlistNameCheck;
     } else {
         headerPlaylistArea.innerText = "All Music";
         allMusic = await retrieve();
     }
-    console.log(allMusic);
-    if(allMusic != null && !allMusic.length){
+
+    if(allMusic != null && allMusic.length-1){
         await createDivsToDisplay(allMusic, playlistNameCheck);
     }
-   
+
 }
 
 async function createDivsToDisplay(allMusic, playlistNameCheck){
@@ -69,8 +69,8 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
 
         let mainTagTabs = document.createElement('div');
 
-        mainTagTabs.setAttribute('class', 'main-tag-tabs');      
-        
+        mainTagTabs.setAttribute('class', 'main-tag-tabs');
+
         // Creates button to play song
         let buttonPlay = document.createElement('button');
         buttonPlay.setAttribute('id', musicValues['id']);
@@ -94,7 +94,7 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
             spanDelete.setAttribute('id', musicValues['id' + "_delete"]);
             spanDelete.setAttribute('class', 'material-icons md-36');
             spanDelete.innerText = 'delete';
-    
+
             mainTagTabs.appendChild(spanDelete);
         }
 
@@ -110,19 +110,19 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
 
         spanFavorite.addEventListener('click', addToFavoritePlaylist);
 
-        mainTagTabs.appendChild(spanFavorite);     
-        
+        mainTagTabs.appendChild(spanFavorite);
+
         // Creates tooltip for music button play
         // let spanMusicNameTooltip = document.createElement('span');
         // spanMusicNameTooltip.setAttribute('class', 'tooltip-music-area');
         // spanMusicNameTooltip.innerText = 'Play';
 
         // spanFavorite.appendChild(spanMusicNameTooltip);
-        
+
         musicDivDisplays.appendChild(mainTagTabs);
 
     }
-    
+
     if(playlistNameCheck == null){ // Needs work still
         await fetchMusicLocalStorage(musicID);
     }
@@ -148,15 +148,15 @@ const sidebarMenu = document.querySelector('aside a span');
 
 sidebarMenu.addEventListener('click', async () => {
 
-    if(menuDisplay.className === 'hidden' ){    
-        
+    if(menuDisplay.className === 'hidden' ){
+
         headerSize.style.transform = 'translateX(0rem)';
         //sideBarA.style.boxShadow = 'var(--box-shadow-color)';
         sideBarA.style.width = "3rem";
         sideBarA.style.left = "9rem";
         menuDisplay.classList.remove('hidden');
         menuDisplay.classList.add('show');
-    
+
     } else {
         headerSize.style.transform = 'translateX(-12rem)';
         menuDisplay.classList.remove('show');
@@ -164,7 +164,7 @@ sidebarMenu.addEventListener('click', async () => {
         sideBarA.style.left = "12rem";
         sideBarA.style.width = "3.5rem";
         //sideBarA.style.boxShadow = 'var(--box-shadow-color)';
-        
+
     }
 })
 
@@ -193,12 +193,12 @@ async function makeBlobPutIntoDb(entry){
     let byteSize = await blobToArrayBuffer(fileData); // Turns into blob
 
     let binary = new Uint8Array(byteSize); // Gets the bytes to use for the audio
-    
+
     await setMusicValue(fileData.name, binary, fileData.type)
 
 }
 
-addDirectory.addEventListener('click', async () => { 
+addDirectory.addEventListener('click', async () => {
 
     const peen = await window.showDirectoryPicker();
 
@@ -213,7 +213,7 @@ addDirectory.addEventListener('click', async () => {
 
         }
     }
-    
+
     // alert("Music Directory has been added.")
     //alert(countMp3 === 0 ? "No music file found." : "Music Directory has been added")
     if(countMp3 === 0){
@@ -230,16 +230,16 @@ addMusic.addEventListener('click', async () => {
     const [filehandle] = await window.showOpenFilePicker();
 
     const matchFileSpecs = ".(mp3)$";
-    
+
     if (filehandle.kind === 'file' && filehandle.name.match(matchFileSpecs)){
         await makeBlobPutIntoDb(filehandle);
-        
+
         alert("Music has been added.")
         window.location.reload();
     } else {
         alert("Please select a music file only.");
     }
-    
+
 })
 
 // Fetching music and populating the playlist-area section class end
@@ -273,8 +273,8 @@ async function playSong(value) {
     if(value === undefined || value === ''){
         alert('No music has been selected to play.')
         return;
-    }  
-    
+    }
+
     unmuteMusic();
 
     audio.play();
@@ -333,7 +333,7 @@ repeatButton.addEventListener('click', () => {
 
 })
 
-// For shuffle music 
+// For shuffle music
 const shuffleButton = document.querySelector('#shuffle');
 
 function shuffleSong(){
@@ -343,7 +343,7 @@ function shuffleSong(){
 }
 
 function shuffleOff(){
-    shuffleButton.classList.add('shuffle_off'); 
+    shuffleButton.classList.add('shuffle_off');
 
     shuffleButton.querySelector('span.material-icons').innerText = 'sync_alt';
 }
@@ -365,7 +365,7 @@ shuffleButton.addEventListener('click', () => {
 async function fetchMusicLocalStorage(id){
 
     let musicIdentifier = 0;
-   
+
     if(id == null || id === "null"){
         musicIdentifier = 1;
     } else {
@@ -374,7 +374,7 @@ async function fetchMusicLocalStorage(id){
 
     localStorage.setItem('musicID', musicIdentifier);
 
-    let musicToPlay = await getMusicToPlay([musicIdentifier]);   
+    let musicToPlay = await getMusicToPlay([musicIdentifier]);
 
     if(musicToPlay != null){
         let musicBlob = new Blob([musicToPlay.byteLength], {type: 'audio/mpeg'}) // Turn bytes into blob
@@ -391,14 +391,14 @@ async function fetchMusicLocalStorage(id){
 
 // Music selected to play
 
-async function musicFetched(id){ 
+async function musicFetched(id){
 
     if(audio != null){
         audio.pause();
     }
-    
+
     let musicToPlay = id.target.id;
-    
+
     await fetchMusicLocalStorage(musicToPlay);
 
     playSong(musicToPlay);
@@ -455,7 +455,7 @@ async function volumeCheck(volumeLevel){
 
         volumeIcon.innerText = 'volume_off';
         previousVolume = volumeLevel;
-        
+
     } else if(volumeLevel < 50){
 
         volumeIcon.innerText = 'volume_down';
@@ -474,15 +474,15 @@ async function volumeCheck(volumeLevel){
 volumeIcon.addEventListener('click', async () => {
 
     if(volumeControl.value > 0){
-        
+
         muteMusic(); // mute music
 
     } else {
 
         unmuteMusic(); // unmute music
-        
-    } 
-    
+
+    }
+
 })
 
 async function muteMusic(){
@@ -494,7 +494,7 @@ async function muteMusic(){
     if(audio != undefined || audio != null) {
         audio.muted = true; // mute method
     }
-    
+
 }
 
 async function unmuteMusic(){
@@ -530,7 +530,7 @@ function progressTimeUpdate() {
 
         rangeDisplaySlider.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${Math.round(progressBar)}%, var(--slider-background-color) 0%)`;
 
-        
+
         currentTimeClock(currentTime);
 
         if(currentTime === duration){
@@ -540,7 +540,7 @@ function progressTimeUpdate() {
     })
 
     // Displays the song duration
-    audio.addEventListener("loadeddata", () => { 
+    audio.addEventListener("loadeddata", () => {
         let durationEnd = audio.duration;
 
         let totalMinEnd = Math.floor(durationEnd / 60);
@@ -550,7 +550,7 @@ function progressTimeUpdate() {
             totalSecEnd = `0${totalSecEnd}`;
         }
 
-        timeDuration.innerText = `${totalMinEnd}:${totalSecEnd}`; 
+        timeDuration.innerText = `${totalMinEnd}:${totalSecEnd}`;
     })
 }
 // TODO : Please change to camelCase as all your other functions are
@@ -569,13 +569,13 @@ function currentTimeClock(currentTime){
 // For the progressBar to update song when clicked
 
 rangeDisplaySlider.addEventListener('click', (value) => {
-    
+
 
     let widthOfSlider = rangeDisplaySlider.clientWidth;
     let valueOffset = value.offsetX;
 
     let duration = audio.duration;
-    
+
     audio.currentTime = (valueOffset / widthOfSlider ) * duration;
 
 })
@@ -607,10 +607,10 @@ async function addToPlaylist(id){
 
 async function addToFavoritePlaylist(id) {
     let valueId = id.target.id.split("_");
-    
+
     // Will return a true or false depending if music is in Favorite playlist
     let spanHeart = await storeMusicIntoPlaylists("Favorites", valueId[0]);
-    
+
     let spanFavoriteID = document.querySelector("[id='" + id.target.id + "']")
 
     if(spanHeart){
