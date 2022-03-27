@@ -3,12 +3,12 @@
 
 import {createDatabase, setMusicValue, retrieve, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js'
 
-const musicID = localStorage.getItem('musicID');
+let musicID;
 
 window.onload = function() {
     createDatabase();
     musicDisplay();
- 
+   
     // TODO : Please conisder removing this, rather only have a loader on the songs section while it is loading music
     const myTimeout = setTimeout(
         loaded,
@@ -43,10 +43,10 @@ const musicDivDisplays = document.querySelector('.music-container')
 const headerPlaylistArea = document.querySelector('.header-playlist-area h1');
 
 async function musicDisplay(playlistNameCheck){
-
+    musicID = localStorage.getItem('musicID');
     let allMusic;
-
-    if(playlistNameCheck != null){
+    
+    if(playlistNameCheck != null && playlistNameCheck != "All Music"){
         allMusic = await retrieveMusicFromPlaylist(playlistNameCheck);
         headerPlaylistArea.innerText = playlistNameCheck;      
     } else {
@@ -115,8 +115,10 @@ async function musicDisplay(playlistNameCheck){
         musicDivDisplays.appendChild(mainTagTabs);
 
     }
-
-    fetchMusicLocalStorage(musicID);
+    
+    if(playlistNameCheck == null){ // Needs work still
+        await fetchMusicLocalStorage(musicID);
+    }
 }
 
 /* The IndexedDb end */
@@ -265,7 +267,7 @@ async function playSong(value) {
         alert('No music has been selected to play.')
         return;
     }  
-
+    
     unmuteMusic();
 
     audio.play();
@@ -355,14 +357,13 @@ shuffleButton.addEventListener('click', () => {
 // TODO I must work on this function because plays music when goes to another playlist
 async function fetchMusicLocalStorage(id){
 
-    let musicIdentifier;
-
+    let musicIdentifier = 0;
+   
     if(id == null || id === "null"){
         musicIdentifier = 1;
     } else {
         musicIdentifier = id;
     }
-    
 
     localStorage.setItem('musicID', musicIdentifier);
 
@@ -387,11 +388,10 @@ async function musicFetched(id){
 
     if(audio != null){
         audio.pause();
-        console.log('t');
     }
     
     let musicToPlay = id.target.id;
-
+    
     await fetchMusicLocalStorage(musicToPlay);
 
     playSong(musicToPlay);
@@ -621,13 +621,13 @@ const favoritePlaylistButton = document.querySelector('.favourite-playlist');
 
 favoritePlaylistButton.addEventListener('click', async () => {
     //playlistAreaSection.setAttribute('class', 'favorite');
-    let valueToBeChecked = "Favorites";
+    // let valueToBeChecked = "Favorites";
 
-    headerPlaylistArea.innerText = "Favorites";
+    // headerPlaylistArea.innerText = "Favorites";
 
     await removeDivsChildren();
 
-    await musicDisplay(valueToBeChecked);
+    await musicDisplay('Favorites');
 
 })
 
@@ -640,7 +640,7 @@ const allMusicButton = document.querySelector('.all-songs-playlist');
 
 allMusicButton.addEventListener('click', async () => {
     await removeDivsChildren();
-    await musicDisplay();
+    await musicDisplay('All Music');
 })
 
 /* All Music display end */
