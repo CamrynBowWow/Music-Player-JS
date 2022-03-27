@@ -95,7 +95,7 @@
 
   --play-music-area-music-icon-button: #ae3ec9;
 
-  --default-transition-duration: 0.5s linear; /* going with this for now */
+  --default-transition-duration: 0.5s ease-in; /* going with this for now */
   /* --default-transition-duration: 0.8s ease-in-out; */ /* which one would be bette? */
   /* --box-shadow-color: rgb(0 0 0 / 51%) 1.95px 1.95px 2.6px; */
   --box-shadow-color: rgb(0 0 0 / 10%) 0px 0px 33px;
@@ -293,7 +293,7 @@ aside a {
   box-shadow: var(--box-shadow-color);
   position: relative;
   padding: 0 0.5rem;
-  /* transition: width var(--default-transition-duration); */
+  transition: left var(--default-transition-duration);
 }
 
 #menu-items {

@@ -8,7 +8,7 @@ let musicID;
 window.onload = function() {
     createDatabase();
     musicDisplay();
-   
+    alert("This is Karen free-zone Matthew")
     // TODO : Please conisder removing this, rather only have a loader on the songs section while it is loading music
     const myTimeout = setTimeout(
         loaded,
@@ -620,10 +620,6 @@ async function addToFavoritePlaylist(id) {
 const favoritePlaylistButton = document.querySelector('.favourite-playlist');
 
 favoritePlaylistButton.addEventListener('click', async () => {
-    //playlistAreaSection.setAttribute('class', 'favorite');
-    // let valueToBeChecked = "Favorites";
-
-    // headerPlaylistArea.innerText = "Favorites";
 
     await removeDivsChildren();
 

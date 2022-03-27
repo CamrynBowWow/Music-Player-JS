@@ -138,20 +138,21 @@ export async function retrieveMusicFromPlaylist(playlistName){
 
     let playlistValues  = await dbOpen.get('playlists', playlistName);
 
-    // TODO : Looping through mulitple database calls is a no-no
-    // espicially when using await. Consider changing the getMusicPlay function
-    // to take an array of ids and return an array of objects fetch from the DB
-
     let allMusicFetched = await getMusicToPlay(playlistValues);
-   
-    for(let i = 0; i < playlistValues.length; i++){
-        
-        for(let j = 0; j < allMusicFetched.length; j++){
-            if(allMusicFetched[j].id == playlistValues[i]){
-                musicToDisplaySend.push(allMusicFetched[j])
+
+    if(allMusicFetched.id == playlistValues[0]){
+        musicToDisplaySend.push(allMusicFetched)
+    } else {
+        for(let i = 0; i < playlistValues.length; i++) {
+    
+            for(let j = 0; j < allMusicFetched.length; j++){
+                if(allMusicFetched[j].id == playlistValues[i]){
+                    musicToDisplaySend.push(allMusicFetched[j])
+                }
             }
         }
     }
-    
+
+
     return musicToDisplaySend;
 }
