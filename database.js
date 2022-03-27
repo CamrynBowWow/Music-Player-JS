@@ -56,12 +56,13 @@ export async function getMusicToPlay(value){
 
     let musicInfo = [];
 
-    if(value.length > 1){
-        musicInfo = await db.getAll('musicList');
-    } else {
-        musicInfo = await db.get('musicList', parseInt(value[0]));
+    if(value.length != 0){
+        if(value.length > 1){
+            musicInfo = await db.getAll('musicList');
+        } else {
+            musicInfo = await db.get('musicList', parseInt(value[0]));
+        }
     }
-
 
     return musicInfo;
 }
@@ -122,12 +123,15 @@ export async function getFavoritesIDs(valueID){
 
     let arrayValueIDs = await dbOpen.get('playlists', 'Favorites');
 
-    if(arrayValueIDs != null && arrayValueIDs.includes(valueID.toString())){
-        return true;
+    if(arrayValueIDs.length != 0){
+        if(arrayValueIDs != null && arrayValueIDs.includes(valueID.toString())){
+            return true;
+        } else {
+            return false;
+        }
     } else {
         return false;
     }
-    
 }
 
 export async function retrieveMusicFromPlaylist(playlistName){

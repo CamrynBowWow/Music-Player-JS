@@ -8,7 +8,7 @@ let musicID;
 window.onload = function() {
     createDatabase();
     musicDisplay();
-    alert("This is Karen free-zone Matthew")
+   
     // TODO : Please conisder removing this, rather only have a loader on the songs section while it is loading music
     const myTimeout = setTimeout(
         loaded,
@@ -53,7 +53,14 @@ async function musicDisplay(playlistNameCheck){
         headerPlaylistArea.innerText = "All Music";
         allMusic = await retrieve();
     }
+    console.log(allMusic);
+    if(allMusic != null && !allMusic.length){
+        await createDivsToDisplay(allMusic, playlistNameCheck);
+    }
+   
+}
 
+async function createDivsToDisplay(allMusic, playlistNameCheck){
     for (let musicValues of allMusic) {
 
         let inFavoritePlaylist = await getFavoritesIDs(musicValues['id'])
