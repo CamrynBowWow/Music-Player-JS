@@ -152,6 +152,7 @@ document.addEventListener('click', function(event){
     }
 })
 
+// Closes the sidebar menu
 async function hideSidebar(){
     headerSize.style.transform = 'translateX(-12rem)';
     menuDisplay.classList.remove('show');
@@ -635,11 +636,9 @@ async function addToFavoritePlaylist(id) {
 const favoritePlaylistButton = document.querySelector('.favourite-playlist');
 
 favoritePlaylistButton.addEventListener('click', async () => {
-
     await removeDivsChildren();
-
     await musicDisplay('Favorites');
-
+    hideSidebar();
 })
 
 /* Favorite Playlist display end */
@@ -652,6 +651,7 @@ const allMusicButton = document.querySelector('.all-songs-playlist');
 allMusicButton.addEventListener('click', async () => {
     await removeDivsChildren();
     await musicDisplay('All Music');
+    hideSidebar();
 })
 
 /* All Music display end */
