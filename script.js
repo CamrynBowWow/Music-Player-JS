@@ -1,9 +1,11 @@
 
 /* The IndexedDb */
 
-import {createDatabase, setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js'
+import {createDatabase, setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js';
+import {pauseSong, playSong, sourceTag} from './musicPlayerControls.js';
 
 let musicID;
+export let audio;
 
 window.onload = function() {
     createDatabase();
@@ -21,6 +23,8 @@ const containerClassDiv = document.querySelector('.container-class');
 const asideDiv = document.querySelector('aside');
 const loadingDiv = document.querySelector('.loading');
 const musicContainer = document.querySelector('.music-container');
+const songNameHeader = document.querySelector(".container-play-music-area h1");
+const artistNameHeader = document.querySelector(".container-play-music-area h3");
 
 function loaded(){
     //loadingDiv.querySelector('h2').innerHTML = 'Loading Music Player';
@@ -59,6 +63,7 @@ async function musicDisplay(playlistNameCheck){
 }
 
 async function createDivsToDisplay(allMusic, playlistNameCheck){
+
     for (let musicValues of allMusic) {
 
         let inFavoritePlaylist = await getFavoritesIDs(musicValues['id'])
@@ -207,14 +212,15 @@ async function makeBlobPutIntoDb(entry){
 
 }
 
+// This will open up a dialog to search for a folder to sort through to get all the music files
 addDirectory.addEventListener('click', async () => {
 
-    const peen = await window.showDirectoryPicker();
+    const directoryFolder = await window.showDirectoryPicker();
 
     const matchFileSpecs = ".(mp3)$";
     let countMp3 = 0;
 
-    for await (const entry of peen.values()) {
+    for await (const entry of directoryFolder.values()) {
 
         if (entry.kind === 'file' && entry.name.match(matchFileSpecs)) {
             countMp3++;
@@ -223,8 +229,6 @@ addDirectory.addEventListener('click', async () => {
         }
     }
 
-    // alert("Music Directory has been added.")
-    //alert(countMp3 === 0 ? "No music file found." : "Music Directory has been added")
     if(countMp3 === 0){
         alert("No music file found.");
     } else {
@@ -257,120 +261,6 @@ addMusic.addEventListener('click', async () => {
 
 // TODO : Consider moving all the things related to the currently playing song card to a seperate js file
 
-// For play and pause music
-const playButton = document.querySelector('#play-button');
-const sourceTag = document.querySelector("#audioToPlay");
-const songNameHeader = document.querySelector(".container-play-music-area h1");
-const artistNameHeader = document.querySelector(".container-play-music-area h3");
-
-
-
-let audio;
-
-async function pauseSong() {
-
-    audio.pause();
-
-    playButton.classList.remove('playing');
-
-    playButton.querySelector('span.material-icons').innerText = 'play_arrow';
-
-}
-
-async function playSong(value) {
-
-    if(value === undefined || value === ''){
-        alert('No music has been selected to play.')
-        return;
-    }
-
-    unmuteMusic();
-
-    audio.play();
-    audio.volume = previousVolume / 100;
-
-    playButton.classList.add('playing');
-    playButton.querySelector('span.material-icons').innerText = 'pause';
-}
-
-playButton.addEventListener('click', () => {
-
-    const isPlaying = playButton.classList.contains('playing');
-
-    let valueToPlayOrPause = sourceTag.getAttribute('src');
-
-    if(!isPlaying) {
-        playSong(valueToPlayOrPause);
-    } else {
-        pauseSong();
-    }
-
-})
-
-// For repeat music
-const repeatButton = document.querySelector('#repeat-song');
-
-function repeatOff(){
-    repeatButton.classList.add('repeat-off');
-    repeatButton.querySelector('span.material-icons').innerText = 'repeat';
-    repeatButton.style.opacity = "0.5";
-}
-
-function repeatSong(){
-    repeatButton.classList.remove('repeat_playlist');
-    repeatButton.querySelector('span.material-icons').innerText = 'repeat_one';
-    repeatButton.style.opacity = "1";
-}
-
-function repeatPlaylist(){
-    repeatButton.classList.add('repeat_playlist');
-    repeatButton.classList.remove('repeat-off');
-    repeatButton.querySelector('span.material-icons').innerText = 'repeat';
-    repeatButton.style.opacity = "1";
-}
-
-// For repeating the music that is playing or repeat whole playlist
-repeatButton.addEventListener('click', () => {
-
-    if(repeatButton.classList.contains('repeat-off')){
-        repeatPlaylist();
-    } else if(repeatButton.classList.contains('repeat_playlist')){
-        repeatSong();
-    } else {
-        repeatOff();
-    }
-
-})
-
-// For shuffle music
-const shuffleButton = document.querySelector('#shuffle');
-
-function shuffleSong(){
-    shuffleButton.classList.remove('shuffle_off');
-
-    shuffleButton.querySelector('span.material-icons').innerText = 'shuffle';
-}
-
-function shuffleOff(){
-    shuffleButton.classList.add('shuffle_off');
-
-    shuffleButton.querySelector('span.material-icons').innerText = 'sync_alt';
-}
-
-shuffleButton.addEventListener('click', () => {
-
-    const isShuffle = shuffleButton.classList.contains('shuffle_off');
-
-    if(isShuffle){
-        shuffleSong();
-    } else {
-        shuffleOff();
-    }
-
-})
-
-// Music area icon functions end
-// TODO I must work on this function because plays music when goes to another playlist
 async function fetchMusicLocalStorage(id){
 
     let musicIdentifier = 0;
@@ -440,7 +330,7 @@ async function checkName(nameOfMusic){
 const volumeControl = document.querySelector('#volume-control');
 const volumeIcon = document.querySelector('#volume-icon');
 
-let previousVolume = 30;
+export let previousVolume = 30;
 
 volumeControl.addEventListener('input', async () => {
 
@@ -506,7 +396,7 @@ async function muteMusic(){
 
 }
 
-async function unmuteMusic(){
+export async function unmuteMusic(){
 
     volumeControl.value = previousVolume;
     volumeControl.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${previousVolume}%, var(--slider-background-color) 0%)`;
