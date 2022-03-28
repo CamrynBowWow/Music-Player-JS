@@ -17,8 +17,6 @@ window.onload = function() {
 
 }
 
-
-// TODO : Be more descriptive when naming variables
 const containerClassDiv = document.querySelector('.container-class');
 const asideDiv = document.querySelector('aside');
 const loadingDiv = document.querySelector('.loading');
@@ -146,25 +144,35 @@ const headerSize = document.querySelector('aside');
 const sideBarA = document.querySelector('aside a');
 const sidebarMenu = document.querySelector('aside a span');
 
+document.addEventListener('click', function(event){
+    let isClickedInside = headerSize.contains(event.target);
+
+    if(!isClickedInside){
+       hideSidebar();
+    }
+})
+
+async function hideSidebar(){
+    headerSize.style.transform = 'translateX(-12rem)';
+    menuDisplay.classList.remove('show');
+    menuDisplay.classList.add('hidden');
+    sideBarA.style.left = "12rem";
+    sideBarA.style.width = "3.5rem";
+    containerClassDiv.style.filter = 'blur(0px)';
+}
+
 sidebarMenu.addEventListener('click', async () => {
 
     if(menuDisplay.className === 'hidden' ){
-
         headerSize.style.transform = 'translateX(0rem)';
         //sideBarA.style.boxShadow = 'var(--box-shadow-color)';
         sideBarA.style.width = "3rem";
         sideBarA.style.left = "9rem";
         menuDisplay.classList.remove('hidden');
         menuDisplay.classList.add('show');
-
+        containerClassDiv.style.filter = 'blur(7px)';
     } else {
-        headerSize.style.transform = 'translateX(-12rem)';
-        menuDisplay.classList.remove('show');
-        menuDisplay.classList.add('hidden');
-        sideBarA.style.left = "12rem";
-        sideBarA.style.width = "3.5rem";
-        //sideBarA.style.boxShadow = 'var(--box-shadow-color)';
-
+        hideSidebar();
     }
 })
 
