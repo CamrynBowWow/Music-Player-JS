@@ -122,7 +122,7 @@ export async function getFavoritesIDs(valueID){
 
     let arrayValueIDs = await dbOpen.get('playlists', 'Favorites');
 
-    if(arrayValueIDs.length != 0){
+    if(arrayValueIDs.length != 0 && arrayValueIDs != null){
         if(arrayValueIDs != null && arrayValueIDs.includes(valueID.toString())){
             return true;
         } else {
