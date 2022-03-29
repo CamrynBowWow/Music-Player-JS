@@ -247,14 +247,52 @@ body button {
 
   #playlist-area {
     max-height: 50rem;
-    width: 90%;
+    width: 90% !important;
     margin: 0 auto;
   }
 
   .play-music-area {
     max-height: 45rem;
-    width: 90%;
+    width: 90% !important;
     margin: 0 auto;
+  }
+
+  @media only screen and (max-width: 800px) {
+    .material-icons.md-36 {
+      font-size: 1.55rem;
+    }
+
+    .material-icons.md-40 {
+      font-size: 2rem;
+    }
+
+    .material-icons.md-48 {
+      font-size: 2.5rem;
+    }
+
+    .main-tag-tabs .material-icons.heart {
+      font-size: 1.55rem !important;
+    }
+
+    .main-tag-tabs .material-icons.heart:hover {
+      font-size: 2.15rem !important;
+    }
+
+    .main-tag-tabs button {
+      font-size: 1rem !important;
+    }
+
+    .header-playlist-area h1 {
+      font-size: 1.3rem;
+    }
+
+    #menu-items button {
+      font-size: 0.8rem;
+    }
+
+    ::-webkit-scrollbar {
+      width: 0.7rem;
+    }
   }
 }
 
@@ -345,7 +383,8 @@ aside a {
 #playlist-area {
   height: 90%;
   margin: 0 1rem;
-  width: 50rem;
+  /* width: 50rem; */
+  width: 40%;
   min-width: 25rem;
   position: relative;
   align-self: center;
@@ -360,7 +399,8 @@ aside a {
 .play-music-area {
   height: 90%;
   margin: 0 1rem;
-  width: 50rem;
+  /* width: 50rem; */
+  width: 40%;
   min-width: 25rem;
   position: relative;
   align-self: center;
