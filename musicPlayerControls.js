@@ -84,20 +84,20 @@ repeatButton.addEventListener('click', () => {
 const shuffleButton = document.querySelector('#shuffle');
 
 function shuffleSong(){
-    shuffleButton.classList.remove('shuffle_off');
+    shuffleButton.classList.remove('shuffle-off');
 
     shuffleButton.querySelector('span.material-icons').innerText = 'shuffle';
 }
 
 function shuffleOff(){
-    shuffleButton.classList.add('shuffle_off');
+    shuffleButton.classList.add('shuffle-off');
 
     shuffleButton.querySelector('span.material-icons').innerText = 'sync_alt';
 }
 
 shuffleButton.addEventListener('click', () => {
 
-    const isShuffle = shuffleButton.classList.contains('shuffle_off');
+    const isShuffle = shuffleButton.classList.contains('shuffle-off');
 
     if(isShuffle){
         shuffleSong();

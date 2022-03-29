@@ -148,6 +148,9 @@
   --button-hover: 3px 4px 5px -1px #000000;
   --button-hover-text-shadow: #000000;
 
+  --music-icons-button-background-hover: #7424d9;
+  --music-icons-button-border-hover: #b4b4b4;
+
   --hamburger-menu-color: #f9f9f98c;
   /* --background-secondary-color: #bb86fc; */
   /* --background-secondary-color: #bb86fc6b; */
@@ -247,13 +250,13 @@ body button {
 
   #playlist-area {
     max-height: 50rem;
-    width: 90% !important;
+    width: 85% !important;
     margin: 0 auto;
   }
 
   .play-music-area {
     max-height: 45rem;
-    width: 90% !important;
+    width: 85% !important;
     margin: 0 auto;
   }
 
@@ -292,6 +295,28 @@ body button {
 
     ::-webkit-scrollbar {
       width: 0.7rem;
+    }
+
+    .main-tag-tabs {
+      margin: 1rem 1rem 1rem 1rem;
+      height: 3rem;
+    }
+
+    .play-music-area-header h2 {
+      font-size: 1.3rem;
+    }
+
+    .music-icons button {
+      width: 2.5rem !important;
+      height: 2.5rem !important;
+    }
+
+    .volume-area span {
+      font-size: 1.3rem !important;
+    }
+
+    #volume-control {
+      height: 0.35rem !important;
     }
   }
 }
@@ -530,6 +555,7 @@ aside a {
   align-items: center;
   justify-content: center;
   width: 100%;
+  height: 4rem;
   padding: 0.5rem;
 }
 
@@ -545,8 +571,13 @@ aside a {
 
 .volume-area {
   display: flex;
-  font-size: 1rem;
+  /* font-size: 1rem; */
   align-items: center;
+  height: 2rem;
+}
+
+.volume-area span {
+  font-size: 1.5rem;
 }
 
 .color-change {
@@ -565,6 +596,12 @@ aside a {
   align-items: center;
   display: flex;
   justify-content: center;
+}
+
+.music-icons button:hover {
+  background: var(--music-icons-button-background-hover);
+  border: 3px solid var(--music-icons-button-border-hover);
+  opacity: 0.8;
 }
 
 #repeat-song {
