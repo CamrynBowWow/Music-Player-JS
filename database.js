@@ -121,8 +121,8 @@ export async function getFavoritesIDs(valueID){
     const dbOpen = await openDB('musicStorage', undefined, {});
 
     let arrayValueIDs = await dbOpen.get('playlists', 'Favorites');
-
-    if(arrayValueIDs.length != 0 && arrayValueIDs != null){
+    
+    if(arrayValueIDs != null){
         if(arrayValueIDs != null && arrayValueIDs.includes(valueID.toString())){
             return true;
         } else {
