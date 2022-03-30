@@ -250,6 +250,7 @@ body button {
 
   #playlist-area {
     max-height: 50rem;
+    height: 50rem !important;
     width: 85% !important;
     margin: 0 auto;
   }
@@ -282,7 +283,7 @@ body button {
     }
 
     .main-tag-tabs button {
-      font-size: 1rem !important;
+      font-size: 0.9rem !important;
     }
 
     .header-playlist-area h1 {
@@ -294,12 +295,12 @@ body button {
     }
 
     ::-webkit-scrollbar {
-      width: 0.7rem;
+      width: 0.6rem;
     }
 
     .main-tag-tabs {
       margin: 1rem 1rem 1rem 1rem;
-      height: 3rem;
+      height: 3rem !important;
     }
 
     .play-music-area-header h2 {
@@ -317,6 +318,19 @@ body button {
 
     #volume-control {
       height: 0.35rem !important;
+    }
+
+    aside {
+      width: 11rem !important;
+      transform: translateX(-11rem);
+    }
+
+    /* aside a {
+      left: 11rem !important;
+    } */
+
+    #menu-items {
+      width: 11rem !important;
     }
   }
 }
@@ -348,6 +362,7 @@ aside {
 aside a {
   display: flex;
   justify-content: center;
+  align-items: center;
   cursor: pointer;
   width: 3.5rem;
   height: 3rem;
@@ -401,7 +416,7 @@ aside a {
   width: 100%;
   justify-content: center;
   align-items: center;
-  gap: 5rem;
+  gap: 4rem;
   overflow: hidden;
 }
 
@@ -507,7 +522,8 @@ aside a {
 }
 
 .music-container {
-  height: 94%;
+  /* height: 94%; */
+  /* height: inherit; */
   overflow: hidden;
   overflow-y: scroll;
 }

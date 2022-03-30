@@ -151,29 +151,79 @@ const sidebarMenu = document.querySelector('aside a span');
 
 document.addEventListener('click', function(event){
     let isClickedInside = headerSize.contains(event.target);
-
+    menuBarSizeChange
     if(!isClickedInside){
        hideSidebar();
     }
 })
 
+const windowMediaCheck = window.matchMedia("(max-width: 800px)");
+
+let translateX = '';
+let sideBarALeft = '';
+
+function menuBarSizeChange(event){
+    console.log(event);
+    if(event.matches){
+       
+        sideBarALeft = "11rem";
+        translateX = 'translateX(-11rem)';
+        
+    } else {
+        sideBarALeft = "12rem";
+        translateX = 'translateX(-12rem)';
+    }
+
+    if(menuDisplay.className === "hidden"){
+        hideSidebar();
+        
+    } else {
+        if(event.matches){
+            sideBarA.style.left = "8rem";
+        } else {
+            sideBarA.style.left = "9rem";
+        }
+    }
+    
+}
+
+menuBarSizeChange(windowMediaCheck);
+windowMediaCheck.addListener(menuBarSizeChange);
+
+
 // Closes the sidebar menu
 async function hideSidebar(){
-    headerSize.style.transform = 'translateX(-12rem)';
+    //headerSize.style.transform = 'translateX(-12rem)';
+    // if(windowMediaCheck.matches){
+    //     headerSize.style.transform = 'translateX(-11rem)';
+    //     sideBarA.style.left = "11rem";
+    // } else {
+    //     headerSize.style.transform = 'translateX(-12rem)';
+    //     sideBarA.style.left = "12rem";
+    // }
+    headerSize.style.transform = translateX;
+    sideBarA.style.left = sideBarALeft;
     menuDisplay.classList.remove('show');
     menuDisplay.classList.add('hidden');
-    sideBarA.style.left = "12rem";
+    // sideBarA.style.left = "12rem";
     sideBarA.style.width = "3.5rem";
     containerClassDiv.style.filter = 'blur(0px)';
 }
 
 sidebarMenu.addEventListener('click', async () => {
-
+   
     if(menuDisplay.className === 'hidden' ){
         headerSize.style.transform = 'translateX(0rem)';
         //sideBarA.style.boxShadow = 'var(--box-shadow-color)';
+        //sideBarA.style.left = leftValue;
+        // if(windowMediaCheck.matches){
+        //     sideBarA.style.left = "8rem";
+        // } else {
+        //     sideBarA.style.left = "9rem";
+        // }
+        sideBarA.style.left =  windowMediaCheck.matches ? "8rem" : "9rem";
+        // sideBarA.style.left = "9rem";
         sideBarA.style.width = "3rem";
-        sideBarA.style.left = "9rem";
         menuDisplay.classList.remove('hidden');
         menuDisplay.classList.add('show');
         containerClassDiv.style.filter = 'blur(7px)';
@@ -208,7 +258,7 @@ async function makeBlobPutIntoDb(entry){
 
     let binary = new Uint8Array(byteSize); // Gets the bytes to use for the audio
 
-    await setMusicValue(fileData.name, binary, fileData.type)
+    return await setMusicValue(fileData.name, binary, fileData.type);
 
 }
 
@@ -245,10 +295,14 @@ addMusic.addEventListener('click', async () => {
     const matchFileSpecs = ".(mp3)$";
 
     if (filehandle.kind === 'file' && filehandle.name.match(matchFileSpecs)){
-        await makeBlobPutIntoDb(filehandle);
+        const errorCheck = await makeBlobPutIntoDb(filehandle);
 
-        alert("Music has been added.")
-        window.location.reload();
+        if(errorCheck){
+            alert("Music has been added.")
+            window.location.reload();
+        } else {
+            alert("Music already exist");
+        }
     } else {
         alert("Please select a music file only.");
     }
