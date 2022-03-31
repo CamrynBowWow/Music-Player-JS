@@ -457,7 +457,7 @@ aside a {
   min-width: 25rem;
   position: relative;
   align-self: center;
-  justify-content: center;
+  /* justify-content: center; */
   /* align-items: center; */
   display: flex;
   flex-direction: column;
@@ -588,11 +588,11 @@ aside a {
   width: 40%;
 }
 
-.container-play-music-area h1 {
+/* .container-play-music-area h1 {
 }
 
 .container-play-music-area h3 {
-}
+} */
 
 .music-icons {
   display: flex;
@@ -853,6 +853,30 @@ aside a {
 } */
 
 /* Tooltips styling end */
+
+/* Modal content */
+
+.modal{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0,0,0,0.4);
+}
+
+.modal-content{
+  background: #fefefe;
+  margin: auto;
+  border: 1px solid #888;
+  width: 50%;
+}
+
+/* Modal content end */
 
 /* makes buttons glow */
 /*
