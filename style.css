@@ -72,6 +72,10 @@
 
   --music-icons-button-border-color: #ae3ec9;
 
+  --music-icons-button-background-hover: #da77f2;
+  --music-icons-button-border-hover: #cc5de8;
+  --music-icons-button-color-hover: white;
+
   --icon-hover-songs: #ae3ec9; /* Changes color for the icons that will display with the music  */
 
   --button-hover-background-color: #be4bdb;
@@ -150,6 +154,7 @@
 
   --music-icons-button-background-hover: #7424d9;
   --music-icons-button-border-hover: #b4b4b4;
+  --music-icons-button-color-hover: #b4b4b4;
 
   --hamburger-menu-color: #f9f9f98c;
   /* --background-secondary-color: #bb86fc; */
@@ -262,6 +267,15 @@ body button {
   }
 
   @media only screen and (max-width: 800px) {
+
+    #playlist-area{
+      min-width: 20rem !important;
+    }
+
+    .play-music-area{
+      min-width: 20rem !important;
+    }
+
     .material-icons.md-36 {
       font-size: 1.55rem;
     }
@@ -276,6 +290,10 @@ body button {
 
     .main-tag-tabs .material-icons.heart {
       font-size: 1.55rem !important;
+    }
+
+    .main-tag-tabs span:hover{
+      font-size: 2.15rem !important;
     }
 
     .main-tag-tabs .material-icons.heart:hover {
@@ -312,6 +330,10 @@ body button {
       height: 2.5rem !important;
     }
 
+    .music-icons{
+      gap: 1.15rem !important;
+    }
+
     .volume-area span {
       font-size: 1.3rem !important;
     }
@@ -325,13 +347,20 @@ body button {
       transform: translateX(-11rem);
     }
 
-    /* aside a {
-      left: 11rem !important;
-    } */
-
     #menu-items {
       width: 11rem !important;
     }
+
+    .loading h2 {
+      font-size: 0.9rem !important;
+    }
+
+    .spans span {
+      width: 0.8em !important;
+      height: 0.8em !important;
+      margin: 0.4em !important;
+    }
+
   }
 }
 
@@ -617,6 +646,7 @@ aside a {
 .music-icons button:hover {
   background: var(--music-icons-button-background-hover);
   border: 3px solid var(--music-icons-button-border-hover);
+  color: var(--music-icons-button-color-hover);
   opacity: 0.8;
 }
 

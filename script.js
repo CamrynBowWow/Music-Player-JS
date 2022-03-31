@@ -3,6 +3,7 @@
 
 import {createDatabase, setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js';
 import {pauseSong, playSong, sourceTag} from './musicPlayerControls.js';
+import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 
 let musicID;
 export let audio;
@@ -19,7 +20,7 @@ window.onload = function() {
 
 }
 
-const containerClassDiv = document.querySelector('.container-class');
+
 const asideDiv = document.querySelector('aside');
 const loadingDiv = document.querySelector('.loading');
 const musicContainer = document.querySelector('.music-container');
@@ -94,7 +95,7 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
         if(playlistNameCheck != "Favorites"){
             // Creates icon to delete music
             let spanDelete = document.createElement('span');
-            spanDelete.setAttribute('id', musicValues['id' + "_delete"]);
+            spanDelete.setAttribute('id', musicValues['id'] + "_delete");
             spanDelete.setAttribute('class', 'material-icons md-36');
             spanDelete.innerText = 'delete';
 
@@ -142,97 +143,6 @@ async function removeDivsChildren() {
     }
 }
 
-// Sidebar function
-
-const menuDisplay = document.querySelector('#menu-items');
-const headerSize = document.querySelector('aside');
-const sideBarA = document.querySelector('aside a');
-const sidebarMenu = document.querySelector('aside a span');
-
-document.addEventListener('click', function(event){
-    let isClickedInside = headerSize.contains(event.target);
-    menuBarSizeChange
-    if(!isClickedInside){
-       hideSidebar();
-    }
-})
-
-const windowMediaCheck = window.matchMedia("(max-width: 800px)");
-
-let translateX = '';
-let sideBarALeft = '';
-
-function menuBarSizeChange(event){
-    console.log(event);
-    if(event.matches){
-       
-        sideBarALeft = "11rem";
-        translateX = 'translateX(-11rem)';
-        
-    } else {
-        sideBarALeft = "12rem";
-        translateX = 'translateX(-12rem)';
-    }
-
-    if(menuDisplay.className === "hidden"){
-        hideSidebar();
-        
-    } else {
-        if(event.matches){
-            sideBarA.style.left = "8rem";
-        } else {
-            sideBarA.style.left = "9rem";
-        }
-    }
-    
-}
-
-menuBarSizeChange(windowMediaCheck);
-windowMediaCheck.addListener(menuBarSizeChange);
-
-
-// Closes the sidebar menu
-async function hideSidebar(){
-    //headerSize.style.transform = 'translateX(-12rem)';
-    // if(windowMediaCheck.matches){
-    //     headerSize.style.transform = 'translateX(-11rem)';
-    //     sideBarA.style.left = "11rem";
-    // } else {
-    //     headerSize.style.transform = 'translateX(-12rem)';
-    //     sideBarA.style.left = "12rem";
-    // }
-    headerSize.style.transform = translateX;
-    sideBarA.style.left = sideBarALeft;
-    menuDisplay.classList.remove('show');
-    menuDisplay.classList.add('hidden');
-    // sideBarA.style.left = "12rem";
-    sideBarA.style.width = "3.5rem";
-    containerClassDiv.style.filter = 'blur(0px)';
-}
-
-sidebarMenu.addEventListener('click', async () => {
-   
-    if(menuDisplay.className === 'hidden' ){
-        headerSize.style.transform = 'translateX(0rem)';
-        //sideBarA.style.boxShadow = 'var(--box-shadow-color)';
-        //sideBarA.style.left = leftValue;
-        // if(windowMediaCheck.matches){
-        //     sideBarA.style.left = "8rem";
-        // } else {
-        //     sideBarA.style.left = "9rem";
-        // }
-        sideBarA.style.left =  windowMediaCheck.matches ? "8rem" : "9rem";
-        // sideBarA.style.left = "9rem";
-        sideBarA.style.width = "3rem";
-        menuDisplay.classList.remove('hidden');
-        menuDisplay.classList.add('show');
-        containerClassDiv.style.filter = 'blur(7px)';
-    } else {
-        hideSidebar();
-    }
-})
-
-// Sidebar function end
 
 // Fetching music and populating the playlist-area section class
 
@@ -599,3 +509,7 @@ allMusicButton.addEventListener('click', async () => {
 })
 
 /* All Music display end */
+
+/* Modal box */
+
+/* Modal box end */

@@ -42,19 +42,6 @@ export async function setMusicValue(name, byteLength, type){
     } catch(error){
         return false;
     }
-
-    // const request = await transactionMusic.store.put('musicList', {name: name, byteLength: byteLength, type: type});
-    
-    // transactionMusic.onerror = () => {
-
-    // }
-
-    // const request = await db.put('musicList', {name: name, byteLength: byteLength, type: type});
-
-    // if(request.status === DataError){
-
-    //     console.log(request);
-    // }
     
 }
 
