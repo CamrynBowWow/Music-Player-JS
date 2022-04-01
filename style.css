@@ -42,8 +42,8 @@
 
   --tooltip-background-color: #e599f7;
 
-  --modal-content-background-color: #292929;
-  --modal-content-border-color: #555457;
+  --modal-content-background-color: #f8f0fc;
+  --modal-content-border-color: #e599f7;
 
   /* --background-body: linear-gradient(
     89.89deg,
@@ -889,7 +889,10 @@ aside a {
 }
 
 .modal-content{
-  /* display: none; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   background: var(--modal-content-background-color);
   margin: auto;
   border: 1px solid var(--modal-content-border-color);
@@ -903,10 +906,49 @@ aside a {
 
 .modal-header {
   display: flex;
+  width: inherit;
   align-items: center;
   justify-content: space-between;
   background: var(--main-tags-headers-color);
   padding: 0.3rem;
+}
+
+.submit-area {
+  display: flex;
+  justify-content: space-between;
+  width: inherit;
+  padding: 0.5rem;
+  border-top: 2px solid var(--modal-content-border-color);
+}
+
+.submit-area input {
+  font-size: 1rem;
+  padding: 0.4em;
+  background: var(--modal-content-border-color);
+  color: var(--text-color);
+  border: none;
+}
+
+.add-playlist {
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3em;
+}
+
+.add-playlist label {
+  font-size: 1.25rem;
+  color: var(--play-music-area-music-icon-button);
+}
+
+.add-playlist input {
+  border: 1px solid #b9b9b9eb;
+  padding: 0.3em;
+  background: var(--modal-content-border-color);
+  color: var(--play-music-area-music-icon-button);
+  font-size: 1.2rem;
 }
 
 /* Modal content end */

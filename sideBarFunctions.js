@@ -1,3 +1,4 @@
+import {hideModal} from './playlistFunctions.js';
 
 // Sidebar function
 
@@ -71,9 +72,11 @@ sidebarMenu.addEventListener('click', async () => {
         menuDisplay.classList.remove('hidden');
         menuDisplay.classList.add('show');
         backgroundModal.style.display = 'block';
+        hideModal();
         //containerClassDiv.style.filter = 'blur(7px)';
     } else {
-        hideSidebar();     
+        hideSidebar();
+        hideModal();     
     }
 })
 
