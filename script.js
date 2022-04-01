@@ -34,12 +34,12 @@ function loaded(){
     loadingDiv.style.display = 'none';
 }
 
-function loading(){// Still working on it
-    //loadingDiv.querySelector('h2').innerText = 'Loading Music';
-    musicContainer.querySelectorAll('.main-tag-tabs').zIndex = '-1';
-    musicContainer.prependChild(loadingDiv);
-    loadingDiv.style.display = 'block';
-}
+// function loading(){// Still working on it
+//     //loadingDiv.querySelector('h2').innerText = 'Loading Music';
+//     musicContainer.querySelectorAll('.main-tag-tabs').zIndex = '-1';
+//     musicContainer.prependChild(loadingDiv);
+//     loadingDiv.style.display = 'block';
+// }
 
 const musicDivDisplays = document.querySelector('.music-container')
 //const playlistAreaSection = document.querySelector('#playlist-area'); Not in use yet # Look here for next and pre btn Cam

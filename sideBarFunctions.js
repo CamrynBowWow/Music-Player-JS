@@ -6,7 +6,7 @@ const menuDisplay = document.querySelector('#menu-items');
 const headerSize = document.querySelector('aside');
 const sideBarA = document.querySelector('aside a');
 const sidebarMenu = document.querySelector('aside a span');
-const modalContainer = document.querySelector('#modal-container');
+const backgroundModal = document.querySelector('#background-modal');
 
 document.addEventListener('click', function(event){
     let isClickedInside = headerSize.contains(event.target);
@@ -58,7 +58,7 @@ export async function hideSidebar(){
     menuDisplay.classList.remove('show');
     menuDisplay.classList.add('hidden');
     sideBarA.style.width = "3.5rem";
-    modalContainer.style.display = "none";
+    backgroundModal.style.display = "none";
     //containerClassDiv.style.filter = 'blur(0px)';
 }
 
@@ -70,10 +70,10 @@ sidebarMenu.addEventListener('click', async () => {
         sideBarA.style.width = "3rem";
         menuDisplay.classList.remove('hidden');
         menuDisplay.classList.add('show');
-        modalContainer.style.display = 'block';
+        backgroundModal.style.display = 'block';
         //containerClassDiv.style.filter = 'blur(7px)';
     } else {
-        hideSidebar();
+        hideSidebar();     
     }
 })
 

@@ -10,11 +10,13 @@
     <link rel="manifest" href="favicon/site.webmanifest">
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <script type="module" defer src="darkmode.js"></script>
     <script type="module" defer src="script.js"></script>
     <script type="module" defer src="database.js"></script>
     <script type="module" defer src="musicPlayerControls.js"></script>
     <script type="module" defer src="sideBarFunctions.js"></script>
+    <script type="module" defer src="playlistFunctions.js"></script>
     <title>Music Player</title>
 </head>
 <body>
@@ -32,10 +34,18 @@
         </div>
     </div>
 
-    <div id="modal-container" class="modal">
+    <div id="background-modal"></div>
+
+    <div class="modal-container">
         <div class="modal-content">
-            <h1></h1>
-            <span class="close-modal"></span>
+            <div class="modal-header">
+                <h1>Peen</h1>
+                <span id="cancel" class="material-icons-outlined">cancel</span>
+            </div>
+            <div class="add-playlist">
+                <input type="text" id="playlist-name">
+                <input type="submit" value="Create Playlist">
+            </div>
         </div>
     </div>
 
