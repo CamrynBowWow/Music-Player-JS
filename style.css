@@ -895,7 +895,7 @@ aside a {
   justify-content: space-between;
   background: var(--modal-content-background-color);
   margin: auto;
-  border: 1px solid var(--modal-content-border-color);
+  /* border: 1px solid var(--modal-content-border-color); */
   position: fixed;
   height: 15rem;
   width: 25rem;
@@ -907,6 +907,7 @@ aside a {
 .modal-header {
   display: flex;
   width: inherit;
+  cursor: default;
   align-items: center;
   justify-content: space-between;
   background: var(--main-tags-headers-color);
@@ -927,6 +928,7 @@ aside a {
   background: var(--modal-content-border-color);
   color: var(--text-color);
   border: none;
+  cursor: pointer;
 }
 
 .add-playlist {

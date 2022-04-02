@@ -86,27 +86,43 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
     let arrayValues = [];
 
     let valueArray = await checksForPlaylist(playlistName); // checks to see if there is no playlist with specified name in the database
-   
-    arrayValues.push(valueId);
     
-    // TODO more simple #map
     // If no name then push to array but if there is an array already will add to it
     if(valueArray != null){
-        for(let i = 0; i < valueArray.length; i++){
-            // Checks to see if value of Music ID is already in database and then won't add it again
-            if(valueArray[i] != valueId){
-
-                arrayValues.push(valueArray[i]);
-
-            } else if(valueArray[i] === valueId){ // Removes musicID from favorite if already in the database
-
+        arrayValues.push(valueId);
+        valueArray.map(value => {
+            if(value != valueId){
+                // Checks to see if value of Music ID is already in database and then won't add it again
+                arrayValues.push(value);
+    
+            } else if(value === valueId){ // Removes musicID from favorite if already in the database
+    
                 const indexValue = arrayValues.indexOf(valueId);
-                
+                    
                 arrayValues.splice(indexValue, 1);
                 
             }
-        }   
-    } 
+        })
+    }
+
+    // TODO more simple #map
+    // If no name then push to array but if there is an array already will add to it
+    // if(valueArray != null){
+    //     for(let i = 0; i < valueArray.length; i++){
+    //         // Checks to see if value of Music ID is already in database and then won't add it again
+    //         if(valueArray[i] != valueId){
+
+    //             arrayValues.push(valueArray[i]);
+
+    //         } else if(valueArray[i] === valueId){ // Removes musicID from favorite if already in the database
+
+    //             const indexValue = arrayValues.indexOf(valueId);
+                
+    //             arrayValues.splice(indexValue, 1);
+                
+    //         }
+    //     }   
+    // } 
 
     await musicDatabase.put('playlists', arrayValues, playlistName)
 
