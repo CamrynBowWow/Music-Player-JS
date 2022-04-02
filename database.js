@@ -124,7 +124,7 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
     //     }   
     // } 
 
-    await musicDatabase.put('playlists', arrayValues, playlistName)
+    await musicDatabase.put('playlists', arrayValues, playlistName);
 
     // This checks to see if music is being added Favorites playlist
     if(playlistName === "Favorites"){
@@ -158,6 +158,30 @@ export async function getFavoritesIDs(valueID){
     } else {
         return false;
     }
+}
+
+// Retrieves playlists table Keys
+export async function getPlaylistNames(){ 
+
+    const dbOpen = await openDB('musicStorage', undefined, {});
+
+    let array = await dbOpen.getAllKeys('playlists'); // Gets all the key names from the table
+    
+    const favIndex = array.indexOf('Favorites');
+    array.splice(favIndex, 1); // Removes Favorites playlist from displaying
+    
+    let arrayReturn = Promise.all(array.map(async value =>  {
+        
+        let innerArray = [];
+        innerArray.push(value);
+        
+        let count = await dbOpen.getAll('playlists', value);        
+        innerArray.push(count[0].length);// The amount of songs in each playlist
+
+        return innerArray;
+    }))
+    
+    return await arrayReturn;
 }
 
 export async function retrieveMusicFromPlaylist(playlistName){

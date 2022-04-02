@@ -886,7 +886,7 @@ aside a {
 }
 
 .submit-area {
-  display: flex;
+  display: none;
   justify-content: space-between;
   width: inherit;
   padding: 0.5rem;
@@ -939,3 +939,11 @@ aside a {
 }
 
 /* Modal content end */
+
+/* Playlist create divs */
+
+.playlist-names-display {
+  display: grid;
+}
+
+/* Playlist create divs end */
