@@ -11,6 +11,7 @@ const submitButton = document.querySelector('#submit-button');
 const cancelButton = document.querySelector('#cancel-button');
 const modalContent = document.querySelector('.modal-content');
 const playlistNameInput = document.querySelector('#playlist-name');
+const addPlaylistDiv = document.querySelector('.add-playlist');
 
 // If clicked outside of the modal-content div it will close the display
 modalContainer.addEventListener('click', function(event){
@@ -24,7 +25,9 @@ modalContainer.addEventListener('click', function(event){
 })
 
 playlistCreateButton.addEventListener('click', () => {
-    submitButton.value = 'Create Playlist';
+    submitButton.value = 'Create';
+    addPlaylistDiv.style.display = 'flex';
+    document.querySelector('.modal-header h1').innerText = 'Create Playlist';
     hideSidebar();
     displayModal();
 })
@@ -40,6 +43,7 @@ function displayModal(){
 export function hideModal(){
     modalContainer.style.display = 'none';
     playlistNameInput.value = '';
+    addPlaylistDiv.style.display = 'none';
 }
 
 // Cancels any of the playlist features, Add or Delete or Display Playlist
@@ -47,6 +51,7 @@ cancelIcon.addEventListener('click', () =>{
     hideModal();
 })
 
+// This will insert the new playlist into the database table playlists with an empty array as the value
 submitButton.addEventListener('click', () => {
    
     const alertValue = playlistNameInput.value.length > 30 ? 'is longer then 30 characters.' : playlistNameInput.value.length <= 0 ? 'is empty.' : 'has be added.';

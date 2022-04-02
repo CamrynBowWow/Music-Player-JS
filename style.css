@@ -45,33 +45,24 @@
   --modal-content-background-color: #f8f0fc;
   --modal-content-border-color: #e599f7;
 
-  /* --background-body: linear-gradient(
-    89.89deg,
-    #62abe0 0.11%,
-    rgba(169, 67, 227, 0.85888) 99.92%
-  ); */
+  --tooltip-border-color: #ebe7eb;
+
+  --playlist-name-input-color: #141314;
+  --playlist-name-input-background: #e7e7e7;
+  --playlist-name-input-border-hover: #86289c;
+  --submit-area-input-color-hover: #141314;
+
   --background-body: #f8f0fc;
   --icon-color: #ffffff;
   --aside-color: #da77f2;
   --aside-a-color: #d46ced;
   --text-color: #ffffff;
-  /* --text-color: #121212; */
+
   --background-secondary-color: #ffffff; /* for main tags background */
   --text-color-headers-main-tags: #ffffff;
   --text-color-main-tag-tabs-class: #ffffff;
   --main-tabs-background-color: #da77f2; /* for inside the main tags box color */
   --main-tags-headers-color: #862e9c;
-
-  --grape-0: #f8f0fc;
-  --grape-1: #f3d9fa;
-  --grape-2: #eebefa;
-  --grape-3: #e599f7;
-  --grape-4: #da77f2;
-  --grape-5: #cc5de8;
-  --grape-6: #be4bdb;
-  --grape-7: #ae3ec9;
-  --grape-8: #9c36b5;
-  --grape-9: #862e9c;
 
   --music-icons-button-border-color: #ae3ec9;
 
@@ -102,12 +93,8 @@
 
   --play-music-area-music-icon-button: #ae3ec9;
 
-  --default-transition-duration: 0.5s ease-in; /* going with this for now */
-  /* --default-transition-duration: 0.8s ease-in-out; */ /* which one would be bette? */
-  /* --box-shadow-color: rgb(0 0 0 / 51%) 1.95px 1.95px 2.6px; */
+  --default-transition-duration: 0.5s ease-in;
   --box-shadow-color: rgb(0 0 0 / 10%) 0px 0px 33px;
-  /* --box-shadow-main-tags: rgb(0 0 0 / 25%) 4px 4px 6px,
-    rgb(0 0 0 / 25%) -3px -2px 6px; */
   --box-shadow-main-tags: rgb(0 0 0 / 10%) 0px 0px 33px,
     rgb(0 0 0 / 10%) 0px 0px 0px;
 
@@ -147,6 +134,13 @@
   --modal-content-background-color: #292929;
   --modal-content-border-color: #555457;
 
+  --tooltip-border-color: #555457;
+
+  --playlist-name-input-color: #b4b4b4;
+  --playlist-name-input-background: #555457;
+  --playlist-name-input-border-hover: #bb86fc;
+  --submit-area-input-color-hover: #bb86fc;
+
   --scrollBar-color-background: #292929;
   --scrollBar-color-thumb: #f9f9f98c;
   --scrollBar-color-thumb-hover: #bb86fc;
@@ -163,8 +157,7 @@
   --music-icons-button-color-hover: #b4b4b4;
 
   --hamburger-menu-color: #f9f9f98c;
-  /* --background-secondary-color: #bb86fc; */
-  /* --background-secondary-color: #bb86fc6b; */
+ 
   --background-secondary-color: #121010; /* for main tags background */
   --main-tabs-background-color: #1f1f1f; /* for inside the main tags box color */
   --main-tags-headers-color: #6649d6;
@@ -189,8 +182,6 @@
   --play-music-area-music-icon-button: #b4b4b4;
 
   --box-shadow-color: rgb(0 0 0 / 10%) 0px 0px 33px;
-  /* --box-shadow-main-tags: rgb(0 0 0 / 62%) 2px 2px 2px,
-    rgb(0 0 0 / 62%) -1.5px -1.5px 2px; */
   --box-shadow-main-tags: rgba(0, 0, 0, 10%);
 
   /* light mode color for loading spans */
@@ -213,7 +204,6 @@
   --slider-background-color-fill: #9960df;
   --slider-thumb-color: #9960df;
   --slider-brightness: brightness(0.75);
-  /* --hover-slider-color: #8343d2; */
 
   /* sliders colors end */
 }
@@ -447,7 +437,6 @@ aside a {
 
 .container-class {
   display: none;
-  /* display: flex; */
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -458,13 +447,10 @@ aside a {
 #playlist-area {
   height: 90%;
   margin: 0 1rem;
-  /* width: 50rem; */
   width: 40%;
   min-width: 25rem;
   position: relative;
   align-self: center;
-  /* justify-content: center; */
-  /* align-items: center; */
   display: flex;
   flex-direction: column;
   box-shadow: var(--box-shadow-main-tags);
@@ -474,7 +460,6 @@ aside a {
 .play-music-area {
   height: 90%;
   margin: 0 1rem;
-  /* width: 50rem; */
   width: 40%;
   min-width: 25rem;
   position: relative;
@@ -557,10 +542,8 @@ aside a {
 }
 
 .music-container {
-  /* height: 94%; */
-  /* height: inherit; */
   overflow: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 /* Menu area, Play area Ends */
@@ -581,7 +564,6 @@ aside a {
   flex-direction: column;
   align-items: center;
   gap: 4rem;
-  /* margin-top: 4rem; */
   padding: 1rem;
   color: var(--play-music-area-music-icon-button);
 }
@@ -593,12 +575,6 @@ aside a {
 #range-duration {
   width: 40%;
 }
-
-/* .container-play-music-area h1 {
-}
-
-.container-play-music-area h3 {
-} */
 
 .music-icons {
   display: flex;
@@ -622,7 +598,6 @@ aside a {
 
 .volume-area {
   display: flex;
-  /* font-size: 1rem; */
   align-items: center;
   height: 2rem;
 }
@@ -786,8 +761,6 @@ aside a {
 #range-duration::-webkit-slider-thumb:focus {
   height: 1rem;
   width: 1rem;
-  /* background: var(--hover-slider-color); */
-  /* box-shadow: 0px 0px 2px black, 0px 0px 2px black; */
 }
 
 /* Slider styling */
@@ -804,9 +777,8 @@ aside a {
   padding: 0.3em;
   width: 50%;
   z-index: 1;
-  left: 105%;
-  /* filter: brightness(0.9); */
-  /* filter: drop-shadow(0px 1px 2px black); */
+  left: 100%;
+  border: 1px solid var(--tooltip-border-color);
 }
 
 #menu-items .tooltip-text-sidebar::after {
@@ -817,7 +789,7 @@ aside a {
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent var(--tooltip-background-color) transparent
+  border-color: transparent var(--tooltip-border-color) transparent
     transparent;
 }
 
@@ -895,7 +867,6 @@ aside a {
   justify-content: space-between;
   background: var(--modal-content-background-color);
   margin: auto;
-  /* border: 1px solid var(--modal-content-border-color); */
   position: fixed;
   height: 15rem;
   width: 25rem;
@@ -933,7 +904,7 @@ aside a {
 
 .add-playlist {
   width: inherit;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
@@ -948,9 +919,23 @@ aside a {
 .add-playlist input {
   border: 1px solid #b9b9b9eb;
   padding: 0.3em;
-  background: var(--modal-content-border-color);
-  color: var(--play-music-area-music-icon-button);
+  background: var(--playlist-name-input-background);
+  color: var(--playlist-name-input-color);
   font-size: 1.2rem;
+}
+
+.add-playlist input:hover {
+  border: 1px solid var(--playlist-name-input-border-hover);
+}
+
+.submit-area input:hover {
+  color: var(--submit-area-input-color-hover);
+  opacity: 0.9;
+}
+
+.display-playlists {
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 /* Modal content end */
