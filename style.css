@@ -933,17 +933,32 @@ aside a {
   opacity: 0.9;
 }
 
-.display-playlists {
-  overflow: hidden;
-  overflow-y: auto;
-}
-
 /* Modal content end */
 
 /* Playlist create divs */
 
+.display-playlists {
+  display: none; 
+  overflow: hidden;
+  overflow-y: auto;
+  height: inherit;
+  width: inherit;
+  padding: 0.4rem 0.3rem 0 0.3rem;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .playlist-names-display {
-  display: grid;
+  background: var(--aside-color);
+  display: flex;
+  padding: 0.7em;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.playlist-names-display:hover {
+  color: var(--main-div-hover-color);
+  filter: var(--slider-brightness);
 }
 
 /* Playlist create divs end */

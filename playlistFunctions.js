@@ -1,5 +1,6 @@
 import {hideSidebar} from './sideBarFunctions.js';
 import {storeMusicIntoPlaylists, getPlaylistNames} from './database.js';
+import {removeDivsChildren, musicDisplay} from './script.js';
 
 
 const playlistCreateButton = document.querySelector('.playlist-create');
@@ -13,6 +14,7 @@ const modalContent = document.querySelector('.modal-content');
 const playlistNameInput = document.querySelector('#playlist-name');
 const addPlaylistDiv = document.querySelector('.add-playlist');
 const submitAreaDiv = document.querySelector('.submit-area');
+const displayPlaylistDiv = document.querySelector('.display-playlists');
 
 // If clicked outside of the modal-content div it will close the display
 modalContainer.addEventListener('click', function(event){
@@ -48,6 +50,11 @@ export function hideModal(){
     playlistNameInput.value = '';
     addPlaylistDiv.style.display = 'none';
     submitAreaDiv.style.display = 'none';
+    displayPlaylistDiv.style.display = 'none';
+
+    while(displayPlaylistDiv.firstChild){
+        displayPlaylistDiv.removeChild(displayPlaylistDiv.firstChild);
+    }
 }
 
 // Cancels any of the playlist features, Add or Delete or Display Playlist
@@ -69,25 +76,61 @@ submitButton.addEventListener('click', () => {
     }
 })
 
+playlistDeleteButton.addEventListener('click', async () => {
+    let valueDisplay = 0;
+    await createDivDisplay(valueDisplay);
+})
+
+// When playlist button is selected
 playlistDisplay.addEventListener('click', async () => {
+    let valueDisplay = 1;
+    await createDivDisplay(valueDisplay);
+})
+
+// Creates playlists menu to select playlist with music in it
+async function createDivDisplay(value){
 
     let namesOfPlaylists = await getPlaylistNames();
-    
-    console.log(namesOfPlaylists)
-    
 
-    // for(let playlistValue of playlistName[0]){
-    //     console.log(playlistValue);
-    //     // let playlistDivDisplay = document.createElement('div');
+    console.log(value)
     
-    //     // playlistDivDisplay.setAttribute('class', 'playlist-names-display');
-    
-    //     // let buttonPlaylist = document.createElement('button');
-    //     // buttonPlaylist.setAttribute('id', playlistValue)
-    // }
+    document.querySelector('.modal-header h1').innerText = 'Playlists';
+    displayPlaylistDiv.style.display = 'flex';
 
+    for(let playlistValue of namesOfPlaylists){
+
+        let playlistDivDisplay = document.createElement('div'); // Creates div for selecting playlist
+    
+        playlistDivDisplay.setAttribute('class', 'playlist-names-display');
+        playlistDivDisplay.setAttribute('id', playlistValue[0]);
+        playlistDivDisplay.addEventListener('click', value === 1 ? displayMusicFromPlaylist : deleteply);// Function to display music once playlist is selected
+        playlistDivDisplay.innerText = playlistValue[0];
+
+        let spanTagMusicTotal = document.createElement('span'); // Creates span on div to display all the music in the playlist
+
+        spanTagMusicTotal.setAttribute('class', 'music-total-span');
+        spanTagMusicTotal.innerText = playlistValue[1].toString();
+
+        playlistDivDisplay.appendChild(spanTagMusicTotal);
+
+        displayPlaylistDiv.appendChild(playlistDivDisplay);
         
-  
+    }
+    
+    displayModal();
+}
 
+// Adds music to music-container div
+async function displayMusicFromPlaylist(value){
 
-})
+    let playlistId = value.target.id;
+
+    await removeDivsChildren();
+    await musicDisplay(playlistId);
+    hideModal();
+}
+
+// Deletes playlist 
+function deleteply(){ // still need work and name change
+    console.log("work");
+}// still going give proper name later

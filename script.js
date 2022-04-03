@@ -45,7 +45,7 @@ const musicDivDisplays = document.querySelector('.music-container')
 //const playlistAreaSection = document.querySelector('#playlist-area'); Not in use yet # Look here for next and pre btn Cam
 const headerPlaylistArea = document.querySelector('.header-playlist-area h1');
 
-async function musicDisplay(playlistNameCheck){
+export async function musicDisplay(playlistNameCheck){
     musicID = localStorage.getItem('musicID');
     let allMusic;
 
@@ -135,7 +135,7 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
 /* The IndexedDb end */
 
 // Removes children divs from playlist-area section
-async function removeDivsChildren() {
+export async function removeDivsChildren() {
     while(musicDivDisplays.firstChild){
 
         musicDivDisplays.removeChild(musicDivDisplays.firstChild);
