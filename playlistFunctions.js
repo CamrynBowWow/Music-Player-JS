@@ -137,16 +137,15 @@ let musicID;
 async function addMusicToPlaylist(playlistName){
 
     let valueId = musicID.split("_");
-
-    let musicAmount = document.querySelector('.playlist-names-display span').textContent;
    
-    let checkReturnValue = await storeMusicIntoPlaylists(playlistName.target.id, valueId[0]);
-    console.log(checkReturnValue); // Needs to be fixed returns undefined
-    // if(checkReturnValue === musicAmount){
-    //     alert('Music already in playlist');
-    // } else {
-    //     hideModal();
-    // }
+    let musicCheckInPlaylist = await storeMusicIntoPlaylists(playlistName.target.id, valueId[0]);
+    
+    if(musicCheckInPlaylist){
+        alert('Music is already in playlist');
+    } else {
+        hideModal();
+    }
+ 
 }
 
 // Deletes playlist 
