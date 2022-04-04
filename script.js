@@ -4,6 +4,7 @@
 import {createDatabase, setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js';
 import {pauseSong, playSong, sourceTag} from './musicPlayerControls.js';
 import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
+import {createDivDisplay} from './playlistFunctions.js';
 
 let musicID;
 export let audio;
@@ -460,7 +461,7 @@ rangeDisplaySlider.addEventListener('input', (value) => {
 
 async function addToPlaylist(id){
 
-    storeMusicIntoPlaylists("Vibe", id.target.id);
+    createDivDisplay(id.target.id);
 
 }
 

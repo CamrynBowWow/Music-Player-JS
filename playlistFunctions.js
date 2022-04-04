@@ -88,11 +88,11 @@ playlistDisplay.addEventListener('click', async () => {
 })
 
 // Creates playlists menu to select playlist with music in it
-async function createDivDisplay(value){
+export async function createDivDisplay(value){
+
+    musicID = value;
 
     let namesOfPlaylists = await getPlaylistNames();
-
-    console.log(value)
     
     document.querySelector('.modal-header h1').innerText = 'Playlists';
     displayPlaylistDiv.style.display = 'flex';
@@ -103,7 +103,7 @@ async function createDivDisplay(value){
     
         playlistDivDisplay.setAttribute('class', 'playlist-names-display');
         playlistDivDisplay.setAttribute('id', playlistValue[0]);
-        playlistDivDisplay.addEventListener('click', value === 1 ? displayMusicFromPlaylist : deleteply);// Function to display music once playlist is selected
+        playlistDivDisplay.addEventListener('click', value === 1 ? displayMusicFromPlaylist :  value === 2 ? deleteply : addMusicToPlaylist);// Function to display music once playlist is selected
         playlistDivDisplay.innerText = playlistValue[0];
 
         let spanTagMusicTotal = document.createElement('span'); // Creates span on div to display all the music in the playlist
@@ -117,6 +117,7 @@ async function createDivDisplay(value){
         
     }
     
+    hideSidebar();
     displayModal();
 }
 
@@ -128,6 +129,24 @@ async function displayMusicFromPlaylist(value){
     await removeDivsChildren();
     await musicDisplay(playlistId);
     hideModal();
+}
+
+let musicID;
+
+// Adds to playlist
+async function addMusicToPlaylist(playlistName){
+
+    let valueId = musicID.split("_");
+
+    let musicAmount = document.querySelector('.playlist-names-display span').textContent;
+   
+    let checkReturnValue = await storeMusicIntoPlaylists(playlistName.target.id, valueId[0]);
+    console.log(checkReturnValue); // Needs to be fixed returns undefined
+    // if(checkReturnValue === musicAmount){
+    //     alert('Music already in playlist');
+    // } else {
+    //     hideModal();
+    // }
 }
 
 // Deletes playlist 
