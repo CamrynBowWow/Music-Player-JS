@@ -105,31 +105,11 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
                     
                 arrayValues.splice(indexValue, 1);
                 
-            } else if(value === valueId) { // If music already in playlist will send bool true back
-                //inPlaylistCount = count[0].length.toString();     
+            } else if(value === valueId) { // If music already in playlist will send bool true back                  
                 inPlaylistCount = true;                                 
             }
         })
     }
-
-    // TODO more simple #map
-    // If no name then push to array but if there is an array already will add to it
-    // if(valueArray != null){
-    //     for(let i = 0; i < valueArray.length; i++){
-    //         // Checks to see if value of Music ID is already in database and then won't add it again
-    //         if(valueArray[i] != valueId){
-
-    //             arrayValues.push(valueArray[i]);
-
-    //         } else if(valueArray[i] === valueId){ // Removes musicID from favorite if already in the database
-
-    //             const indexValue = arrayValues.indexOf(valueId);
-                
-    //             arrayValues.splice(indexValue, 1);
-                
-    //         }
-    //     }   
-    // } 
 
     await musicDatabase.put('playlists', arrayValues, playlistName);
 

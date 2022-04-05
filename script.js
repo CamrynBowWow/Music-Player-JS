@@ -93,7 +93,17 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
 
         mainTagTabs.appendChild(spanAddBox);
 
-        if(playlistNameCheck != "Favorites"){
+        if(playlistNameCheck != "Favorites" && playlistNameCheck != "All Music" && playlistNameCheck != null){
+            // Creates remove icon for playlists that are selected
+            let spanRemove = document.createElement('span');
+            spanRemove.setAttribute('id', musicValues['id'] + "_remove");
+            spanRemove.setAttribute('class', 'material-icons md-36');
+            spanRemove.addEventListener('click', removeFromPlaylist);
+            spanRemove.innerText = 'remove_circle_outline';
+
+            mainTagTabs.appendChild(spanRemove);
+
+        } else if(playlistNameCheck != "Favorites"){
             // Creates icon to delete music
             let spanDelete = document.createElement('span');
             spanDelete.setAttribute('id', musicValues['id'] + "_delete");
@@ -457,6 +467,14 @@ rangeDisplaySlider.addEventListener('input', (value) => {
 
 /* For deleting music end */
 
+/* For Removing music from playlist */
+
+async function removeFromPlaylist(id){
+
+}
+
+/* For Removing music from playlist end */
+
 /* For adding music to playlist */
 
 async function addToPlaylist(id){
@@ -510,7 +528,3 @@ allMusicButton.addEventListener('click', async () => {
 })
 
 /* All Music display end */
-
-/* Modal box */
-
-/* Modal box end */

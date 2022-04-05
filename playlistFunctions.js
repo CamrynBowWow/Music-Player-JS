@@ -143,10 +143,12 @@ async function addMusicToPlaylist(playlistName){
     if(musicCheckInPlaylist){
         alert('Music is already in playlist');
     } else {
+        alert('Music has been added to playlist');
         hideModal();
     }
  
 }
+// Adds to playlist end
 
 // Deletes playlist 
 function deleteply(){ // still need work and name change
