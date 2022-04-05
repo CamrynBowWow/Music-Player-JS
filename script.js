@@ -1,7 +1,7 @@
 
 /* The IndexedDb */
-
-import {createDatabase, setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js';
+//createDatabase
+import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js';
 import {pauseSong, playSong, sourceTag} from './musicPlayerControls.js';
 import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 import {createDivDisplay} from './playlistFunctions.js';
@@ -10,7 +10,7 @@ let musicID;
 export let audio;
 
 window.onload = function() {
-    createDatabase();
+    //createDatabase();
     musicDisplay();
 
     // TODO : Please conisder removing this, rather only have a loader on the songs section while it is loading music
@@ -51,14 +51,14 @@ export async function musicDisplay(playlistNameCheck){
     let allMusic;
 
     if(playlistNameCheck != null && playlistNameCheck != "All Music"){
-        allMusic = await retrieveMusicFromPlaylist(playlistNameCheck);
+        allMusic = await retrieveMusicFromPlaylist(playlistNameCheck); // Fetches music when a playlist or favorites is selected
         headerPlaylistArea.innerText = playlistNameCheck;
     } else {
         headerPlaylistArea.innerText = "All Music";
         allMusic = await retrieveAllMusicInfo();
     }
     
-    if(allMusic != null && !(allMusic[0].length -1)){
+    if(allMusic != null && !(allMusic[0]?.length -1)){ // Creates divs on page load
         await createDivsToDisplay(allMusic, playlistNameCheck);
     }
 
