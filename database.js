@@ -95,7 +95,7 @@ export async function getMusicToPlay(value){
     // return musicInfo;
 }
 
-// Puts music ID into playlists table musicInfo
+// Puts music ID into playlists table musicInfo and for making of playlists
 export async function storeMusicIntoPlaylists(playlistName, valueId){
 
     // const musicDatabase = await openDB('musicStorage', undefined, {});
@@ -110,7 +110,7 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
     //let count = (await db).getAll('playlists', playlistName); // Gets all the music in the playlist
     
     // If no name then push to array but if there is an array already will add to it
-    if(valueArray != null){
+    if(valueArray != null && valueId != null){
         arrayValues.push(valueId);
         valueArray.map(value => {
             if(value != valueId){
@@ -141,14 +141,14 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
 
 // For storeMusicIntoPlaylists function
 async function checksForPlaylist(keyName){
-
+    
     // const dbOpenCheck = await openDB('musicStorage', undefined, {});
 
     // let arrayOfMusic = await dbOpenCheck.get('playlists', keyName);
     let arrayOfMusic = (await db).get('playlists', keyName);
     let musicArray = await arrayOfMusic;
 
-    if(musicArray == null) {
+    if(musicArray == null && keyName === "Favorites") {
         (await db).put('playlists', [], "Favorites");  
         return [];
     }
