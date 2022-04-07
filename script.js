@@ -2,9 +2,10 @@
 /* The IndexedDb */
 //createDatabase
 import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js';
-import {pauseSong, playSong, sourceTag} from './musicPlayerControls.js';
+import {pauseSong, sourceTag} from './musicPlayerControls.js';
 import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 import {createDivDisplay} from './playlistFunctions.js';
+import {musicFetched, checkName} from './playMusicFunction.js';
 
 let musicID;
 export let audio;
@@ -24,9 +25,7 @@ window.onload = function() {
 
 const asideDiv = document.querySelector('aside');
 const loadingDiv = document.querySelector('.loading');
-const musicContainer = document.querySelector('.music-container');
-const songNameHeader = document.querySelector(".container-play-music-area h1");
-const artistNameHeader = document.querySelector(".container-play-music-area h3");
+const musicContainer = document.querySelector('.music-container');// Not in use yet
 
 function loaded(){
     //loadingDiv.querySelector('h2').innerHTML = 'Loading Music Player';
@@ -234,9 +233,7 @@ addMusic.addEventListener('click', async () => {
 
 // Music area icon functions
 
-// TODO : Consider moving all the things related to the currently playing song card to a seperate js file
-
-async function fetchMusicLocalStorage(id){
+export async function fetchMusicLocalStorage(id){
 
     let musicIdentifier = 0;
 
@@ -263,42 +260,6 @@ async function fetchMusicLocalStorage(id){
     }
 }
 
-// Music selected to play
-
-async function musicFetched(id){
-
-    if(audio != null){
-        audio.pause();
-    }
-
-    let musicToPlay = id.target.id;
-
-    await fetchMusicLocalStorage(musicToPlay);
-
-    playSong(musicToPlay);
-
-}
-
-async function checkName(nameOfMusic){
-
-    let songNameAndArtist = nameOfMusic.split("-");
-
-    if(songNameAndArtist.length > 1){
-        let musicName = songNameAndArtist[1].replace(/.(mp3)$/, '');
-
-        songNameHeader.innerText = musicName.trim();
-        artistNameHeader.innerText = songNameAndArtist[0].trim();
-
-    } else {
-        let musicName = nameOfMusic.replace(/.(mp3)$/, '');
-
-        songNameHeader.innerText = musicName.trim();
-        artistNameHeader.innerText = 'Unknown';
-    }
-
-}
-
-// Music selected to play end
 
 // Volume control
 
@@ -427,7 +388,7 @@ function progressTimeUpdate() {
         timeDuration.innerText = `${totalMinEnd}:${totalSecEnd}`;
     })
 }
-// TODO : Please change to camelCase as all your other functions are
+
 function currentTimeClock(currentTime){
 
     let currentMinute = Math.floor(currentTime / 60);

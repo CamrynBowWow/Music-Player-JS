@@ -322,6 +322,11 @@ body button {
     }
 
     .music-icons button {
+      width: 2.3rem !important;
+      height: 2.3rem !important;
+    }
+
+    #play-button {
       width: 2.5rem !important;
       height: 2.5rem !important;
     }
@@ -348,13 +353,34 @@ body button {
     }
 
     .loading h2 {
-      font-size: 0.9rem !important;
+      font-size: 0.7rem !important;
     }
 
     .spans span {
       width: 0.8em !important;
       height: 0.8em !important;
-      margin: 0.4em !important;
+      margin: 0.2em !important;
+    }
+
+    .modal-content{
+      width: 20rem !important;
+      height: 10rem !important;
+    }
+
+    .modal-header{
+      font-size: 0.7rem !important;
+    }
+
+    .add-playlist label {
+      font-size: 1rem !important;
+    }
+
+    .add-playlist input {
+      font-size: 1rem !important;
+    }
+
+    .add-playlist {
+      gap: 0.3rem !important;
     }
 
   }
