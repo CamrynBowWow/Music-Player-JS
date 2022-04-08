@@ -1,7 +1,7 @@
 
 /* The IndexedDb */
 //createDatabase
-import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist} from './database.js';
+import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist, removeMusicFromPlaylist} from './database.js';
 import {pauseSong, sourceTag} from './musicPlayerControls.js';
 import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 import {createDivDisplay} from './playlistFunctions.js';
@@ -25,7 +25,6 @@ window.onload = function() {
 
 const asideDiv = document.querySelector('aside');
 const loadingDiv = document.querySelector('.loading');
-const musicContainer = document.querySelector('.music-container');// Not in use yet
 
 function loaded(){
     //loadingDiv.querySelector('h2').innerHTML = 'Loading Music Player';
@@ -64,9 +63,9 @@ export async function musicDisplay(playlistNameCheck){
 }
 
 async function createDivsToDisplay(allMusic, playlistNameCheck){
-
+    
     for (let musicValues of allMusic) {
-
+        
         let inFavoritePlaylist = await getFavoritesIDs(musicValues['id'])
 
         let nameOfMusic = musicValues['name'].replace(/.(mp3)$/, '');
@@ -74,6 +73,7 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
         let mainTagTabs = document.createElement('div');
 
         mainTagTabs.setAttribute('class', 'main-tag-tabs');
+        mainTagTabs.setAttribute('id', musicValues['id'] + "_div");
 
         // Creates button to play song
         let buttonPlay = document.createElement('button');
@@ -430,8 +430,20 @@ rangeDisplaySlider.addEventListener('input', (value) => {
 
 /* For Removing music from playlist */
 
+// When user confirms that they want to remove the music from the playlist it will
+// remove it from database first and then remove the div from the playlist in the music-container div
 async function removeFromPlaylist(id){
+    let answer = confirm('Are you sure you want to remove the music from the playlist?');
+    
+    let valueId = id.target.id.split("_");
+   
+    if(answer){ 
+        await removeMusicFromPlaylist(valueId[0], headerPlaylistArea.textContent);
 
+        let divRemove = document.querySelector("[id='" + valueId[0] + "_div']");
+        console.log(divRemove);
+        musicDivDisplays.removeChild(divRemove);
+    }
 }
 
 /* For Removing music from playlist end */

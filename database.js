@@ -139,6 +139,20 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
     return inPlaylistCount;
 }
 
+// Will remove song from playlist 
+export async function removeMusicFromPlaylist(musicId, playlistName) {
+
+    let array = (await db).get('playlists', playlistName); // Gets array of music from database
+    let arrayOfMusic = await array; // take variable out of pending
+    
+    const indexValue = arrayOfMusic.indexOf(musicId);
+
+    arrayOfMusic.splice(indexValue, 1); // Removes ID of music from array
+   
+    (await db).put('playlists', arrayOfMusic, playlistName);
+
+}
+
 // For storeMusicIntoPlaylists function
 async function checksForPlaylist(keyName){
     
