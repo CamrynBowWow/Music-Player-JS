@@ -1,6 +1,6 @@
 import {hideSidebar} from './sideBarFunctions.js';
-import {storeMusicIntoPlaylists, getPlaylistNames} from './database.js';
-import {removeDivsChildren, musicDisplay} from './script.js';
+import {storeMusicIntoPlaylists, getPlaylistNames, deleteKey} from './database.js';
+import {removeDivsChildren, musicDisplay, headerPlaylistArea} from './script.js';
 
 
 const playlistCreateButton = document.querySelector('.playlist-create');
@@ -65,9 +65,9 @@ cancelIcon.addEventListener('click', () =>{
 // This will insert the new playlist into the database table playlists with an empty array as the value
 submitButton.addEventListener('click', () => {
    
-    const alertValue = playlistNameInput.value.length > 30 ? 'is longer then 30 characters.' : playlistNameInput.value.length <= 0 ? 'is empty.' : 'has be added.';
-
-    if(playlistNameInput.value.length > 30 || playlistNameInput.value.length <= 0){
+    const alertValue = playlistNameInput.value.length > 30 ? 'is longer then 30 characters.' : playlistNameInput.value.length <= 0 ? 'is empty.' : isEmptyOrSpaces(playlistNameInput.value) ? 'can not be spaces or empty.' : 'has be added.';
+    
+    if(playlistNameInput.value.length > 30 || playlistNameInput.value.length <= 0 || isEmptyOrSpaces(playlistNameInput.value)){
         alert('Playlist Name ' + alertValue);
     } else {
         storeMusicIntoPlaylists(playlistNameInput.value);
@@ -76,8 +76,12 @@ submitButton.addEventListener('click', () => {
     }
 })
 
+function isEmptyOrSpaces(string){
+    return string === null || string.match(/^ *$/) !== null;
+}
+
 playlistDeleteButton.addEventListener('click', async () => {
-    let valueDisplay = 0;
+    let valueDisplay = 2;
     await createDivDisplay(valueDisplay);
 })
 
@@ -103,7 +107,7 @@ export async function createDivDisplay(value){
     
         playlistDivDisplay.setAttribute('class', 'playlist-names-display');
         playlistDivDisplay.setAttribute('id', playlistValue[0]);
-        playlistDivDisplay.addEventListener('click', value === 1 ? displayMusicFromPlaylist :  value === 2 ? deleteply : addMusicToPlaylist);// Function to display music once playlist is selected
+        playlistDivDisplay.addEventListener('click', value === 1 ? displayMusicFromPlaylist :  value === 2 ? deletePlaylist : addMusicToPlaylist);// Function to display music and functionality depending on what was selected
         playlistDivDisplay.innerText = playlistValue[0];
 
         let spanTagMusicTotal = document.createElement('span'); // Creates span on div to display all the music in the playlist
@@ -151,6 +155,23 @@ async function addMusicToPlaylist(playlistName){
 // Adds to playlist end
 
 // Deletes playlist 
-function deleteply(){ // still need work and name change
-    console.log("work");
-}// still going give proper name later
+async function deletePlaylist(id){ 
+
+    let answer = confirm('Are you sure you want to delete this playlist?');
+    
+    if(answer){
+        await deleteKey(id.target.id);
+        hideModal();
+        await checkPlaylist(id.target.id);
+    }
+
+}
+
+// Checks to see what playlist on and if on same playlist as one being deleted
+// Will load all music playlist afterwards
+async function checkPlaylist(headerText){
+
+    if(headerText === headerPlaylistArea.textContent){
+        await musicDisplay('All Music');
+    }
+}

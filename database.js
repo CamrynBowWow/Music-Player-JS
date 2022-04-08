@@ -246,3 +246,8 @@ export async function retrieveMusicFromPlaylist(playlistName){
 
     return musicToDisplaySend;
 }
+
+// Deletes playlist from database table playlists
+export async function deleteKey( keyValue){
+    return (await db).delete('playlists', keyValue);
+}

@@ -1,7 +1,7 @@
 
 /* The IndexedDb */
 //createDatabase
-import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist, removeMusicFromPlaylist} from './database.js';
+import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist, removeMusicFromPlaylist, deleteKey} from './database.js';
 import {pauseSong, sourceTag} from './musicPlayerControls.js';
 import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 import {createDivDisplay} from './playlistFunctions.js';
@@ -42,7 +42,7 @@ function loaded(){
 
 const musicDivDisplays = document.querySelector('.music-container')
 //const playlistAreaSection = document.querySelector('#playlist-area'); Not in use yet # Look here for next and pre btn Cam
-const headerPlaylistArea = document.querySelector('.header-playlist-area h1');
+export const headerPlaylistArea = document.querySelector('.header-playlist-area h1');
 
 export async function musicDisplay(playlistNameCheck){
     musicID = localStorage.getItem('musicID');
@@ -107,6 +107,7 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
             let spanDelete = document.createElement('span');
             spanDelete.setAttribute('id', musicValues['id'] + "_delete");
             spanDelete.setAttribute('class', 'material-icons md-36');
+            spanDelete.addEventListener('click', deleteMusic);
             spanDelete.innerText = 'delete';
 
             mainTagTabs.appendChild(spanDelete);
@@ -440,12 +441,9 @@ async function removeFromPlaylist(id){
     if(answer){ 
         await removeMusicFromPlaylist(valueId[0], headerPlaylistArea.textContent);
 
-        let divRemove = document.querySelector("[id='" + valueId[0] + "_div']");
-        console.log(divRemove);
-        musicDivDisplays.removeChild(divRemove);
+        await removeDiv(valueId[0]);
     }
 }
-
 /* For Removing music from playlist end */
 
 /* For adding music to playlist */
@@ -501,3 +499,31 @@ allMusicButton.addEventListener('click', async () => {
 })
 
 /* All Music display end */
+
+/* Delete Music from Database */
+
+async function deleteMusic(id){
+    let valueId = id.target.id.split('_');
+
+    let answer = confirm('Are you sure you want to permanently delete this?');
+    
+    if(answer){
+        //TODO
+        await deleteKey('musicList', valueId[0]);// Not working might have to do transaction
+    
+        await removeDiv(valueId[0]);
+        alert("Music has been permanently deleted.");
+    }
+
+}
+
+/* Delete Music from Database end */
+
+// This removes div from music-container on both remove from playlist function and 
+// delete music from database function
+async function removeDiv(id){
+
+    let divRemove = document.querySelector("[id='" + id + "_div']");
+        
+    musicDivDisplays.removeChild(divRemove);
+}
