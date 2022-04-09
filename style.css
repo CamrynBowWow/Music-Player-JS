@@ -9,7 +9,7 @@
 /* scrollbar styling */
 
 ::-webkit-scrollbar {
-  width: 1rem;
+  width: 0.5rem; 
 }
 
 ::-webkit-scrollbar-track {
@@ -22,6 +22,7 @@
 
 ::-webkit-scrollbar-thumb {
   background: var(--scrollBar-color-thumb);
+  border-radius: 30px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -309,7 +310,7 @@ body button {
     }
 
     ::-webkit-scrollbar {
-      width: 0.6rem;
+      width: 0.5rem;
     }
 
     .main-tag-tabs {
@@ -507,7 +508,7 @@ aside a {
 
 .main-tag-tabs {
   padding: 0.5em 0.5em 0.5em 0;
-  margin: 1rem 0.5rem 1rem 0.5rem;
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
   font-size: 32px;
   justify-content: flex-start;
   align-items: center;
@@ -516,6 +517,10 @@ aside a {
   background: var(--main-tabs-background-color);
   font-weight: 700;
   position: relative;
+}
+
+.main-tag-tabs:hover {
+  background: var(--main-div-hover-background);
 }
 
 .main-tag-tabs button {
@@ -552,10 +557,10 @@ aside a {
   font-size: 2.75rem;
 }
 
-.main-tag-tabs button:hover {
+/* .main-tag-tabs button:hover {
   color: var(--main-div-hover-color);
   background: var(--main-div-hover-background);
-}
+} */
 
 .main-tag-tabs .material-icons.heart {
   color: var(--heart-icon-color);

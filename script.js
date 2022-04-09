@@ -1,7 +1,7 @@
 
 /* The IndexedDb */
 //createDatabase
-import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist, removeMusicFromPlaylist, deleteKey} from './database.js';
+import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist, removeMusicFromPlaylist, deleteMusicDb} from './database.js';
 import {pauseSong, sourceTag} from './musicPlayerControls.js';
 import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 import {createDivDisplay} from './playlistFunctions.js';
@@ -222,7 +222,7 @@ addMusic.addEventListener('click', async () => {
             alert("Music has been added.")
             window.location.reload();
         } else {
-            alert("Music already exist");
+            alert("Music has already been downloaded.");
         }
     } else {
         alert("Please select a music file only.");
@@ -509,8 +509,8 @@ async function deleteMusic(id){
     
     if(answer){
         //TODO
-        await deleteKey('musicList', valueId[0]);// Not working might have to do transaction
-    
+        //await deleteKey('musicList', valueId[0]);// Not working might have to do transaction
+        await deleteMusicDb(valueId[0])
         await removeDiv(valueId[0]);
         alert("Music has been permanently deleted.");
     }

@@ -1,40 +1,13 @@
 import { openDB } from './node_modules/idb/with-async-ittr.js';
 
 // Creates the database and table for music 
-/**
- * TODO : Consider getting rid of this funciton altogether and creating
- * an upgrade function that you can call on every "openDB"
- * the upgrade function will not be executed unless a new version of the db
- * has been specified
- */
-
-// let db;
-
-// export async function createDatabase() {
-
-//     // TODO : Store the version number in a global constant
-//     db = await openDB('musicStorage', 3, {
-//         upgrade(db) {
-//             // TODO : Refer to comment above the createDatabase signature
-//             const musicDb = db.createObjectStore('musicList', {keyPath: "id", autoIncrement: true,});
-
-//             musicDb.createIndex('music_name', 'name', {unique: true});
-
-//             // const playlistTable = db.createObjectStore('playlists', {keyPath: "id", autoIncrement: true,});
-//             db.createObjectStore('playlists', {autoIncrement: false,});         
-//         }
-//     });
-// }
-
-
 const db = openDB('musicStorage', 3, {
     upgrade(db){
-        // TODO : Refer to comment above the createDatabase signature
+        
         const musicDb = db.createObjectStore('musicList', {keyPath: "id", autoIncrement: true,});
 
         musicDb.createIndex('music_name', 'name', {unique: true});
 
-        // const playlistTable = db.createObjectStore('playlists', {keyPath: "id", autoIncrement: true,});
         db.createObjectStore('playlists', {autoIncrement: false,});              
     }
 });
@@ -61,9 +34,6 @@ export async function setMusicValue(name, byteLength, type){
 // Gets the info from database but must open it first to use the features
 export async function retrieveAllMusicInfo(){
 
-    // const dbGet = await openDB('musicStorage', undefined, {});
-    
-    // const fetchMusic = dbGet.transaction('musicList');
     const fetchMusic = (await db).transaction('musicList');
 
     let allMusic = [];
@@ -79,15 +49,12 @@ export async function retrieveAllMusicInfo(){
 // Will get one song from the database using the ID of the song selected
 export async function getMusicToPlay(value){
 
-    // let musicInfo = [];
     let valueID = await value;
 
     if(valueID.length != 0){
         if(valueID.length > 1){
-            // musicInfo = (await db).getAll('musicList');
             return (await db).getAll('musicList');
         } else {
-            // musicInfo = (await db).get('musicList', parseInt(valueID[0]));
             return (await db).get('musicList', parseInt(valueID[0]));
         }
     }
@@ -98,16 +65,11 @@ export async function getMusicToPlay(value){
 // Puts music ID into playlists table musicInfo and for making of playlists
 export async function storeMusicIntoPlaylists(playlistName, valueId){
 
-    // const musicDatabase = await openDB('musicStorage', undefined, {});
-
     let arrayValues = [];
 
     let inPlaylistCount = false;
 
     let valueArray = await checksForPlaylist(playlistName); // checks to see if there is no playlist with specified name in the database
-    
-    // let count = await musicDatabase.getAll('playlists', playlistName); // Gets all the music in the playlist
-    //let count = (await db).getAll('playlists', playlistName); // Gets all the music in the playlist
     
     // If no name then push to array but if there is an array already will add to it
     if(valueArray != null && valueId != null){
@@ -142,44 +104,35 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
 // Will remove song from playlist 
 export async function removeMusicFromPlaylist(musicId, playlistName) {
 
-    let array = (await db).get('playlists', playlistName); // Gets array of music from database
-    let arrayOfMusic = await array; // take variable out of pending
+    let array = await (await db).get('playlists', playlistName); // Gets array of music from database
     
-    const indexValue = arrayOfMusic.indexOf(musicId);
+    const indexValue = array.indexOf(musicId);
 
-    arrayOfMusic.splice(indexValue, 1); // Removes ID of music from array
+    array.splice(indexValue, 1); // Removes ID of music from array
    
-    (await db).put('playlists', arrayOfMusic, playlistName);
+    (await db).put('playlists', array, playlistName);
 
 }
 
 // For storeMusicIntoPlaylists function
 async function checksForPlaylist(keyName){
     
-    // const dbOpenCheck = await openDB('musicStorage', undefined, {});
+    let arrayOfMusic = await (await db).get('playlists', keyName);
 
-    // let arrayOfMusic = await dbOpenCheck.get('playlists', keyName);
-    let arrayOfMusic = (await db).get('playlists', keyName);
-    let musicArray = await arrayOfMusic;
-
-    if(musicArray == null && keyName === "Favorites") {
+    if(arrayOfMusic == null && keyName === "Favorites") {
         (await db).put('playlists', [], "Favorites");  
         return [];
     }
-    return musicArray; 
+    return arrayOfMusic; 
 }
 
 // Checks to see if music is in Favorite playlist 
 export async function getFavoritesIDs(valueID){
 
-    // const dbOpen = await openDB('musicStorage', undefined, {});
-
-    // let arrayValueIDs = await dbOpen.get('playlists', 'Favorites');
-    let arrayValueIDs = (await db).get('playlists', 'Favorites');
-    let array = await arrayValueIDs;// TODO: maybe a way to work around this to make it less code
-    
+    let arrayValueIDs = await (await db).get('playlists', 'Favorites');
+   
     if(arrayValueIDs != null){
-        if(arrayValueIDs != null && array?.includes(valueID.toString())){
+        if(arrayValueIDs != null && arrayValueIDs?.includes(valueID.toString())){
             return true;
         } else {
             return false;
@@ -192,24 +145,19 @@ export async function getFavoritesIDs(valueID){
 // Retrieves playlists table Keys
 export async function getPlaylistNames(){ 
 
-    // const dbOpen = await openDB('musicStorage', undefined, {});
+    let array = await (await db).getAllKeys('playlists'); // Gets all the key names from the table
 
-    // let array = await dbOpen.getAllKeys('playlists'); // Gets all the key names from the table
-    let array = (await db).getAllKeys('playlists'); // Gets all the key names from the table
-    let arrayIndex = await array; // TODO: work around this
-
-    const favIndex = arrayIndex.indexOf('Favorites');
-    arrayIndex.splice(favIndex, 1); // Removes Favorites playlist from displaying
+    const favIndex = array.indexOf('Favorites');
+    array.splice(favIndex, 1); // Removes Favorites playlist from displaying
     
-    let arrayReturn = Promise.all(arrayIndex.map(async value =>  {
+    let arrayReturn = Promise.all(array.map(async value =>  {
         
         let innerArray = [];
         innerArray.push(value);
-        
-        // let count = await dbOpen.getAll('playlists', value);        
-        let count = (await db).getAll('playlists', value); 
-        let numCount = await count;       
-        innerArray.push(numCount[0].length);// The amount of songs in each playlist
+              
+        let count = await (await db).getAll('playlists', value);     
+         
+        innerArray.push(count[0].length);// The amount of songs in each playlist
 
         return innerArray;
     }))
@@ -219,25 +167,21 @@ export async function getPlaylistNames(){
 
 export async function retrieveMusicFromPlaylist(playlistName){
 
-    // const dbOpen = await openDB('musicStorage', undefined, {});
-
     let musicToDisplaySend = [];
 
-    // let playlistValues  = await dbOpen.get('playlists', playlistName);
-    let playlistValues  = (await db).get('playlists', playlistName); // Fetches music from selected playlist
-    let playValues = await playlistValues; // TODO: work around this
+    let playlistValues  = await (await db).get('playlists', playlistName); // Fetches music from selected playlist
 
-    let allMusicFetched = await getMusicToPlay(playValues);
+    let allMusicFetched = await getMusicToPlay(playlistValues);
     
     if(allMusicFetched == null){
         return musicToDisplaySend;
-    } else if(allMusicFetched.id == playValues[0]){
+    } else if(allMusicFetched.id == playlistValues[0]){
         musicToDisplaySend.push(allMusicFetched)
     } else {
-        for(let i = 0; i < playValues.length; i++) {
+        for(let i = 0; i < playlistValues.length; i++) {
     
             for(let j = 0; j < allMusicFetched.length; j++){
-                if(allMusicFetched[j].id == playValues[i]){
+                if(allMusicFetched[j].id == playlistValues[i]){
                     musicToDisplaySend.push(allMusicFetched[j])
                 }
             }
@@ -248,6 +192,15 @@ export async function retrieveMusicFromPlaylist(playlistName){
 }
 
 // Deletes playlist from database table playlists
-export async function deleteKey( keyValue){
+export async function deleteKey(keyValue){
     return (await db).delete('playlists', keyValue);
+}
+
+export async function deleteMusicDb(valueId){
+    const tx = (await db).transaction('musicList', 'readwrite');
+    const index = tx.store;
+    
+    await index.delete(valueId);
+    //tx.done;
+    
 }
