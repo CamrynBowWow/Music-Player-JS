@@ -196,11 +196,45 @@ export async function deleteKey(keyValue){
     return (await db).delete('playlists', keyValue);
 }
 
+// Deletes music from database
 export async function deleteMusicDb(valueId){
+
     const tx = (await db).transaction('musicList', 'readwrite');
-    const index = tx.store;
+    const store = tx.objectStore('musicList');
+
+    getPlaylistRemoveMusic(valueId);
+
+    await store.delete(parseInt(valueId));
+    tx.done;
     
-    await index.delete(valueId);
-    //tx.done;
-    
+}
+
+// Will go over all the playlist to remove the music id from any another playlist
+async function getPlaylistRemoveMusic(valueId){
+
+    let arrayKeys = await (await db).getAllKeys('playlists');
+
+    Promise.all(arrayKeys.map(async value => {
+
+        let array = await (await db).get('playlists', value);
+
+        Promise.all(array.map(async item => {
+            if(item === valueId){
+                const indexValue = array.indexOf(valueId);
+
+                array.splice(indexValue, 1); // Removes ID of music from array
+   
+                (await db).put('playlists', array, value);
+            }
+        }))
+    }))
+
+}
+
+// Needs te be tested
+function spliceMusic(array, element){
+
+    const indexValue = array.indexOf(element);
+
+    return array.splice(indexValue, 1);
 }

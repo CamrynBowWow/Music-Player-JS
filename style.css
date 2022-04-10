@@ -125,10 +125,12 @@
 
 .darkmode {
   --background-body: #292929;
-  --icon-color: #b4b4b4;
+  /* --icon-color: #b4b4b4; */
+  --icon-color: #ffffffde;
   --aside-color: #1f1f1f;
   --aside-a-color: #1f1f1f;
-  --text-color: #b4b4b4;
+  /* --text-color: #b4b4b4; */
+  --text-color: #ffffffde;
 
   --tooltip-background-color: #292929;
 
@@ -137,7 +139,8 @@
 
   --tooltip-border-color: #555457;
 
-  --playlist-name-input-color: #b4b4b4;
+  /* --playlist-name-input-color: #b4b4b4; */
+  --playlist-name-input-color: #ffffffde;
   --playlist-name-input-background: #555457;
   --playlist-name-input-border-hover: #bb86fc;
   --submit-area-input-color-hover: #bb86fc;
@@ -148,22 +151,27 @@
   --scrollBar-bg-playlist-area: #121010;
 
   --button-hover-background-color: #292929;
-  --button-hover-border-color: #b4b4b4;
+  /* --button-hover-border-color: #b4b4b4; */
+  --button-hover-border-color: #ffffffde;
   --button-hover-color: #bb86fc;
   --button-hover: 3px 4px 5px -1px #000000;
   --button-hover-text-shadow: #000000;
 
   --music-icons-button-background-hover: #7424d9;
-  --music-icons-button-border-hover: #b4b4b4;
-  --music-icons-button-color-hover: #b4b4b4;
+  /* --music-icons-button-border-hover: #b4b4b4; */
+  --music-icons-button-border-hover: #ffffffde;
+  /* --music-icons-button-color-hover: #b4b4b4; */
+  --music-icons-button-color-hover: #ffffffde;
 
   --hamburger-menu-color: #f9f9f98c;
  
   --background-secondary-color: #121010; /* for main tags background */
   --main-tabs-background-color: #1f1f1f; /* for inside the main tags box color */
   --main-tags-headers-color: #6649d6;
-  --text-color-main-tag-tabs-class: #b4b4b4;
-  --text-color-headers-main-tags: #b4b4b4;
+  /* --text-color-main-tag-tabs-class: #b4b4b4; */
+  --text-color-main-tag-tabs-class: #ffffffde;
+  /* --text-color-headers-main-tags: #b4b4b4; */
+  --text-color-headers-main-tags: #ffffffde;
 
   --music-icons-button-border-color: #bb86fc;
 
@@ -180,7 +188,8 @@
   --heart-icon-color: #bb86fc; /* For the heart icon  */
   --heart-icon-hover-color: #6649d6;
 
-  --play-music-area-music-icon-button: #b4b4b4;
+  /* --play-music-area-music-icon-button: #b4b4b4; */
+  --play-music-area-music-icon-button: #ffffffde;
 
   --box-shadow-color: rgb(0 0 0 / 10%) 0px 0px 33px;
   --box-shadow-main-tags: rgba(0, 0, 0, 10%);
@@ -201,7 +210,8 @@
 
   /* sliders colors */
 
-  --slider-background-color: #b4b4b4;
+  /* --slider-background-color: #b4b4b4; */
+  --slider-background-color: #ffffffde;
   --slider-background-color-fill: #9960df;
   --slider-thumb-color: #9960df;
   --slider-brightness: brightness(0.75);
@@ -382,6 +392,14 @@ body button {
 
     .add-playlist {
       gap: 0.3rem !important;
+    }
+
+    .time-holder{
+      width: 15rem !important;
+    }
+
+    #range-duration{
+      width: 15rem !important;
     }
 
   }
@@ -603,10 +621,6 @@ aside a {
   color: var(--play-music-area-music-icon-button);
 }
 
-#range-duration {
-  width: 40%;
-}
-
 .music-icons {
   display: flex;
   gap: 2.15rem;
@@ -745,7 +759,7 @@ aside a {
 
 .time-holder {
   display: flex;
-  width: 40%;
+  width: 20rem;
   justify-content: space-between;
 }
 
@@ -753,6 +767,7 @@ aside a {
   cursor: pointer;
   -webkit-appearance: none;
   border-radius: 10px;
+  width: 20rem;
   height: 0.4rem;
   background: linear-gradient(
     90deg,

@@ -20,7 +20,7 @@ const displayPlaylistDiv = document.querySelector('.display-playlists');
 modalContainer.addEventListener('click', function(event){
 
     let isOutsideModal = modalContent.contains(event.target);
- 
+    
     if(!isOutsideModal){
        hideSidebar();
        hideModal();
@@ -172,6 +172,7 @@ async function deletePlaylist(id){
 async function checkPlaylist(headerText){
 
     if(headerText === headerPlaylistArea.textContent){
+        await removeDivsChildren();
         await musicDisplay('All Music');
     }
 }

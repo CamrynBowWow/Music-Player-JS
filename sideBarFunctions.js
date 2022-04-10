@@ -11,7 +11,7 @@ const backgroundModal = document.querySelector('#background-modal');
 
 document.addEventListener('click', function(event){
     let isClickedInside = headerSize.contains(event.target);
-    menuBarSizeChange
+    menuBarSizeChange;
     if(!isClickedInside){
        hideSidebar();
     }
