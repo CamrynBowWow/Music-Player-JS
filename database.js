@@ -80,10 +80,11 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
                 arrayValues.push(value);
     
             } else if(value === valueId && playlistName === "Favorites"){ // Removes musicID from favorite if already in the database
-    
-                const indexValue = arrayValues.indexOf(valueId);
+                
+                arrayValues = spliceMusic(arrayValues, valueId)
+                //const indexValue = arrayValues.indexOf(valueId);
                     
-                arrayValues.splice(indexValue, 1);
+                //arrayValues.splice(indexValue, 1);
                 
             } else if(value === valueId) { // If music already in playlist will send bool true back                  
                 inPlaylistCount = true;                                 
@@ -106,9 +107,10 @@ export async function removeMusicFromPlaylist(musicId, playlistName) {
 
     let array = await (await db).get('playlists', playlistName); // Gets array of music from database
     
-    const indexValue = array.indexOf(musicId);
-
-    array.splice(indexValue, 1); // Removes ID of music from array
+    array = spliceMusic(array, musicId);
+    //const indexValue = array.indexOf(musicId);
+    
+    //array.splice(indexValue, 1); // Removes ID of music from array
    
     (await db).put('playlists', array, playlistName);
 
@@ -220,9 +222,11 @@ async function getPlaylistRemoveMusic(valueId){
 
         Promise.all(array.map(async item => {
             if(item === valueId){
-                const indexValue = array.indexOf(valueId);
 
-                array.splice(indexValue, 1); // Removes ID of music from array
+                Promise.all(array = spliceMusic(array, valueId));
+                //const indexValue = array.indexOf(valueId);
+
+                //array.splice(indexValue, 1); // Removes ID of music from array
    
                 (await db).put('playlists', array, value);
             }
@@ -232,9 +236,11 @@ async function getPlaylistRemoveMusic(valueId){
 }
 
 // Needs te be tested
-function spliceMusic(array, element){
+function spliceMusic(array, id){
 
-    const indexValue = array.indexOf(element);
+    const indexValue = array.indexOf(id);
 
-    return array.splice(indexValue, 1);
+    array.splice(indexValue, 1);
+
+    return array;
 }
