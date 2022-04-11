@@ -22,26 +22,16 @@ window.onload = function() {
 
 }
 
-
-const asideDiv = document.querySelector('aside');
+export const asideDiv = document.querySelector('aside');
 const loadingDiv = document.querySelector('.loading');
 
 function loaded(){
-    //loadingDiv.querySelector('h2').innerHTML = 'Loading Music Player';
     asideDiv.style.display = 'flex';
     containerClassDiv.style.display = 'flex';
     loadingDiv.style.display = 'none';
 }
 
-// function loading(){// Still working on it
-//     //loadingDiv.querySelector('h2').innerText = 'Loading Music';
-//     musicContainer.querySelectorAll('.main-tag-tabs').zIndex = '-1';
-//     musicContainer.prependChild(loadingDiv);
-//     loadingDiv.style.display = 'block';
-// }
-
 const musicDivDisplays = document.querySelector('.music-container')
-//const playlistAreaSection = document.querySelector('#playlist-area'); Not in use yet # Look here for next and pre btn Cam
 export const headerPlaylistArea = document.querySelector('.header-playlist-area h1');
 
 export async function musicDisplay(playlistNameCheck){
@@ -425,10 +415,6 @@ rangeDisplaySlider.addEventListener('input', (value) => {
 
 /* Slider to show length of music end */
 
-/* For deleting music */
-
-/* For deleting music end */
-
 /* For Removing music from playlist */
 
 // When user confirms that they want to remove the music from the playlist it will
@@ -444,20 +430,20 @@ async function removeFromPlaylist(id){
         await removeDiv(valueId[0]);
     }
 }
+
 /* For Removing music from playlist end */
 
-/* For adding music to playlist */
 
+/* For adding music to playlist */
 async function addToPlaylist(id){
 
     createDivDisplay(id.target.id);
 
 }
-
 /* For adding music to playlist end */
 
-/* For adding to Favorite playlist */
 
+/* For adding to Favorite playlist */
 async function addToFavoritePlaylist(id) {
     let valueId = id.target.id.split("_");
 
@@ -472,11 +458,10 @@ async function addToFavoritePlaylist(id) {
         spanFavoriteID.style.color  = "var(--heart-icon-color)";
     }
 }
-
 /* For adding to Favorite playlist end */
 
-/* Favorite Playlist display */
 
+/* Favorite Playlist display */
 const favoritePlaylistButton = document.querySelector('.favourite-playlist');
 
 favoritePlaylistButton.addEventListener('click', async () => {
@@ -484,12 +469,10 @@ favoritePlaylistButton.addEventListener('click', async () => {
     await musicDisplay('Favorites');
     hideSidebar();
 })
-
 /* Favorite Playlist display end */
 
 
 /* All Music display */
-
 const allMusicButton = document.querySelector('.all-songs-playlist');
 
 allMusicButton.addEventListener('click', async () => {
@@ -497,11 +480,10 @@ allMusicButton.addEventListener('click', async () => {
     await musicDisplay('All Music');
     hideSidebar();
 })
-
 /* All Music display end */
 
-/* Delete Music from Database */
 
+/* Delete Music from Database */
 async function deleteMusic(id){
     let valueId = id.target.id.split('_');
 
@@ -516,8 +498,8 @@ async function deleteMusic(id){
     }
 
 }
-
 /* Delete Music from Database end */
+
 
 // This removes div from music-container on both remove from playlist function and 
 // delete music from database function

@@ -1,6 +1,6 @@
 import {hideSidebar} from './sideBarFunctions.js';
 import {storeMusicIntoPlaylists, getPlaylistNames, deleteKey} from './database.js';
-import {removeDivsChildren, musicDisplay, headerPlaylistArea} from './script.js';
+import {removeDivsChildren, musicDisplay, headerPlaylistArea, asideDiv} from './script.js';
 
 
 const playlistCreateButton = document.querySelector('.playlist-create');
@@ -43,6 +43,8 @@ cancelButton.addEventListener('click', () => {
 
 function displayModal(){
     modalContainer.style.display = 'block';
+    asideDiv.style.zIndex = '1';
+    console.log("t")
 }
 
 export function hideModal(){
@@ -51,6 +53,7 @@ export function hideModal(){
     addPlaylistDiv.style.display = 'none';
     submitAreaDiv.style.display = 'none';
     displayPlaylistDiv.style.display = 'none';
+    asideDiv.style.zIndex = '5';
 
     while(displayPlaylistDiv.firstChild){
         displayPlaylistDiv.removeChild(displayPlaylistDiv.firstChild);

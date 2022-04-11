@@ -73,7 +73,6 @@ sidebarMenu.addEventListener('click', async () => {
         menuDisplay.classList.add('show');
         backgroundModal.style.display = 'block';
         hideModal();
-        //containerClassDiv.style.filter = 'blur(7px)';
     } else {
         hideSidebar();
         hideModal();     
