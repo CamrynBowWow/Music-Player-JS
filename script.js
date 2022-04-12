@@ -2,7 +2,7 @@
 /* The IndexedDb */
 //createDatabase
 import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist, removeMusicFromPlaylist, deleteMusicDb} from './database.js';
-import {pauseSong, sourceTag} from './musicPlayerControls.js';
+import {pauseSong, sourceTag, checkMusicPlayStatus} from './musicPlayerControls.js';
 import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 import {createDivDisplay} from './playlistFunctions.js';
 import {musicFetched, checkName} from './playMusicFunction.js';
@@ -128,7 +128,7 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
 
     }
 
-    if(playlistNameCheck == null){ // Needs work still
+    if(playlistNameCheck == null){
         await fetchMusicLocalStorage(musicID);
     }
 }
@@ -360,8 +360,9 @@ function progressTimeUpdate() {
         currentTimeClock(currentTime);
 
         if(currentTime === duration){
+            checkMusicPlayStatus();
             pauseSong();
-            audio.currentTime = 0;
+            //audio.currentTime = 0;
         }
     })
 

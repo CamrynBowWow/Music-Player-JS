@@ -44,7 +44,6 @@ cancelButton.addEventListener('click', () => {
 function displayModal(){
     modalContainer.style.display = 'block';
     asideDiv.style.zIndex = '1';
-    console.log("t")
 }
 
 export function hideModal(){

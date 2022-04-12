@@ -1,5 +1,9 @@
 
 import { unmuteMusic, audio, previousVolume } from "./script.js";
+import { getNextMusic } from './playMusicFunction.js';
+
+// Global variables for checking function that can be used 
+export let shuffleOnOff;
 
 // For play and pause music
 const playButton = document.querySelector('#play-button');
@@ -84,12 +88,16 @@ repeatButton.addEventListener('click', () => {
 const shuffleButton = document.querySelector('#shuffle');
 
 function shuffleSong(){
+    shuffleOnOff = true;
+
     shuffleButton.classList.remove('shuffle-off');
 
     shuffleButton.querySelector('span.material-icons').innerText = 'shuffle';
 }
 
 function shuffleOff(){
+    shuffleOnOff - false;
+
     shuffleButton.classList.add('shuffle-off');
 
     shuffleButton.querySelector('span.material-icons').innerText = 'sync_alt';
@@ -97,6 +105,7 @@ function shuffleOff(){
 
 shuffleButton.addEventListener('click', () => {
 
+//   shuffleFunction();
     const isShuffle = shuffleButton.classList.contains('shuffle-off');
 
     if(isShuffle){
@@ -104,7 +113,12 @@ shuffleButton.addEventListener('click', () => {
     } else {
         shuffleOff();
     }
-
 })
 
 // Music area icon functions end
+
+// Probably going to need some type of check all buttons to get proper functions
+export function checkMusicPlayStatus(){
+    getNextMusic();
+    //shuffleOnOff;
+}

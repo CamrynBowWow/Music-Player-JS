@@ -244,3 +244,19 @@ function spliceMusic(array, id){
 
     return array;
 }
+
+// Matthew i'm doing if statement to switch from musicList table which has all keys to playlists table for values in array
+// could do function but doing if statement just let me know what could be better
+export async function getNextId(musicId, playlistName){
+    let array;
+
+    if(playlistName === "musicList"){
+        array = await (await db).getAllKeys(playlistName);
+    } else {
+        array = await (await db).get('playlists', playlistName);
+    }
+
+    array.map( item => {
+        console.log(item);
+    })
+}
