@@ -1,11 +1,10 @@
 import {playSong} from './musicPlayerControls.js';
-import {fetchMusicLocalStorage, audio, headerPlaylistArea} from '/script.js';
+import {fetchMusicLocalStorage, audio, headerPlaylistArea, musicID} from '/script.js';
 import {getNextId} from './database.js';
 
 const songNameHeader = document.querySelector(".container-play-music-area h1");
 const artistNameHeader = document.querySelector(".container-play-music-area h3");
 
-let musicToPlay; // Store id of current song playing
 
 // Music selected to play
 
@@ -15,10 +14,10 @@ export async function musicFetched(id){
         audio.pause();
     }
 
-    musicToPlay = id.target.id;
-
+    let musicToPlay = id.target.id;
+    
     await fetchMusicLocalStorage(musicToPlay);
-
+    
     playSong(musicToPlay);
 
 }
@@ -44,13 +43,13 @@ export async function checkName(nameOfMusic){
 
 // Music selected to play end
 
-export async function getNextMusic(){
+export async function getNextMusic(trueOrFalse){
 
     // Does check to see if already in a playlist or not
     if(headerPlaylistArea.innerText === 'All Music'){
-        await getNextId(musicToPlay, 'musicList');
+        return await getNextId(musicID, 'musicList', trueOrFalse);
     } else {
-        await getNextId(musicToPlay, headerPlaylistArea.innerText);
+        return await getNextId(musicID, headerPlaylistArea.innerText, trueOrFalse);
     }
 
 }

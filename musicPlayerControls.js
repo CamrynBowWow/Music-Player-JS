@@ -1,9 +1,10 @@
 
-import { unmuteMusic, audio, previousVolume } from "./script.js";
+import { unmuteMusic, audio, previousVolume, fetchMusicLocalStorage } from "./script.js";
 import { getNextMusic } from './playMusicFunction.js';
 
 // Global variables for checking function that can be used 
-export let shuffleOnOff;
+let shuffleOnOff;
+let repeatValue;
 
 // For play and pause music
 const playButton = document.querySelector('#play-button');
@@ -20,7 +21,7 @@ export async function pauseSong() {
 }
 
 export async function playSong(value) {
-
+    
     if(value === undefined || value === ''){
         alert('No music has been selected to play.')
         return;
@@ -56,12 +57,14 @@ function repeatOff(){
     repeatButton.classList.add('repeat-off');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
     repeatButton.style.opacity = "0.5";
+    repeatValue = 'repeatOff';
 }
 
 function repeatSong(){
     repeatButton.classList.remove('repeat_playlist');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat_one';
     repeatButton.style.opacity = "1";
+    repeatValue = 'repeatOne';
 }
 
 function repeatPlaylist(){
@@ -69,6 +72,7 @@ function repeatPlaylist(){
     repeatButton.classList.remove('repeat-off');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
     repeatButton.style.opacity = "1";
+    repeatValue = 'repeatPlaylist';
 }
 
 // For repeating the music that is playing or repeat whole playlist
@@ -96,7 +100,7 @@ function shuffleSong(){
 }
 
 function shuffleOff(){
-    shuffleOnOff - false;
+    shuffleOnOff = false;
 
     shuffleButton.classList.add('shuffle-off');
 
@@ -118,7 +122,12 @@ shuffleButton.addEventListener('click', () => {
 // Music area icon functions end
 
 // Probably going to need some type of check all buttons to get proper functions
-export function checkMusicPlayStatus(){
-    getNextMusic();
-    //shuffleOnOff;
+export async function checkMusicPlayStatus(){
+    let musicIdValue;
+
+    musicIdValue = await getNextMusic(shuffleOnOff);        
+
+    // Will come up with a different way to play song but also check for last element in the array
+    await fetchMusicLocalStorage(musicIdValue);
+    playSong(musicIdValue);
 }

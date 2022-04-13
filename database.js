@@ -82,9 +82,6 @@ export async function storeMusicIntoPlaylists(playlistName, valueId){
             } else if(value === valueId && playlistName === "Favorites"){ // Removes musicID from favorite if already in the database
                 
                 arrayValues = spliceMusic(arrayValues, valueId)
-                //const indexValue = arrayValues.indexOf(valueId);
-                    
-                //arrayValues.splice(indexValue, 1);
                 
             } else if(value === valueId) { // If music already in playlist will send bool true back                  
                 inPlaylistCount = true;                                 
@@ -108,9 +105,6 @@ export async function removeMusicFromPlaylist(musicId, playlistName) {
     let array = await (await db).get('playlists', playlistName); // Gets array of music from database
     
     array = spliceMusic(array, musicId);
-    //const indexValue = array.indexOf(musicId);
-    
-    //array.splice(indexValue, 1); // Removes ID of music from array
    
     (await db).put('playlists', array, playlistName);
 
@@ -150,7 +144,9 @@ export async function getPlaylistNames(){
     let array = await (await db).getAllKeys('playlists'); // Gets all the key names from the table
 
     const favIndex = array.indexOf('Favorites');
-    array.splice(favIndex, 1); // Removes Favorites playlist from displaying
+    if(favIndex != -1){
+        array.splice(favIndex, 1); // Removes Favorites playlist from displaying
+    }
     
     let arrayReturn = Promise.all(array.map(async value =>  {
         
@@ -224,9 +220,6 @@ async function getPlaylistRemoveMusic(valueId){
             if(item === valueId){
 
                 Promise.all(array = spliceMusic(array, valueId));
-                //const indexValue = array.indexOf(valueId);
-
-                //array.splice(indexValue, 1); // Removes ID of music from array
    
                 (await db).put('playlists', array, value);
             }
@@ -247,16 +240,32 @@ function spliceMusic(array, id){
 
 // Matthew i'm doing if statement to switch from musicList table which has all keys to playlists table for values in array
 // could do function but doing if statement just let me know what could be better
-export async function getNextId(musicId, playlistName){
+export async function getNextId(musicId, playlistName, trueOrFalse){
     let array;
+    let value; // will return the music id
 
     if(playlistName === "musicList"){
         array = await (await db).getAllKeys(playlistName);
     } else {
         array = await (await db).get('playlists', playlistName);
     }
+    
+    // element is the music id in the array
+    // index is the position the music id is in the array
+    // array holds all the music id's 
+    // Possible create a function for previous and next btn
+    array.map(function(element, index, array){
 
-    array.map( item => {
-        console.log(item);
+        if(parseInt(element) === parseInt(musicId)){ // Checks to see if values are the same then gets the next music id         
+            
+            if(trueOrFalse){
+                value = array[Math.floor(Math.random() * array.length)]
+            } else {
+                value = array[index+1];
+            }
+            return;
+        }
     })
+
+    return value;
 }

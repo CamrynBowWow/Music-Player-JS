@@ -7,11 +7,10 @@ import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 import {createDivDisplay} from './playlistFunctions.js';
 import {musicFetched, checkName} from './playMusicFunction.js';
 
-let musicID;
+export let musicID;
 export let audio;
 
 window.onload = function() {
-    //createDatabase();
     musicDisplay();
 
     // TODO : Please conisder removing this, rather only have a loader on the songs section while it is loading music
@@ -236,6 +235,8 @@ export async function fetchMusicLocalStorage(id){
 
     localStorage.setItem('musicID', musicIdentifier);
 
+    musicID = musicIdentifier; // Sets the id for the music
+
     let musicToPlay = await getMusicToPlay([musicIdentifier]);
 
     if(musicToPlay != null){
@@ -360,8 +361,9 @@ function progressTimeUpdate() {
         currentTimeClock(currentTime);
 
         if(currentTime === duration){
-            checkMusicPlayStatus();
             pauseSong();
+            checkMusicPlayStatus();
+
             //audio.currentTime = 0;
         }
     })
