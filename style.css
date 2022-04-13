@@ -402,6 +402,11 @@ body button {
       width: 15rem !important;
     }
 
+    .tooltip-text-sidebar,
+    .tooltip-music-control {
+      font-size: 0.7rem !important;
+    }
+
   }
 }
 
@@ -821,7 +826,8 @@ aside a {
   border-radius: 5px;
   position: absolute;
   padding: 0.3em;
-  width: 50%;
+  /* width: 50%; */
+  width: 7em;
   z-index: 1;
   left: 100%;
   border: 1px solid var(--tooltip-border-color);
@@ -839,8 +845,36 @@ aside a {
     transparent;
 }
 
-#menu-items button:hover .tooltip-text-sidebar {
+#menu-items button:hover .tooltip-text-sidebar,
+.music-icons button:hover .tooltip-music-control {
   visibility: visible;
+}
+
+.music-icons button .tooltip-music-control {
+  visibility: hidden;
+  background: var(--tooltip-background-color);
+  color: var(--text-color);
+  text-align: center;
+  border-radius: 5px;
+  position: absolute;
+  padding: 0.3em;
+  z-index: 1;
+  bottom: 17%;
+  /* left: 50%; */
+  /* margin-left: -60px; */
+  border: 1px solid var(--tooltip-border-color);
+}
+
+.music-icons button .tooltip-music-control::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--tooltip-border-color) transparent transparent
+    transparent;
 }
 
 /* .main-tag-tabs span .tooltip-music-area {

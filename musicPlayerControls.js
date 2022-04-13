@@ -17,6 +17,7 @@ export async function pauseSong() {
     playButton.classList.remove('playing');
 
     playButton.querySelector('span.material-icons').innerText = 'play_arrow';
+    playButton.querySelector('span.tooltip-music-control').innerText = 'Play';
 
 }
 
@@ -34,6 +35,8 @@ export async function playSong(value) {
 
     playButton.classList.add('playing');
     playButton.querySelector('span.material-icons').innerText = 'pause';
+    playButton.querySelector('span.tooltip-music-control').innerText = 'Pause';
+
 }
 
 playButton.addEventListener('click', () => {
@@ -56,6 +59,7 @@ const repeatButton = document.querySelector('#repeat-song');
 function repeatOff(){
     repeatButton.classList.add('repeat-off');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
+    repeatButton.querySelector('span.tooltip-music-control').innerText = 'Repeat off';
     repeatButton.style.opacity = "0.5";
     repeatValue = 'repeatOff';
 }
@@ -63,6 +67,7 @@ function repeatOff(){
 function repeatSong(){
     repeatButton.classList.remove('repeat_playlist');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat_one';
+    repeatButton.querySelector('span.tooltip-music-control').innerText = 'Repeat One';
     repeatButton.style.opacity = "1";
     repeatValue = 'repeatOne';
 }
@@ -71,6 +76,7 @@ function repeatPlaylist(){
     repeatButton.classList.add('repeat_playlist');
     repeatButton.classList.remove('repeat-off');
     repeatButton.querySelector('span.material-icons').innerText = 'repeat';
+    repeatButton.querySelector('span.tooltip-music-control').innerText = 'Repeat';
     repeatButton.style.opacity = "1";
     repeatValue = 'repeatPlaylist';
 }
@@ -97,14 +103,16 @@ function shuffleSong(){
     shuffleButton.classList.remove('shuffle-off');
 
     shuffleButton.querySelector('span.material-icons').innerText = 'shuffle';
+    shuffleButton.querySelector('span.tooltip-music-control').innerText = 'Shuffle';
 }
 
 function shuffleOff(){
     shuffleOnOff = false;
-
+    
     shuffleButton.classList.add('shuffle-off');
-
+    
     shuffleButton.querySelector('span.material-icons').innerText = 'sync_alt';
+    shuffleButton.querySelector('span.tooltip-music-control').innerText = 'Play in order';
 }
 
 shuffleButton.addEventListener('click', () => {
