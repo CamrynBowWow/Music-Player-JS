@@ -267,7 +267,8 @@ volumeControl.addEventListener('input', async () => {
     if(audio != undefined || audio != null) {
         let vol = volumeLevel / 100;
         audio.volume = vol;
-
+        console.log(vol)
+        console.log(volumeLevel)
     }
 
     volumeControl.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${volumeLevel}%, var(--slider-background-color) 0%)`;

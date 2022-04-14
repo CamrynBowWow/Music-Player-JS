@@ -1,5 +1,5 @@
 
-import { unmuteMusic, audio, previousVolume, fetchMusicLocalStorage } from "./script.js";
+import { unmuteMusic, audio, previousVolume, fetchMusicLocalStorage, musicID } from "./script.js";
 import { getNextMusic } from './playMusicFunction.js';
 
 // Global variables for checking function that can be used 
@@ -17,8 +17,7 @@ nextButton.addEventListener('click', async () => {
     audio.pause();
     let musicId = await getNextMusic(shuffleOnOff, 'next');
 
-    await fetchMusicLocalStorage(musicId);
-    playSong(musicId);
+    await fetchPlayMusic(musicId);
 })
 
 // Will get the previous song in the playlist
@@ -26,8 +25,7 @@ previousButton.addEventListener('click', async () => {
     audio.pause();
     let musicId = await getNextMusic(shuffleOnOff, 'prev');
 
-    await fetchMusicLocalStorage(musicId);// will need to create function for duplicate code
-    playSong(musicId);
+    await fetchPlayMusic(musicId);
 })
 
 export async function pauseSong() {
@@ -152,11 +150,18 @@ shuffleButton.addEventListener('click', () => {
 // Probably going to need some type of check all buttons to get proper functions
 export async function checkMusicPlayStatus(){
     let musicIdValue;
+    
+    musicIdValue = await getNextMusic(shuffleOnOff, 'normal');        
 
-    musicIdValue = await getNextMusic(shuffleOnOff, 'next');        
+    if(musicIdValue === parseInt(musicID) && !shuffleOnOff){
+        audio.currentTime = 0;
+    } else {
+        await fetchPlayMusic(musicIdValue);
+    }
+    
+}
 
-    // Will come up with a different way to play song but also check for last element in the array
-    // Might need to create another function but for now will duplicate code in next and previous buttons eventListeners
-    await fetchMusicLocalStorage(musicIdValue);
-    playSong(musicIdValue);
+async function fetchPlayMusic(id){
+    await fetchMusicLocalStorage(id);
+    playSong(id);
 }
