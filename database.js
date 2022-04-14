@@ -266,7 +266,6 @@ export async function getNextId(musicId, playlistName, trueOrFalse, nextPrevValu
             return;
         }
     })
-    console.log(value)
 
     return value;
 }
@@ -275,16 +274,20 @@ export async function getNextId(musicId, playlistName, trueOrFalse, nextPrevValu
 function checkArrayValue(array, index, nextPrevValue){
     let value;
 
-    if(nextPrevValue === "next"){
+    if(nextPrevValue === "next"){ // For the next song ID
 
-        if(array[index] === array.length){
+        if(array[index] === array[array.length - 1]){ 
             value = array[0]; // Will get the first song in the playlist to play
         } else {
-            value = array[index+1];
+            value = array[index + 1];
         }
 
-    } else {
-        value = array[index-1];
+    } else { // For the previous song ID
+        if(array[index] === array[0]){
+            value = array[array.length - 1];
+        } else {
+            value = array[index - 1];
+        }
     }
 
     return value;
