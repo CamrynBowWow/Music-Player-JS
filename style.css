@@ -1042,3 +1042,49 @@ aside a {
 }
 
 /* Playlist create divs end */
+
+/* Snackbar */
+
+#snack-bar {
+  visibility: hidden;
+  min-width: 25rem;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  max-height: 5rem;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--background-secondary-color);
+  color: var(--text-color);
+  border-radius: 2px;
+  padding: 1em;
+  position: fixed;
+}
+
+#snack-bar.show {
+  visibility: visible;
+  /* -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s; */
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* @-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+} */
+
+@keyframes fadein {
+  from {top: 0; opacity: 0;}
+  to {top: 5%; opacity: 1;}
+}
+
+/* @-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;} 
+  to {bottom: 0; opacity: 0;}
+} */
+
+@keyframes fadeout {
+  from {top: 5%; opacity: 1;}
+  to {top: 0; opacity: 0;}
+}

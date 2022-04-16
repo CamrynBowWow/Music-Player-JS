@@ -1,7 +1,7 @@
 import {hideSidebar} from './sideBarFunctions.js';
 import {storeMusicIntoPlaylists, getPlaylistNames, deleteKey} from './database.js';
 import {removeDivsChildren, musicDisplay, headerPlaylistArea, asideDiv} from './script.js';
-
+import {makeSnackbarVisible} from './snackbar.js';
 
 const playlistCreateButton = document.querySelector('.playlist-create');
 const playlistDeleteButton = document.querySelector('.playlist-delete');
@@ -70,10 +70,12 @@ submitButton.addEventListener('click', () => {
     const alertValue = playlistNameInput.value.length > 30 ? 'is longer then 30 characters.' : playlistNameInput.value.length <= 0 ? 'is empty.' : isEmptyOrSpaces(playlistNameInput.value) ? 'can not be spaces or empty.' : 'has be added.';
     
     if(playlistNameInput.value.length > 30 || playlistNameInput.value.length <= 0 || isEmptyOrSpaces(playlistNameInput.value)){
-        alert('Playlist Name ' + alertValue);
+        // alert('Playlist Name ' + alertValue);
+        makeSnackbarVisible('Playlist Name ' + alertValue);
     } else {
         storeMusicIntoPlaylists(playlistNameInput.value);
-        alert('Playlist has been created successfully.');
+        makeSnackbarVisible('Playlist has been created successfully.');
+        // alert('Playlist has been created successfully.');
         hideModal();
     }
 })
@@ -147,8 +149,10 @@ async function addMusicToPlaylist(playlistName){
     let musicCheckInPlaylist = await storeMusicIntoPlaylists(playlistName.target.id, valueId[0]);
     
     if(musicCheckInPlaylist){
-        alert('Music is already in playlist');
+        // alert('Music is already in playlist');
+        makeSnackbarVisible("Music is already in playlist");
     } else {
+        // makeSnackbarVisible("Music has been added to playlist");
         alert('Music has been added to playlist');
         hideModal();
     }

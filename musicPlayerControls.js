@@ -1,6 +1,7 @@
 
 import { unmuteMusic, audio, previousVolume, fetchMusicLocalStorage, musicID } from "./script.js";
 import { getNextMusic } from './playMusicFunction.js';
+import { makeSnackbarVisible } from './snackbar.js';
 
 // Global variables for checking function that can be used 
 let shuffleOnOff = false;
@@ -42,7 +43,8 @@ export async function pauseSong() {
 export async function playSong(value) {
     
     if(value === undefined || value === ''){
-        alert('No music has been selected to play.')
+        // alert('No music has been selected to play.')
+        makeSnackbarVisible("No music has been selected to play.");
         return;
     }
 

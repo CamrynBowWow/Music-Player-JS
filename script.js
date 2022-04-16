@@ -6,6 +6,7 @@ import {pauseSong, sourceTag, checkMusicPlayStatus} from './musicPlayerControls.
 import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 import {createDivDisplay} from './playlistFunctions.js';
 import {musicFetched, checkName} from './playMusicFunction.js';
+import {makeSnackbarVisible} from './snackbar.js';
 
 export let musicID;
 export let audio;
@@ -190,10 +191,14 @@ addDirectory.addEventListener('click', async () => {
     }
 
     if(countMp3 === 0){
-        alert("No music file found.");
+        // alert("No music file found.");
+        makeSnackbarVisible("No music file found.");
     } else {
-        alert("Music Directory has been added.")
-        window.location.reload();
+        // alert("Music Directory has been added.")
+        makeSnackbarVisible("Music Directory has been added.");
+        //window.location.reload();
+        await removeDivsChildren();
+        await musicDisplay('All Music');
     }
 })
 
@@ -208,13 +213,18 @@ addMusic.addEventListener('click', async () => {
         const errorCheck = await makeBlobPutIntoDb(filehandle);
 
         if(errorCheck){
-            alert("Music has been added.")
-            window.location.reload();
+            // alert("Music has been added.")
+            makeSnackbarVisible("Music has been added.");
+            //window.location.reload();
+            await removeDivsChildren();
+            await musicDisplay('All Music');
         } else {
-            alert("Music has already been downloaded.");
+            // alert("Music has already been downloaded.");
+            makeSnackbarVisible("Music has already been downloaded");
         }
     } else {
-        alert("Please select a music file only.");
+        // alert("Please select a music file only.");
+        makeSnackbarVisible("Please select a music file only.");
     }
 
 })
@@ -498,7 +508,8 @@ async function deleteMusic(id){
         //await deleteKey('musicList', valueId[0]);// Not working might have to do transaction
         await deleteMusicDb(valueId[0])
         await removeDiv(valueId[0]);
-        alert("Music has been permanently deleted.");
+        makeSnackbarVisible("Music has been permanently deleted.");
+        // alert("Music has been permanently deleted.");
     }
 
 }
