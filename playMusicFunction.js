@@ -43,13 +43,13 @@ export async function checkName(nameOfMusic){
 
 // Music selected to play end
 
-export async function getNextMusic(trueOrFalse, nextPrevValue){
+export async function getNextMusic(trueOrFalse, nextPrevValue, repeatValue){
 
     // Does check to see if already in a playlist or not
     if(headerPlaylistArea.innerText === 'All Music'){
-        return await getNextId(musicID, 'musicList', trueOrFalse, nextPrevValue);
+        return await getNextId(musicID, 'musicList', trueOrFalse, nextPrevValue, repeatValue);
     } else {
-        return await getNextId(musicID, headerPlaylistArea.innerText, trueOrFalse, nextPrevValue);
+        return await getNextId(musicID, headerPlaylistArea.innerText, trueOrFalse, nextPrevValue, repeatValue);
     }
 
 }

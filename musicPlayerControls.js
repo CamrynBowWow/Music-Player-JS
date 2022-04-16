@@ -4,7 +4,7 @@ import { getNextMusic } from './playMusicFunction.js';
 
 // Global variables for checking function that can be used 
 let shuffleOnOff = false;
-let repeatValue; // add value here
+let repeatValue = "repeatOff"; // add value here
 
 // For play and pause music
 const playButton = document.querySelector('#play-button');
@@ -151,12 +151,16 @@ shuffleButton.addEventListener('click', () => {
 export async function checkMusicPlayStatus(){
     let musicIdValue;
     
-    musicIdValue = await getNextMusic(shuffleOnOff, 'normal');        
-
-    if(musicIdValue === parseInt(musicID) && !shuffleOnOff){
-        audio.currentTime = 0;
+    if(repeatValue === "repeatOne"){
+        playSong(musicID);
     } else {
-        await fetchPlayMusic(musicIdValue);
+        musicIdValue = await getNextMusic(shuffleOnOff, 'normal', repeatValue);        
+    
+        if(musicIdValue === parseInt(musicID) && !shuffleOnOff){
+            audio.currentTime = 0;
+        } else {
+            await fetchPlayMusic(musicIdValue);
+        }
     }
     
 }

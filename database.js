@@ -240,7 +240,7 @@ function spliceMusic(array, id){
 
 // Matthew i'm doing if statement to switch from musicList table which has all keys to playlists table for values in array
 // could do function but doing if statement just let me know what could be better
-export async function getNextId(musicId, playlistName, trueOrFalse, nextPrevValue){
+export async function getNextId(musicId, playlistName, trueOrFalse, nextPrevValue, repeatValue){
     let array;
     let value; // will return the music id
     
@@ -261,7 +261,7 @@ export async function getNextId(musicId, playlistName, trueOrFalse, nextPrevValu
             if(trueOrFalse){
                 value = array[Math.floor(Math.random() * array.length)]
             } else {
-                value = checkArrayValue(array, index, nextPrevValue);              
+                value = checkArrayValue(array, index, nextPrevValue, repeatValue);              
             }
             return;
         }
@@ -271,10 +271,10 @@ export async function getNextId(musicId, playlistName, trueOrFalse, nextPrevValu
 }
 
 // This function does a check to see if at end or beginning of array
-function checkArrayValue(array, index, nextPrevValue){
+function checkArrayValue(array, index, nextPrevValue, repeatValue){
     let value;
 
-    if (nextPrevValue === "next") { // For the next song ID
+    if (nextPrevValue === "next" || repeatValue === "repeatPlaylist") { // For the next song ID
         if(array[index] === array[array.length - 1]){ 
             value = array[0]; // Will get the first song in the playlist to play
         } else {
