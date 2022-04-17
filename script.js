@@ -7,6 +7,7 @@ import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 import {createDivDisplay} from './playlistFunctions.js';
 import {musicFetched, checkName} from './playMusicFunction.js';
 import {makeSnackbarVisible} from './snackbar.js';
+import { dialogOpen } from './confirmationDialog.js';
 
 export let musicID;
 export let audio;
@@ -117,13 +118,6 @@ async function createDivsToDisplay(allMusic, playlistNameCheck){
 
         mainTagTabs.appendChild(spanFavorite);
 
-        // Creates tooltip for music button play
-        // let spanMusicNameTooltip = document.createElement('span');
-        // spanMusicNameTooltip.setAttribute('class', 'tooltip-music-area');
-        // spanMusicNameTooltip.innerText = 'Play';
-
-        // spanFavorite.appendChild(spanMusicNameTooltip);
-
         musicDivDisplays.appendChild(mainTagTabs);
 
     }
@@ -213,17 +207,15 @@ addMusic.addEventListener('click', async () => {
         const errorCheck = await makeBlobPutIntoDb(filehandle);
 
         if(errorCheck){
-            // alert("Music has been added.")
+
             makeSnackbarVisible("Music has been added.");
-            //window.location.reload();
+
             await removeDivsChildren();
             await musicDisplay('All Music');
-        } else {
-            // alert("Music has already been downloaded.");
+        } else {       
             makeSnackbarVisible("Music has already been downloaded");
         }
-    } else {
-        // alert("Please select a music file only.");
+    } else {       
         makeSnackbarVisible("Please select a music file only.");
     }
 
@@ -277,8 +269,6 @@ volumeControl.addEventListener('input', async () => {
     if(audio != undefined || audio != null) {
         let vol = volumeLevel / 100;
         audio.volume = vol;
-        console.log(vol)
-        console.log(volumeLevel)
     }
 
     volumeControl.style.background = `linear-gradient(90deg, var(--slider-background-color-fill) ${volumeLevel}%, var(--slider-background-color) 0%)`;
@@ -374,8 +364,6 @@ function progressTimeUpdate() {
         if(currentTime === duration){
             pauseSong();
             checkMusicPlayStatus();
-
-            //audio.currentTime = 0;
         }
     })
 
@@ -501,15 +489,13 @@ allMusicButton.addEventListener('click', async () => {
 async function deleteMusic(id){
     let valueId = id.target.id.split('_');
 
-    let answer = confirm('Are you sure you want to permanently delete this?');
+    // let answer = confirm('Are you sure you want to permanently delete this?');
+    let answer = dialogOpen('Are you sure you want to permanently delete this?');
     
     if(answer){
-        //TODO
-        //await deleteKey('musicList', valueId[0]);// Not working might have to do transaction
         await deleteMusicDb(valueId[0])
         await removeDiv(valueId[0]);
         makeSnackbarVisible("Music has been permanently deleted.");
-        // alert("Music has been permanently deleted.");
     }
 
 }

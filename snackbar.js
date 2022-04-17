@@ -6,7 +6,7 @@ export function makeSnackbarVisible(text){
     
     setTimeout(
         makeInvisible,
-        2700
+        5400
     );
         
 }

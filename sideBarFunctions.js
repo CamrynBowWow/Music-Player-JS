@@ -60,7 +60,6 @@ export async function hideSidebar(){
     menuDisplay.classList.add('hidden');
     sideBarA.style.width = "3.5rem";
     backgroundModal.style.display = "none";
-    //containerClassDiv.style.filter = 'blur(0px)';
 }
 
 sidebarMenu.addEventListener('click', async () => {

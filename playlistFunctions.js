@@ -149,10 +149,8 @@ async function addMusicToPlaylist(playlistName){
     let musicCheckInPlaylist = await storeMusicIntoPlaylists(playlistName.target.id, valueId[0]);
     
     if(musicCheckInPlaylist){
-        // alert('Music is already in playlist');
         makeSnackbarVisible("Music is already in playlist");
     } else {
-        // makeSnackbarVisible("Music has been added to playlist");
         alert('Music has been added to playlist');
         hideModal();
     }

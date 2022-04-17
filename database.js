@@ -58,8 +58,6 @@ export async function getMusicToPlay(value){
             return (await db).get('musicList', parseInt(valueID[0]));
         }
     }
-
-    // return musicInfo;
 }
 
 // Puts music ID into playlists table musicInfo and for making of playlists
@@ -238,8 +236,7 @@ function spliceMusic(array, id){
     return array;
 }
 
-// Matthew i'm doing if statement to switch from musicList table which has all keys to playlists table for values in array
-// could do function but doing if statement just let me know what could be better
+
 export async function getNextId(musicId, playlistName, trueOrFalse, nextPrevValue, repeatValue){
     let array;
     let value; // will return the music id

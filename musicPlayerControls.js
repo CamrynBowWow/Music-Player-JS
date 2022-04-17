@@ -43,7 +43,6 @@ export async function pauseSong() {
 export async function playSong(value) {
     
     if(value === undefined || value === ''){
-        // alert('No music has been selected to play.')
         makeSnackbarVisible("No music has been selected to play.");
         return;
     }
@@ -137,7 +136,6 @@ function shuffleOff(){
 
 shuffleButton.addEventListener('click', () => {
 
-//   shuffleFunction();
     const isShuffle = shuffleButton.classList.contains('shuffle-off');
 
     if(isShuffle){

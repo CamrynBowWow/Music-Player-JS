@@ -517,6 +517,9 @@ aside a {
   box-shadow: var(--box-shadow-main-tags);
   background: var(--background-secondary-color);
   cursor: default;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .header-playlist-area {
@@ -859,9 +862,7 @@ aside a {
   position: absolute;
   padding: 0.3em;
   z-index: 1;
-  bottom: 17%;
-  /* left: 50%; */
-  /* margin-left: -60px; */
+  bottom: 9em;
   border: 1px solid var(--tooltip-border-color);
 }
 
@@ -1056,8 +1057,8 @@ aside a {
   max-height: 5rem;
   justify-content: center;
   align-items: center;
-  background-color: var(--background-secondary-color);
-  color: var(--text-color);
+  background-color: black;
+  color: white;
   border-radius: 2px;
   padding: 1em;
   position: fixed;
@@ -1066,7 +1067,7 @@ aside a {
 #snack-bar.show {
   visibility: visible;
   /* -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s; */
-  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 5s;
 }
 
 /* @-webkit-keyframes fadein {
@@ -1087,4 +1088,50 @@ aside a {
 @keyframes fadeout {
   from {top: 5%; opacity: 1;}
   to {top: 0; opacity: 0;}
+}
+
+/* Snackbar end */
+
+/* Confirm dialog */
+
+.dialog-confirmation {
+  visibility: hidden;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+  position: fixed;
+  min-width: 25rem;
+  height: 8rem;
+  background-color: #292929;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  justify-content: space-between;
+  border-radius: 3px;
+}
+
+.confirm-btns {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.confirm-btns button {
+  width: 5rem;
+  padding: 0.5em;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border: 1px solid #4f4040d9;
+  border-radius: 2px;
+}
+
+.confirm-btns button:hover {
+  opacity: 0.8;
+} 
+
+#ok-confirmation {
+  background-color: #068adf;
 }
