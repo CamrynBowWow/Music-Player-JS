@@ -492,7 +492,6 @@ async function deleteMusic(id){
     let answer = confirm('Are you sure you want to permanently delete this?');
     // let answer = dialogOpen('Are you sure you want to permanently delete this?');
     
-    console.log(answer);
     if(answer){
         await deleteMusicDb(valueId[0])
         await removeDiv(valueId[0]);

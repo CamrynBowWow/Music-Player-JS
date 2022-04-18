@@ -1118,41 +1118,41 @@ aside a {
 }
 
 #color-change.show{
-  animation: gradient 10s ease infinite;
+  animation: gradient 20s linear infinite;
 }
 
 @keyframes gradient {
   0% {
-    background: linear-gradient(#902bb1,  #ae3ec9, #E61EBC, #de29ca, #b500ff, #862e9c);
+    background: linear-gradient(10deg, #902bb1,  #ae3ec9, #E61EBC, #de29ca, #b500ff, #862e9c);
   }
   10% {
-    background: linear-gradient(#ae3ec9, #E61EBC, #de29ca, #902bb1, #b500ff, #862e9c);
+    background: linear-gradient(40deg, #ae3ec9, #E61EBC, #de29ca, #902bb1, #b500ff, #862e9c);
   }
   20% {
-    background: linear-gradient(#ae3ec9, #E61EBC, #de29ca, #b500ff, #862e9c);
+    background: linear-gradient(70deg, #ae3ec9, #E61EBC, #de29ca, #b500ff, #862e9c);
   } 
   30% {
-    background: linear-gradient(#902bb1, #ae3ec9, #E61EBC, #de29ca, #b500ff);
+    background: linear-gradient(110deg, #902bb1, #ae3ec9, #E61EBC, #de29ca, #b500ff);
   } 
   40% {
-    background: linear-gradient(#902bb1,  #ae3ec9, #de29ca, #b500ff, #862e9c, #E61EBC);
+    background: linear-gradient(140deg, #902bb1,  #ae3ec9, #de29ca, #b500ff, #862e9c, #E61EBC);
   }
   50% {
-    background: linear-gradient(#902bb1,  #de29ca, #b500ff, #ae3ec9, #E61EBC, #862e9c);
+    background: linear-gradient(170deg, #902bb1,  #de29ca, #b500ff, #ae3ec9, #E61EBC, #862e9c);
   }
   60% {
-    background: linear-gradient(#902bb1,  #E61EBC, #de29ca, #b500ff,   #ae3ec9, #862e9c);
+    background: linear-gradient(210deg, #902bb1,  #E61EBC, #de29ca, #b500ff,   #ae3ec9, #862e9c);
   }
   70% {
-    background: linear-gradient(#902bb1, #de29ca, #ae3ec9, #b500ff, #862e9c);
+    background: linear-gradient(240deg, #902bb1, #de29ca, #ae3ec9, #b500ff, #862e9c);
   }
   80% {
-    background: linear-gradient(#ae3ec9, #E61EBC, #de29ca, #b500ff, #862e9c);
+    background: linear-gradient(270deg, #ae3ec9, #E61EBC, #de29ca, #b500ff, #862e9c);
   }
   90% {
-    background: linear-gradient( #862e9c, #902bb1, #E61EBC, #ae3ec9, #b500ff, #de29ca);
+    background: linear-gradient(310deg, #862e9c, #902bb1, #E61EBC, #ae3ec9, #b500ff, #de29ca);
   }
   100% {
-    background: linear-gradient(#de29ca, #b500ff, #862e9c, #902bb1, #ae3ec9, #E61EBC);
+    background: linear-gradient(340deg, #de29ca, #b500ff, #862e9c, #902bb1, #ae3ec9, #E61EBC);
   }
 }

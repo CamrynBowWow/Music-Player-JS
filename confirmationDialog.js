@@ -4,23 +4,27 @@ const cancelConfirmation = document.querySelector('#cancel-confirmation');
 const okConfirmation = document.querySelector('#ok-confirmation');
 
 export function dialogOpen(text){
+    let value
+
     document.querySelector('.dialog-confirmation p').innerText = text;
     confirmationDialog.style.visibility = 'visible';
     backgroundModalDialog.style.display = 'block';
 
+    
+    return value
 }
 
 function closeDialog(){
     backgroundModalDialog.style.display = "none";
-}
-
-cancelConfirmation.addEventListener('click', () => {
-    closeDialog();
     confirmationDialog.style.visibility = 'hidden';
-})
+}
 
 okConfirmation.addEventListener('click', () => {
     closeDialog();
-    confirmationDialog.style.visibility = 'hidden';
-    return true;
+    return value = "false";
 })
+
+cancelConfirmation.addEventListener('click', () => {
+    closeDialog();
+})
+
