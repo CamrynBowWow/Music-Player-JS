@@ -407,6 +407,11 @@ body button {
       font-size: 0.7rem !important;
     }
 
+    #snack-bar {
+      min-width: 20rem !important;
+      font-size: 0.9rem !important;
+    }
+
   }
 }
 
@@ -659,13 +664,6 @@ aside a {
   font-size: 1.5rem;
 }
 
-.color-change {
-  background: rgb(66, 64, 64);
-  height: 13rem;
-  width: 13rem;
-  border-radius: 7rem;
-}
-
 .music-icons button {
   background: none;
   border-radius: 25px;
@@ -829,7 +827,6 @@ aside a {
   border-radius: 5px;
   position: absolute;
   padding: 0.3em;
-  /* width: 50%; */
   width: 7em;
   z-index: 1;
   left: 100%;
@@ -877,39 +874,6 @@ aside a {
   border-color: var(--tooltip-border-color) transparent transparent
     transparent;
 }
-
-/* .main-tag-tabs span .tooltip-music-area {
-  visibility: hidden;
-  background: var(--tooltip-background-color);
-  color: var(--text-color);
-  text-align: center;
-  border-radius: 5px;
-  position: absolute;
-  padding: 0.3em;
-  height: 60%;
-  width: 8%;
-  z-index: 1;
-  left: 50%;
-  bottom: 110%;
-  font-size: 0.8rem;
-} */
-
-/* .main-tag-tabs button .tooltip-music-area::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent transparent transparent;
-} */
-
-/* .main-tag-tabs span:hover .tooltip-music-area {
-  visibility: visible;
-  font-size: 0.8rem;
-  color: var(--text-color);
-} */
 
 /* Tooltips styling end */
 
@@ -1066,24 +1030,13 @@ aside a {
 
 #snack-bar.show {
   visibility: visible;
-  /* -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s; */
   animation: fadein 0.5s, fadeout 0.5s 5s;
 }
-
-/* @-webkit-keyframes fadein {
-  from {bottom: 0; opacity: 0;}
-  to {bottom: 30px; opacity: 1;}
-} */
 
 @keyframes fadein {
   from {top: 0; opacity: 0;}
   to {top: 5%; opacity: 1;}
 }
-
-/* @-webkit-keyframes fadeout {
-  from {bottom: 30px; opacity: 1;} 
-  to {bottom: 0; opacity: 0;}
-} */
 
 @keyframes fadeout {
   from {top: 5%; opacity: 1;}
@@ -1109,7 +1062,7 @@ aside a {
   align-items: center;
   padding: 1em;
   justify-content: space-between;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 .confirm-btns {
@@ -1123,9 +1076,11 @@ aside a {
   width: 5rem;
   padding: 0.5em;
   font-size: 0.9rem;
-  font-weight: bold;
-  border: 1px solid #4f4040d9;
-  border-radius: 2px;
+  font-weight: 500;
+  border: 1px solid #565656;
+  border-radius: 4px;
+  color: white;
+  background-color: grey;
 }
 
 .confirm-btns button:hover {
@@ -1133,5 +1088,71 @@ aside a {
 } 
 
 #ok-confirmation {
-  background-color: #068adf;
+  background-color: #3a3a3a;
+  color: #0077ff;
+}
+
+#background-modal-dialog {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0,0,0,0.4);
+}
+
+/* Confirm dialog end */
+
+/* Color change */
+
+#color-change {
+  background: rgb(66, 64, 64);
+  background-size: 100% 100%;
+  height: 13rem;
+  width: 13rem;
+  border-radius: 7rem;
+}
+
+#color-change.show{
+  animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background: linear-gradient(#902bb1,  #ae3ec9, #E61EBC, #de29ca, #b500ff, #862e9c);
+  }
+  10% {
+    background: linear-gradient(#ae3ec9, #E61EBC, #de29ca, #902bb1, #b500ff, #862e9c);
+  }
+  20% {
+    background: linear-gradient(#ae3ec9, #E61EBC, #de29ca, #b500ff, #862e9c);
+  } 
+  30% {
+    background: linear-gradient(#902bb1, #ae3ec9, #E61EBC, #de29ca, #b500ff);
+  } 
+  40% {
+    background: linear-gradient(#902bb1,  #ae3ec9, #de29ca, #b500ff, #862e9c, #E61EBC);
+  }
+  50% {
+    background: linear-gradient(#902bb1,  #de29ca, #b500ff, #ae3ec9, #E61EBC, #862e9c);
+  }
+  60% {
+    background: linear-gradient(#902bb1,  #E61EBC, #de29ca, #b500ff,   #ae3ec9, #862e9c);
+  }
+  70% {
+    background: linear-gradient(#902bb1, #de29ca, #ae3ec9, #b500ff, #862e9c);
+  }
+  80% {
+    background: linear-gradient(#ae3ec9, #E61EBC, #de29ca, #b500ff, #862e9c);
+  }
+  90% {
+    background: linear-gradient( #862e9c, #902bb1, #E61EBC, #ae3ec9, #b500ff, #de29ca);
+  }
+  100% {
+    background: linear-gradient(#de29ca, #b500ff, #862e9c, #902bb1, #ae3ec9, #E61EBC);
+  }
 }

@@ -2,6 +2,7 @@
 import { unmuteMusic, audio, previousVolume, fetchMusicLocalStorage, musicID } from "./script.js";
 import { getNextMusic } from './playMusicFunction.js';
 import { makeSnackbarVisible } from './snackbar.js';
+import { startColorChange, stopColorChange } from './changeColorMover.js';
 
 // Global variables for checking function that can be used 
 let shuffleOnOff = false;
@@ -30,7 +31,7 @@ previousButton.addEventListener('click', async () => {
 })
 
 export async function pauseSong() {
-
+    stopColorChange();
     audio.pause();
 
     playButton.classList.remove('playing');
@@ -41,7 +42,7 @@ export async function pauseSong() {
 }
 
 export async function playSong(value) {
-    
+    startColorChange();
     if(value === undefined || value === ''){
         makeSnackbarVisible("No music has been selected to play.");
         return;

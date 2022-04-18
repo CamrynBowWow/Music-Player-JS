@@ -18,17 +18,19 @@
     <script type="module" defer src="sideBarFunctions.js"></script>
     <script type="module" defer src="playlistFunctions.js"></script>
     <script type="module" defer src="playMusicFunction.js"></script>
+    <script type="mdeule" defer scr="confirmationDialog.js"></script>
     <title>Music Player</title>
 </head>
 <body>
 
     <div id="snack-bar"></div>
 
+    <div id="background-modal-dialog"></div>
     <div class="dialog-confirmation">
-        <p>Are you sure you want to permanently delete this?</p>
+        <p></p>
         <div class="confirm-btns">
-            <button id="ok-confirmation">OK</button>
             <button id="cancel-confirmation">Cancel</button>
+            <button id="ok-confirmation">Confirm</button>
         </div>
     </div>
 
@@ -116,7 +118,7 @@
                 <h1></h1>
                 <h3></h3>
 
-                <div class="color-change"></div>
+                <div id="color-change"></div>
 
                 <div class="container-music-settings">
                     <input id="range-duration" type="range" min="0" max="100" step="1" value="0">

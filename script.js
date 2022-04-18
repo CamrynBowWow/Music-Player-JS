@@ -489,9 +489,10 @@ allMusicButton.addEventListener('click', async () => {
 async function deleteMusic(id){
     let valueId = id.target.id.split('_');
 
-    // let answer = confirm('Are you sure you want to permanently delete this?');
-    let answer = dialogOpen('Are you sure you want to permanently delete this?');
+    let answer = confirm('Are you sure you want to permanently delete this?');
+    // let answer = dialogOpen('Are you sure you want to permanently delete this?');
     
+    console.log(answer);
     if(answer){
         await deleteMusicDb(valueId[0])
         await removeDiv(valueId[0]);
