@@ -293,3 +293,15 @@ function checkArrayValue(array, index, nextPrevValue, repeatValue){
 
     return value;
 }
+
+// Checks to see if value is inside the database and then return new beginning value from musicList table
+export async function checkInPlaylist(value){
+    let id = await (await db).get('musicList', parseInt(value));
+    let idReturn;
+
+    if(typeof(id) == "undefined"){
+        idReturn = await (await db).getAllKeys('musicList');
+        return idReturn[0];
+    }
+    return value;
+}

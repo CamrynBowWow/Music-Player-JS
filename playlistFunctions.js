@@ -2,11 +2,12 @@ import {hideSidebar} from './sideBarFunctions.js';
 import {storeMusicIntoPlaylists, getPlaylistNames, deleteKey} from './database.js';
 import {removeDivsChildren, musicDisplay, headerPlaylistArea, asideDiv} from './script.js';
 import {makeSnackbarVisible} from './snackbar.js';
+import {dialogOpen, okConfirmation} from './confirmationDialog.js';
 
 const playlistCreateButton = document.querySelector('.playlist-create');
 const playlistDeleteButton = document.querySelector('.playlist-delete');
 const playlistDisplay = document.querySelector('.playlists');
-const modalContainer = document.querySelector('.modal-container');
+export const modalContainer = document.querySelector('.modal-container');
 const cancelIcon = document.querySelector('#cancel');
 const submitButton = document.querySelector('#submit-button');
 const cancelButton = document.querySelector('#cancel-button');
@@ -70,12 +71,10 @@ submitButton.addEventListener('click', () => {
     const alertValue = playlistNameInput.value.length > 30 ? 'is longer then 30 characters.' : playlistNameInput.value.length <= 0 ? 'is empty.' : isEmptyOrSpaces(playlistNameInput.value) ? 'can not be spaces or empty.' : 'has be added.';
     
     if(playlistNameInput.value.length > 30 || playlistNameInput.value.length <= 0 || isEmptyOrSpaces(playlistNameInput.value)){
-        // alert('Playlist Name ' + alertValue);
         makeSnackbarVisible('Playlist Name ' + alertValue);
     } else {
         storeMusicIntoPlaylists(playlistNameInput.value);
         makeSnackbarVisible('Playlist has been created successfully.');
-        // alert('Playlist has been created successfully.');
         hideModal();
     }
 })
@@ -151,7 +150,7 @@ async function addMusicToPlaylist(playlistName){
     if(musicCheckInPlaylist){
         makeSnackbarVisible("Music is already in playlist");
     } else {
-        alert('Music has been added to playlist');
+        makeSnackbarVisible('Music has been added to playlist');
         hideModal();
     }
  
@@ -161,14 +160,14 @@ async function addMusicToPlaylist(playlistName){
 // Deletes playlist 
 async function deletePlaylist(id){ 
 
-    let answer = confirm('Are you sure you want to delete this playlist?');
-    
-    if(answer){
+    dialogOpen("Are you sure you want to delete this playlist?", 1);
+
+    okConfirmation.addEventListener('click', async () => {
         await deleteKey(id.target.id);
         hideModal();
         await checkPlaylist(id.target.id);
-    }
-
+        makeSnackbarVisible("Playlist has been deleted");
+    })
 }
 
 // Checks to see what playlist on and if on same playlist as one being deleted

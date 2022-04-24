@@ -1,17 +1,23 @@
+import {modalContainer} from './playlistFunctions.js';
+
 const backgroundModalDialog = document.querySelector("#background-modal-dialog")
 const confirmationDialog = document.querySelector('.dialog-confirmation');
 const cancelConfirmation = document.querySelector('#cancel-confirmation');
-const okConfirmation = document.querySelector('#ok-confirmation');
+export const okConfirmation = document.querySelector('#ok-confirmation');
 
-export function dialogOpen(text){
-    let value
+let valueCheck;
+
+export function dialogOpen(text, value){
+    valueCheck = value;
 
     document.querySelector('.dialog-confirmation p').innerText = text;
     confirmationDialog.style.visibility = 'visible';
-    backgroundModalDialog.style.display = 'block';
-
+    backgroundModalDialog.style.display = 'block'; 
     
-    return value
+    // Does a check to see if the modal for deleting a playlist is visible
+    if(valueCheck === 1){
+        modalContainer.style.display = 'none';
+    }
 }
 
 function closeDialog(){
@@ -21,10 +27,13 @@ function closeDialog(){
 
 okConfirmation.addEventListener('click', () => {
     closeDialog();
-    return value = "false";
 })
 
 cancelConfirmation.addEventListener('click', () => {
     closeDialog();
+
+    if(valueCheck === 1){
+        modalContainer.style.display = 'block';
+    }
 })
 

@@ -1,13 +1,13 @@
 
 /* The IndexedDb */
 //createDatabase
-import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist, removeMusicFromPlaylist, deleteMusicDb} from './database.js';
+import {setMusicValue, retrieveAllMusicInfo, getMusicToPlay, storeMusicIntoPlaylists, getFavoritesIDs, retrieveMusicFromPlaylist, removeMusicFromPlaylist, deleteMusicDb, checkInPlaylist} from './database.js';
 import {pauseSong, sourceTag, checkMusicPlayStatus} from './musicPlayerControls.js';
 import {hideSidebar, containerClassDiv} from './sideBarFunctions.js';
 import {createDivDisplay} from './playlistFunctions.js';
 import {musicFetched, checkName} from './playMusicFunction.js';
 import {makeSnackbarVisible} from './snackbar.js';
-import { dialogOpen } from './confirmationDialog.js';
+import {dialogOpen, okConfirmation} from './confirmationDialog.js';
 
 export let musicID;
 export let audio;
@@ -185,12 +185,9 @@ addDirectory.addEventListener('click', async () => {
     }
 
     if(countMp3 === 0){
-        // alert("No music file found.");
         makeSnackbarVisible("No music file found.");
     } else {
-        // alert("Music Directory has been added.")
         makeSnackbarVisible("Music Directory has been added.");
-        //window.location.reload();
         await removeDivsChildren();
         await musicDisplay('All Music');
     }
@@ -229,12 +226,8 @@ export async function fetchMusicLocalStorage(id){
 
     let musicIdentifier = 0;
 
-    if(id == null || id === "null"){
-        musicIdentifier = 1;
-    } else {
-        musicIdentifier = id;
-    }
-
+    musicIdentifier = await checkInPlaylist(id);
+    
     localStorage.setItem('musicID', musicIdentifier);
 
     musicID = musicIdentifier; // Sets the id for the music
@@ -422,15 +415,15 @@ rangeDisplaySlider.addEventListener('input', (value) => {
 // When user confirms that they want to remove the music from the playlist it will
 // remove it from database first and then remove the div from the playlist in the music-container div
 async function removeFromPlaylist(id){
-    let answer = confirm('Are you sure you want to remove the music from the playlist?');
+   
+    dialogOpen('Are you sure you want to remove the music from the playlist?');
     
     let valueId = id.target.id.split("_");
    
-    if(answer){ 
-        await removeMusicFromPlaylist(valueId[0], headerPlaylistArea.textContent);
-
+    okConfirmation.addEventListener('click', async () => {
+        await removeMusicFromPlaylist(valueId[0], headerPlaylistArea.textContent); 
         await removeDiv(valueId[0]);
-    }
+    })
 }
 
 /* For Removing music from playlist end */
@@ -489,15 +482,15 @@ allMusicButton.addEventListener('click', async () => {
 async function deleteMusic(id){
     let valueId = id.target.id.split('_');
 
-    let answer = confirm('Are you sure you want to permanently delete this?');
-    // let answer = dialogOpen('Are you sure you want to permanently delete this?');
+    dialogOpen('Are you sure you want to permanently delete this?');
     
-    if(answer){
+    okConfirmation.addEventListener("click", async () => {
+        pauseSong();
         await deleteMusicDb(valueId[0])
         await removeDiv(valueId[0]);
+        await fetchMusicLocalStorage(1);
         makeSnackbarVisible("Music has been permanently deleted.");
-    }
-
+    })
 }
 /* Delete Music from Database end */
 
