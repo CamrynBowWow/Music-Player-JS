@@ -424,6 +424,8 @@ async function removeFromPlaylist(id){
         await removeMusicFromPlaylist(valueId[0], headerPlaylistArea.textContent); 
         await removeDiv(valueId[0]);
     })
+
+    okConfirmation.removeEventListener('click', async () => {})
 }
 
 /* For Removing music from playlist end */
@@ -491,6 +493,8 @@ async function deleteMusic(id){
         await fetchMusicLocalStorage(1);
         makeSnackbarVisible("Music has been permanently deleted.");
     })
+
+    okConfirmation.removeEventListener("click", async () => {})
 }
 /* Delete Music from Database end */
 

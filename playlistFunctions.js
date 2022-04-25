@@ -168,6 +168,8 @@ async function deletePlaylist(id){
         await checkPlaylist(id.target.id);
         makeSnackbarVisible("Playlist has been deleted");
     })
+
+    okConfirmation.removeEventListener('click', async () => {})
 }
 
 // Checks to see what playlist on and if on same playlist as one being deleted
